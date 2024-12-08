@@ -1,0 +1,280 @@
+"use client"
+import {
+    IconBuilding,
+    IconBuildingBank,
+    IconBuildingStore,
+    IconChevronDown,
+    IconHome,
+    IconMotorbike,
+    IconSearch,
+} from '@tabler/icons-react';
+import {
+    Anchor,
+    Autocomplete,
+    Box,
+    Burger,
+    Button,
+    Center,
+    Collapse,
+    Divider,
+    Drawer,
+    Group,
+    HoverCard,
+    ScrollArea,
+    SimpleGrid,
+    Text,
+    UnstyledButton,
+    useMantineTheme,
+} from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import classes from '../styles/Header.module.css';
+import { beritaData, tentangKamiData } from '@/constants';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Carousel } from '@mantine/carousel';
+
+
+export function Header() {
+    const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+    const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+    const theme = useMantineTheme();
+
+    const tentangKamiLinks = tentangKamiData.map((item) => (
+        <UnstyledButton className={classes.subLink} key={item.title}>
+            <Group wrap="nowrap" align="flex-start">
+                <div>
+                    <Text size="sm" fw={500}>
+                        {item.title}
+                    </Text>
+                    <Text size="xs" c="dimmed">
+                        {item.description}
+                    </Text>
+                </div>
+            </Group>
+        </UnstyledButton>
+    ));
+
+
+    const newsLinks = beritaData.map((item) => (
+        <UnstyledButton className={classes.subLink} key={item.title}>
+            <Group wrap="nowrap" align="flex-start">
+                <div>
+                    <Text size="sm" fw={500}>
+                        {item.title}
+                    </Text>
+                    <Text size="xs" c="dimmed">
+                        {item.description}
+                    </Text>
+                </div>
+            </Group>
+        </UnstyledButton>
+    ));
+
+
+    const topProject = [
+        {
+            icon: IconHome,
+            title: 'The Parc',
+        },
+        {
+            icon: IconBuilding,
+            title: 'Fortuna Residence',
+        },
+        {
+            icon: IconBuildingStore,
+            title: 'Clariti Square',
+        },
+        {
+            icon: IconBuildingBank,
+            title: 'Clariti Hive',
+        },
+        {
+            icon: IconMotorbike,
+            title: 'Clariti Activities',
+        },
+    ]
+
+    return (
+        <Box pb={120}>
+            <header className={classes.header}>
+                <Group justify="space-between" h="100%">
+                    <Image src="/assets/images/logo.webp" alt="icon" width={110} height={70} />
+                    {/* <IconChartPie3/> */}
+                    <Group h="100%" gap={0} visibleFrom="sm">
+                        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+                            <HoverCard.Target>
+                                <a href="#" className={classes.link}>
+                                    <Center inline>
+                                        <Box component="span" mr={5}>
+                                            Tentang Kami
+                                        </Box>
+                                        <IconChevronDown size={16} color={theme.colors.blue[6]} />
+                                    </Center>
+                                </a>
+                            </HoverCard.Target>
+
+                            <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
+                                <SimpleGrid cols={2} spacing={0}>
+                                    {tentangKamiLinks}
+                                </SimpleGrid>
+                            </HoverCard.Dropdown>
+                        </HoverCard>
+
+
+                        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+                            <HoverCard.Target>
+                                <a href="#" className={classes.link}>
+                                    <Center inline>
+                                        <Box component="span" mr={5}>
+                                            Proyek
+                                        </Box>
+                                        <IconChevronDown size={16} color={theme.colors.blue[6]} />
+                                    </Center>
+                                </a>
+                            </HoverCard.Target>
+
+                            <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
+                                <SimpleGrid cols={2} spacing={0}>
+                                    {tentangKamiLinks}
+                                </SimpleGrid>
+                            </HoverCard.Dropdown>
+                        </HoverCard>
+                        <a href="#" className={classes.link}>
+                            Fasilitas
+                        </a>
+                        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+                            <HoverCard.Target>
+                                <a href="#" className={classes.link}>
+                                    <Center inline>
+                                        <Box component="span" mr={5}>
+                                            Berita
+                                        </Box>
+                                        <IconChevronDown size={16} color={theme.colors.blue[6]} />
+                                    </Center>
+                                </a>
+                            </HoverCard.Target>
+
+                            <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
+                                <SimpleGrid cols={2} spacing={0}>
+                                    {newsLinks}
+                                </SimpleGrid>
+                            </HoverCard.Dropdown>
+                        </HoverCard>
+
+
+                        <a href="#" className={classes.link}>
+                            Hubungi Kami
+                        </a>
+                    </Group>
+
+                    <Group visibleFrom="md">
+                        <UnstyledButton><IconSearch /></UnstyledButton>
+                        <Button color='dark' component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
+                    </Group>
+
+                    <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+                </Group>
+
+                <Group h="100%" gap={0} visibleFrom="md" justify='center'>
+                    {topProject.map(data =>
+                        <a href="#" key={data.title} className={classes.topProjectLink}>
+
+                            <Group wrap="nowrap" align="flex-start">
+                                <data.icon size={22} />
+                                <div>
+                                    <Text size="sm" fw={500}>
+                                        {data.title}
+                                    </Text>
+                                </div>
+                            </Group>
+
+                        </a>
+                    )}
+                </Group>
+                {/* <Group h="100%" gap={0} visibleFrom="sm" justify='center'> */}
+                <Carousel
+                    withIndicators
+                    height={60}
+                    slideSize="33.333333%"
+                    slideGap="md"
+                    loop
+                    align="start"
+                    slidesToScroll={3}
+                    hiddenFrom='md'
+                >
+                    {topProject.map(data =>
+                        <Carousel.Slide>
+                            <a href="#" key={data.title} className={classes.topProjectLink}>
+                                <Group wrap="nowrap" align="flex-start">
+                                    <data.icon size={22} />
+                                    <div>
+                                        <Text size="sm" fw={500}>
+                                            {data.title}
+                                        </Text>
+                                    </div>
+                                </Group>
+                            </a>
+                        </Carousel.Slide>
+                    )}
+                </Carousel>
+                {/* </Group> */}
+
+            </header>
+            {/* mobile */}
+            <Drawer
+                opened={drawerOpened}
+                onClose={closeDrawer}
+                size="100%"
+                padding="md"
+                title={<Image src="/assets/images/logo.webp" alt="icon" width={100} height={60} />}
+                hiddenFrom="sm"
+                zIndex={1000000}
+            >
+                <ScrollArea h="calc(100vh - 80px" mx="-md">
+                    <Divider my="sm" />
+
+                    <a href="#" className={classes.link}>
+                        Tentang Kami
+                    </a>
+                    <UnstyledButton className={classes.link} onClick={toggleLinks}>
+                        <Group justify="space-between" h="100%">
+                            <Box component="span" >
+                                Proyek
+                            </Box>
+                            <IconChevronDown size={16} />
+                        </Group>
+                    </UnstyledButton>
+                    <Collapse in={linksOpened}>{tentangKamiLinks}</Collapse>
+                    <a href="#" className={classes.link}>
+                        Fasilitas
+                    </a>
+                    <UnstyledButton className={classes.link} onClick={toggleLinks}>
+                        <Group justify="space-between" h="100%">
+                            <Box component="span" >
+                                Berita
+                            </Box>
+                            <IconChevronDown size={16} />
+                        </Group>
+                    </UnstyledButton>
+                    <Collapse in={linksOpened}>{newsLinks}</Collapse>
+                    <a href="#" className={classes.link}>
+                        Hubungi Kami
+                    </a>
+
+                    <Divider my="sm" />
+
+                    <Group justify="center" grow pb="xl" px="md">
+
+                        <Autocomplete
+                            className={classes.search}
+                            placeholder="Search"
+                            leftSection={<IconSearch size={16} stroke={1.5} />}
+                            data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
+                        />
+                        <Button color='dark' component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
+                    </Group>
+                </ScrollArea>
+            </Drawer>
+        </Box>
+    );
+}
