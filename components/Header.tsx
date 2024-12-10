@@ -9,13 +9,11 @@ import {
     IconSearch,
 } from '@tabler/icons-react';
 import {
-    Anchor,
     Autocomplete,
     Box,
     Burger,
     Button,
     Center,
-    Collapse,
     Divider,
     Drawer,
     Group,
@@ -32,6 +30,7 @@ import { beritaData, tentangKamiData } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel } from '@mantine/carousel';
+import { LinksGroup } from './NavbarLinksGroup';
 
 
 export function Header() {
@@ -46,9 +45,6 @@ export function Header() {
                     <Text size="sm" fw={500}>
                         {item.title}
                     </Text>
-                    <Text size="xs" c="dimmed">
-                        {item.description}
-                    </Text>
                 </div>
             </Group>
         </UnstyledButton>
@@ -61,9 +57,6 @@ export function Header() {
                 <div>
                     <Text size="sm" fw={500}>
                         {item.title}
-                    </Text>
-                    <Text size="xs" c="dimmed">
-                        {item.description}
                     </Text>
                 </div>
             </Group>
@@ -93,20 +86,49 @@ export function Header() {
             title: 'Clariti Activities',
         },
     ]
+    
+    const navMobile = [
+        {
+        label: 'Tentang Kami',
+        links: [
+            { label: 'Sejarah', link: '/' },
+            { label: 'Karir', link: '/' },
+        ],
+        },
+        {
+        label: 'Proyek',
+        links: [
+            { label: 'Sejarah', link: '/' },
+            { label: 'Karir', link: '/' },
+            { label: 'Outlook', link: '/' },
+            { label: 'Real time', link: '/' },
+        ],
+        },
+        { label: 'Fasilitas' },
+        {
+        label: 'Berita',
+        links: [
+            { label: 'Berita', link: '/' },
+            { label: 'Promosi', link: '/' },
+        ],
+        },
+        { label: 'Hubungi Kami', },
+    ];
+    
+    const mobileLinks = navMobile.map((item) => <LinksGroup {...item} key={item.label} />);
 
     return (
         <Box pb={120}>
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
                     <Image src="/assets/images/logo.webp" alt="icon" width={110} height={70} />
-                    {/* <IconChartPie3/> */}
-                    <Group h="100%" gap={0} visibleFrom="sm">
-                        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+                    <Group h="100%" gap={0} visibleFrom="md">
+                        <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <a href="#" className={classes.link}>
                                     <Center inline>
                                         <Box component="span" mr={5}>
-                                            Tentang Kami
+                                            Tentang Kami.
                                         </Box>
                                         <IconChevronDown size={16} color={theme.colors.blue[6]} />
                                     </Center>
@@ -114,12 +136,11 @@ export function Header() {
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                <SimpleGrid cols={2} spacing={0}>
+                                {/* <SimpleGrid cols={2} spacing={0}> */}
                                     {tentangKamiLinks}
-                                </SimpleGrid>
+                                {/* </SimpleGrid> */}
                             </HoverCard.Dropdown>
                         </HoverCard>
-
 
                         <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
@@ -139,10 +160,12 @@ export function Header() {
                                 </SimpleGrid>
                             </HoverCard.Dropdown>
                         </HoverCard>
+
                         <a href="#" className={classes.link}>
                             Fasilitas
                         </a>
-                        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+
+                        <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <a href="#" className={classes.link}>
                                     <Center inline>
@@ -155,12 +178,11 @@ export function Header() {
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                <SimpleGrid cols={2} spacing={0}>
+                                
                                     {newsLinks}
-                                </SimpleGrid>
+                                
                             </HoverCard.Dropdown>
                         </HoverCard>
-
 
                         <a href="#" className={classes.link}>
                             Hubungi Kami
@@ -172,9 +194,10 @@ export function Header() {
                         <Button color='dark' component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
                     </Group>
 
-                    <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+                    <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="md" />
                 </Group>
 
+                {/* Top 5 of Projects  */}
                 <Group h="100%" gap={0} visibleFrom="md" justify='center'>
                     {topProject.map(data =>
                         <a href="#" key={data.title} className={classes.topProjectLink}>
@@ -191,6 +214,7 @@ export function Header() {
                         </a>
                     )}
                 </Group>
+                
                 {/* <Group h="100%" gap={0} visibleFrom="sm" justify='center'> */}
                 <Carousel
                     withIndicators
@@ -227,42 +251,12 @@ export function Header() {
                 size="100%"
                 padding="md"
                 title={<Image src="/assets/images/logo.webp" alt="icon" width={100} height={60} />}
-                hiddenFrom="sm"
+                hiddenFrom="md"
                 zIndex={1000000}
             >
                 <ScrollArea h="calc(100vh - 80px" mx="-md">
+                    <div className={classes.linksInner}>{mobileLinks}</div>
                     <Divider my="sm" />
-
-                    <a href="#" className={classes.link}>
-                        Tentang Kami
-                    </a>
-                    <UnstyledButton className={classes.link} onClick={toggleLinks}>
-                        <Group justify="space-between" h="100%">
-                            <Box component="span" >
-                                Proyek
-                            </Box>
-                            <IconChevronDown size={16} />
-                        </Group>
-                    </UnstyledButton>
-                    <Collapse in={linksOpened}>{tentangKamiLinks}</Collapse>
-                    <a href="#" className={classes.link}>
-                        Fasilitas
-                    </a>
-                    <UnstyledButton className={classes.link} onClick={toggleLinks}>
-                        <Group justify="space-between" h="100%">
-                            <Box component="span" >
-                                Berita
-                            </Box>
-                            <IconChevronDown size={16} />
-                        </Group>
-                    </UnstyledButton>
-                    <Collapse in={linksOpened}>{newsLinks}</Collapse>
-                    <a href="#" className={classes.link}>
-                        Hubungi Kami
-                    </a>
-
-                    <Divider my="sm" />
-
                     <Group justify="center" grow pb="xl" px="md">
 
                         <Autocomplete
