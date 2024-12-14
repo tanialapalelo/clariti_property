@@ -1,8 +1,10 @@
 "use client"
 
-import { IconBrandInstagram, IconBrandTwitter, IconBrandWhatsapp, IconBrandYoutube, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
-import { ActionIcon, Container, Group, Text } from '@mantine/core';
+import { Icon123, IconBrandInstagram, IconBrandTwitter, IconBrandWhatsapp, IconBrandYoutube, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
+import { ActionIcon, Button, Container, Group, Text, TextInput, Title } from '@mantine/core';
 import classes from '../styles/Footer.module.css';
+import { useForm } from '@mantine/form';
+import { randomId } from '@mantine/hooks';
 
 const data = [
     {
@@ -54,15 +56,33 @@ export function Footer() {
         );
     });
 
+
+    const form = useForm({
+        mode: 'uncontrolled',
+        initialValues: {
+            email: '',
+        },
+    });
+
+
     return (
         <footer className={classes.footer}>
             <Container className={classes.inner} size={'xl'}>
-                {/* <div className={classes.logo}>
-          <Icon123 size={30} />
-          <Text size="xs" c="dimmed" className={classes.description}>
-            Build fully functional accessible web applications faster than ever
-          </Text>
-        </div> */}
+                <div className={classes.logo}>
+                    <Title styles={{ root: { color: "white" } }} order={3}>Don't miss out, Stay in touch</Title>
+                    {/* <Text size="xs" c="dimmed" className={classes.description}>
+                        Build fully functional accessible web applications faster than ever
+                    </Text> */}
+
+                    
+        <div className={classes.controls}>
+          <TextInput
+            placeholder="Your email"
+            classNames={{ input: classes.input, root: classes.inputWrapper }}
+          />
+          <Button className={classes.control}>Subscribe</Button>
+        </div>
+                </div>
                 <div className={classes.groups}>{groups}</div>
             </Container>
             <Container className={classes.afterFooter} size={'xl'}>
