@@ -118,7 +118,7 @@ export function Header() {
     const mobileLinks = navMobile.map((item) => <LinksGroup {...item} key={item.label} />);
 
     return (
-        <Box pb={120}>
+        <Box pb={55}>
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
                     <Image src="/assets/images/logo.webp" alt="icon" width={110} height={70} />

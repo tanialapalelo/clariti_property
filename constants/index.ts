@@ -19,3 +19,28 @@ export const beritaData = [
         description: 'Temukan harga terbaik untuk rumah anda',
     },
 ];
+
+
+export const strategyPlaces = [
+    {
+        time: '5',
+        unitOfTime: 'menit',
+        description: 'menuju Sekolah Harapan Bangsa',
+    },
+    {
+        time: '15',
+        unitOfTime: 'menit',
+        description: 'menuju Universitas Terbuka',
+    },
+    {
+        time: '10',
+        unitOfTime: 'menit',
+        description: 'menuju Terminal Bus Pondok Cabe',
+    },
+    {
+        time: '25',
+        unitOfTime: 'menit',
+        description: 'menuju Stasiun MRT Lebak Bulus',
+    },
+
+]

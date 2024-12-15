@@ -1,12 +1,14 @@
-.footer {
+  .footer {
     margin-top: 120px;
     padding-top: calc(var(--mantine-spacing-xl) * 2);
     padding-bottom: calc(var(--mantine-spacing-xl) * 2);
     background-color: var(--mantine-color-dark-8);
     border-top: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
   }
+
   .controls {
     display: flex;
+    flex-wrap: wrap;
     margin-top: var(--mantine-spacing-xl);
   }
   

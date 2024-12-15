@@ -70,18 +70,13 @@ export function Footer() {
             <Container className={classes.inner} size={'xl'}>
                 <div className={classes.logo}>
                     <Title styles={{ root: { color: "white" } }} order={3}>Don't miss out, Stay in touch</Title>
-                    {/* <Text size="xs" c="dimmed" className={classes.description}>
-                        Build fully functional accessible web applications faster than ever
-                    </Text> */}
-
-                    
-        <div className={classes.controls}>
-          <TextInput
-            placeholder="Your email"
-            classNames={{ input: classes.input, root: classes.inputWrapper }}
-          />
-          <Button className={classes.control}>Subscribe</Button>
-        </div>
+                    <div className={classes.controls}>
+                        <TextInput
+                            placeholder="Your email"
+                            classNames={{ input: classes.input, root: classes.inputWrapper }}
+                        />
+                        <Button className={classes.control}>Subscribe</Button>
+                    </div>
                 </div>
                 <div className={classes.groups}>{groups}</div>
             </Container>
