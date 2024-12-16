@@ -11,8 +11,8 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      {/* <Hero /> */}
-      {/* <Section title="Perfecting Your Urban Lifestyle" description="SouthCity merupakan tempat bagi Anda untuk bekerja, bertempat tinggal, serta bersenang-senang. SouthCity bertujuan untuk memenuhi berbagai kebutuhan masyarakat modern dengan menawarkan kawasan yang terintegrasi dengan perumahan, apartemen, dan pusat rekreasi." /> */}
+      <Hero />
+      <Section title="Perfecting Your Urban Lifestyle" description="SouthCity merupakan tempat bagi Anda untuk bekerja, bertempat tinggal, serta bersenang-senang. SouthCity bertujuan untuk memenuhi berbagai kebutuhan masyarakat modern dengan menawarkan kawasan yang terintegrasi dengan perumahan, apartemen, dan pusat rekreasi." />
       <Container
         styles={{
           root: {
