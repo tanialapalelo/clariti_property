@@ -227,8 +227,8 @@ export function Header() {
                     hiddenFrom='md'
                 >
                     {topProject.map(data =>
-                        <Carousel.Slide>
-                            <a href="#" key={data.title} className={classes.topProjectLink}>
+                        <Carousel.Slide key={data.title}>
+                            <a href="#" className={classes.topProjectLink}>
                                 <Group wrap="nowrap" align="flex-start">
                                     <data.icon size={22} />
                                     <div>

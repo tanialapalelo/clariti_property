@@ -11,9 +11,9 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <Hero />
-      <Section title="Perfecting Your Urban Lifestyle" description="SouthCity merupakan tempat bagi Anda untuk bekerja, bertempat tinggal, serta bersenang-senang. SouthCity bertujuan untuk memenuhi berbagai kebutuhan masyarakat modern dengan menawarkan kawasan yang terintegrasi dengan perumahan, apartemen, dan pusat rekreasi." />
-      <Container 
+      {/* <Hero /> */}
+      {/* <Section title="Perfecting Your Urban Lifestyle" description="SouthCity merupakan tempat bagi Anda untuk bekerja, bertempat tinggal, serta bersenang-senang. SouthCity bertujuan untuk memenuhi berbagai kebutuhan masyarakat modern dengan menawarkan kawasan yang terintegrasi dengan perumahan, apartemen, dan pusat rekreasi." /> */}
+      <Container
         styles={{
           root: {
             display: 'flex',
@@ -23,7 +23,7 @@ export default function Home() {
             textAlign: 'center',
           },
         }}>
-        <RadiusButton description="Explore with 360"/>
+        <RadiusButton description="Explore with 360" />
       </Container>
       <Grid justify="center">
         <Grid.Col span={{ base: 12, md: 2 }}>
@@ -44,21 +44,38 @@ export default function Home() {
             padding: "2% 0"
           },
         }}>
-        <SimpleGrid cols={{base:2, sm:4}}>
+        <SimpleGrid cols={{ base: 2, sm: 4 }}>
 
           {strategyPlaces.map((item) => (
             <div key={item.description}>
               <Title styles={{ root: { color: "blue" } }}>{item.time}</Title>
               <Text styles={{ root: { color: "blue" } }}>{item.unitOfTime}</Text>
-              <Text>{item.description}</Text>
+              <Text styles={{ root: { color: "gray" } }}>{item.description}</Text>
             </div>
           ))}
 
         </SimpleGrid>
       </Container>
-      <Image src="/assets/images/desktop-map.gif" width={200} height={20} alt="map"/>
+      <Image src="/assets/images/dekstop-map.gif"
+        alt="map"
+        width={1200}
+        height={600}
+        layout="responsive"
+        unoptimized />
       <Section title="Miss Us Already? Don't Worry" description="Kami akan selalu memberikan berita, kabar terbaru, acara, serta promosi dan informasi menarik lainnya kepada Anda. Cari tahu lebih lanjut mengenai aktivitas kami lainnya." />
-      <CardsCarousel/>
+      <CardsCarousel />
+      <Container
+        styles={{
+          root: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+          },
+        }}>
+        <RadiusButton description="Berita Lainnya" />
+      </Container>
     </div>
   );
 }
