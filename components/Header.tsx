@@ -112,7 +112,7 @@ export function Header() {
             { label: 'Promosi', link: '/' },
         ],
         },
-        { label: 'Hubungi Kami', },
+        { label: 'Hubungi Kami', link: '/kontak-kami' },
     ];
     
     const mobileLinks = navMobile.map((item) => <LinksGroup {...item} key={item.label} />);
@@ -184,7 +184,7 @@ export function Header() {
                             </HoverCard.Dropdown>
                         </HoverCard>
 
-                        <a href="#" className={classes.link}>
+                        <a href="/kontak-kami" className={classes.link}>
                             Hubungi Kami
                         </a>
                     </Group>
