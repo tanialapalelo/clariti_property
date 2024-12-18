@@ -15,23 +15,20 @@ const ContactForm = () => {
       message: "",
     },
     validate: {
+      name: (value) => (value.length === 0 ?  "Invalid name" : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       mobile: (value) => (/^\d+$/.test(value) ? null : "Invalid mobile number"),
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
-    console.log("Form Submitted:", values);
+  const handleSubmit = async (values: typeof form.values) => {
+    console.log("Form values:", values);
   };
 
   return (
-    <Container size="lg" py="xl" style={{ backgroundColor: "#0E1E40", borderRadius: "8px" }}>
+    <Container fluid py="xl" style={{ backgroundColor: "#0E1E40"}}>
       {/* Section Title */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      <div>
         <Title
           align="center"
           order={2}
@@ -42,24 +39,20 @@ const ContactForm = () => {
         <p style={{ color: "white", textAlign: "center", marginBottom: "2rem" }}>
           Kami selalu ada untuk Anda setiap hari. Jangan ragu untuk mengirim pesan melalui formulir di bawah ini.
         </p>
-      </motion.div>
+      </div>
 
-      {/* Form */}
-      <motion.form
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        onSubmit={form.onSubmit(handleSubmit)}
-      >
+      <form onSubmit={form.onSubmit(handleSubmit)}>
         <Group grow mb="md">
           <TextInput
             placeholder="Masukkan nama"
             label="Nama"
+            styles={{label: {color: "white"}}}
             {...form.getInputProps("name")}
           />
           <Select
             label="Subjek"
             placeholder="Pilih subjek"
+            styles={{label: {color: "white"}}}
             data={["Umum", "Permintaan", "Lainnya"]}
             {...form.getInputProps("subject")}
           />
@@ -69,11 +62,13 @@ const ContactForm = () => {
           <TextInput
             placeholder="Masukkan email"
             label="Email"
+            styles={{label: {color: "white"}}}
             {...form.getInputProps("email")}
           />
           <TextInput
             placeholder="Masukkan nomor telepon"
             label="Mobile"
+            styles={{label: {color: "white"}}}
             {...form.getInputProps("mobile")}
           />
         </Group>
@@ -82,6 +77,7 @@ const ContactForm = () => {
           placeholder="Pilih kota"
           label="Kota"
           mb="md"
+          styles={{label: {color: "white"}}}
           {...form.getInputProps("city")}
         />
 
@@ -90,6 +86,7 @@ const ContactForm = () => {
           label="Pesan"
           minRows={4}
           mb="md"
+          styles={{label: {color: "white"}}}
           {...form.getInputProps("message")}
         />
 
@@ -106,7 +103,7 @@ const ContactForm = () => {
             SUBMIT
           </Button>
         </motion.div>
-      </motion.form>
+      </form>
     </Container>
   );
 };
