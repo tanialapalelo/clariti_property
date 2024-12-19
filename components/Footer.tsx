@@ -4,7 +4,6 @@ import { Icon123, IconBrandInstagram, IconBrandTwitter, IconBrandWhatsapp, IconB
 import { ActionIcon, Button, Container, Group, Text, TextInput, Title } from '@mantine/core';
 import classes from '../styles/Footer.module.css';
 import { useForm } from '@mantine/form';
-import { randomId } from '@mantine/hooks';
 
 const data = [
     {

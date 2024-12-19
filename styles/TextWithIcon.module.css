@@ -1,0 +1,8 @@
+  .link {
+    display: flex;
+    font-size: var(--mantine-font-size-sm);
+    padding-top: 3px;
+    padding-bottom: 3px;
+    gap: 3px;
+  }
+  

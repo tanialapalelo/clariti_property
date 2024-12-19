@@ -1,12 +1,18 @@
 "use client";
 
-import { Button, Container, Group, Select, Textarea, TextInput, Title } from "@mantine/core";
+import { Button, Container, Grid, Group, Select, SimpleGrid, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { motion } from "framer-motion";
 import { useForm } from "@mantine/form";
 import { useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import Image from "next/image";
+import Section from "@/components/Section";
+import { IconBrandWhatsapp, IconMail, IconMap, IconMap2, IconMapPin, IconMapPinFilled, IconMessage, IconPhone, IconPhoneFilled, IconRecordMail } from "@tabler/icons-react";
+import Link from "next/link";
+import TextWithIcon from "@/components/ui/TextWithIcon";
+import TransportationInfo from "@/components/TransportationInfo";
 
-const ContactForm = () => {
+const KontakKami = () => {
 
   const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference for reCAPTCHA
 
@@ -137,8 +143,46 @@ const ContactForm = () => {
           </motion.div>
         </form>
       </Container>
+
+      <Container py={"xl"}>
+        <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }}>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Title my={"sm"}>SouthCity Masterplan</Title>
+            <Text>SouthCity merupakan kawasan 57 hektar yang disiapkan untuk pengembangan proyek hunian, pusat komersial, dan perhotelan yang akan hadir di masa mendatang. Terletak di lokasi yang strategis di Jakarta Selatan, Cinere dan Pondok Cabe serta memiliki kemudahan akses menuju tol Depok-Antasari (gerbang tol Limo), tol Cinere-Jagorawi (gerbang tol Pamulang), dan tol Antasari-Brigif (gerbang tol Brigif). Selain itu berbagai pilihan transportasi umum juga tersedia di dalam kawasan SouthCity dengan dibangunnya halte TransJakarta serta adanya MRT di Lebak Bulus dan Fatmawati.</Text>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Title my={"sm"}>Marketing Galery</Title>
+            <SimpleGrid cols={2}>
+              <div>
+                <IconMapPinFilled size={22} />
+                <Text>Jl. Raya SouthCity Utara, Lot 5 No. 12, Pondok Cabe, Tangerang Selatan, Banten 15418, Indonesia</Text>
+                <Link href="https://maps.app.goo.gl/cQ5d73izkWdnabXD6?g_st=ic">Open in Google Maps</Link>
+              </div>
+
+              <div>
+                <TextWithIcon icon={<IconBrandWhatsapp size={22} />} label="+62 818 0621 8999" />
+                <TextWithIcon icon={<IconPhoneFilled size={22} />} label="+62 21 749 8999" />
+                <TextWithIcon icon={<IconMail size={22} />} label="info@southcity.co.id" />
+                <TextWithIcon icon={<IconMail size={22} />} label="recruitment@southcity.co.id" />
+
+              </div>
+
+            </SimpleGrid>
+
+          </Grid.Col>
+        </Grid>
+      </Container>
+
+      <Image src="/assets/images/dekstop-map.gif"
+        alt="map"
+        width={1200}
+        height={600}
+        layout="responsive"
+        unoptimized
+      />
+      <TransportationInfo/>
     </>
   );
 };
 
-export default ContactForm;
+export default KontakKami;

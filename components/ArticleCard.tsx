@@ -10,8 +10,8 @@ interface ArticleProps {
 
 const ArticleCard = ({ title, date, image }: ArticleProps) => {
   return (
-    <Card p="md" radius="md" className={classes.card} style={{ flex: 1, minWidth: '30%', maxWidth: '30%', height: '350px' }}>
-      <AspectRatio ratio={1920 / 1080}>
+    <Card mx="auto" radius="md" className={classes.card} style={{ flex: 1, minWidth: '30%', maxWidth: '30%', height: '350px' }}>
+      <AspectRatio ratio={1920 / 1920}>
         <Image src={image} alt={title} />
       </AspectRatio>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px' }}>

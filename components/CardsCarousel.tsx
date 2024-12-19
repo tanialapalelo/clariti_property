@@ -20,10 +20,10 @@ export function CardsCarousel() {
 
   return (
     <Container py="xl">
-      <Carousel withIndicators loop slideSize="100%" slideGap="md" align="start" withControls>
+      <Carousel withIndicators loop slideSize="100%" align="start" withControls>
         {chunkedData.map((group, index) => (
           <Carousel.Slide key={index}>
-            <div style={{ display: 'flex', gap: '20px' }}>
+            <div style={{ display: 'flex' }}>
               {group.map((article) => (
                 <ArticleCard key={article.title} {...article} />
               ))}
