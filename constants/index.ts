@@ -2,10 +2,12 @@ export const tentangKamiData = [
     {
         title: 'Sejarah',
         description: 'Sekilas sejarah Clariti',
+        link: '/sejarah'
     },
     {
         title: 'Karir',
         description: 'Temukan karir yang cocok untuk anda',
+        link: '/karir'
     },
 ];
 
@@ -13,10 +15,12 @@ export const beritaData = [
     {
         title: 'Berita',
         description: 'Baca berita terbaru kami',
+        link: '/category/berita'
     },
     {
         title: 'Promosi',
         description: 'Temukan harga terbaik untuk rumah anda',
+        link: '/category/promosi'
     },
 ];
 

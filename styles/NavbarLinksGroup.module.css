@@ -32,3 +32,8 @@
   .chevron {
     transition: transform 200ms ease;
   }
+
+  .fontColor {
+    color: var(--mantine-color-text);
+    font-weight: 500;
+  }

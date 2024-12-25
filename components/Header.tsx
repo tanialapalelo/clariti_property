@@ -1,4 +1,5 @@
 "use client"
+
 import {
     IconBuilding,
     IconBuildingBank,
@@ -9,6 +10,7 @@ import {
     IconSearch,
 } from '@tabler/icons-react';
 import {
+    Anchor,
     Autocomplete,
     Box,
     Burger,
@@ -41,24 +43,19 @@ export function Header() {
     const tentangKamiLinks = tentangKamiData.map((item) => (
         <UnstyledButton className={classes.subLink} key={item.title}>
             <Group wrap="nowrap" align="flex-start">
-                <div>
-                    <Text size="sm" fw={500}>
-                        {item.title}
-                    </Text>
-                </div>
+                <Anchor href={item.link} underline="never">
+                    {item.title}
+                </Anchor>
             </Group>
         </UnstyledButton>
     ));
 
-
     const newsLinks = beritaData.map((item) => (
         <UnstyledButton className={classes.subLink} key={item.title}>
             <Group wrap="nowrap" align="flex-start">
-                <div>
-                    <Text size="sm" fw={500}>
-                        {item.title}
-                    </Text>
-                </div>
+                <Anchor href={item.link} underline="never">
+                    {item.title}
+                </Anchor>
             </Group>
         </UnstyledButton>
     ));
@@ -86,42 +83,43 @@ export function Header() {
             title: 'Clariti Activities',
         },
     ]
-    
+
     const navMobile = [
         {
-        label: 'Tentang Kami',
-        links: [
-            { label: 'Sejarah', link: '/' },
-            { label: 'Karir', link: '/' },
-        ],
+            label: 'Tentang Kami',
+            links: [
+                { label: 'Sejarah', link: '/sejarah' },
+                { label: 'Karir', link: '/karir' },
+            ],
         },
         {
-        label: 'Proyek',
-        links: [
-            { label: 'Sejarah', link: '/' },
-            { label: 'Karir', link: '/' },
-            { label: 'Outlook', link: '/' },
-            { label: 'Real time', link: '/' },
-        ],
+            label: 'Proyek',
+            links: [
+                { label: 'Sejarah', link: '/' },
+                { label: 'Karir', link: '/' },
+                { label: 'Outlook', link: '/' },
+                { label: 'Real time', link: '/' },
+            ],
         },
-        { label: 'Fasilitas' },
+        { label: 'Fasilitas', singleLink: '/fasilitas' },
         {
-        label: 'Berita',
-        links: [
-            { label: 'Berita', link: '/' },
-            { label: 'Promosi', link: '/' },
-        ],
+            label: 'Berita',
+            links: [
+                { label: 'Berita', link: '/category/berita' },
+                { label: 'Promosi', link: '/category/promosi' },
+            ],
         },
-        { label: 'Hubungi Kami', link: '/kontak-kami' },
+        { label: 'Hubungi Kami', singleLink: '/kontak-kami' },
     ];
-    
+
     const mobileLinks = navMobile.map((item) => <LinksGroup {...item} key={item.label} />);
 
     return (
         <Box pb={55}>
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
-                    <Image src="/assets/images/logo.webp" alt="icon" width={110} height={70} />
+                    <Link href="/"><Image src="/assets/images/logo.webp" alt="icon" width={110} height={70} /></Link>
+
                     <Group h="100%" gap={0} visibleFrom="md">
                         <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
@@ -137,7 +135,7 @@ export function Header() {
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                                 {/* <SimpleGrid cols={2} spacing={0}> */}
-                                    {tentangKamiLinks}
+                                {tentangKamiLinks}
                                 {/* </SimpleGrid> */}
                             </HoverCard.Dropdown>
                         </HoverCard>
@@ -161,26 +159,26 @@ export function Header() {
                             </HoverCard.Dropdown>
                         </HoverCard>
 
-                        <a href="#" className={classes.link}>
+                        <Link href="/fasilitas" className={classes.link}>
                             Fasilitas
-                        </a>
+                        </Link>
 
                         <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
-                                <a href="#" className={classes.link}>
+                                <div className={classes.link}>
                                     <Center inline>
                                         <Box component="span" mr={5}>
                                             Berita
                                         </Box>
                                         <IconChevronDown size={16} color={theme.colors.blue[6]} />
                                     </Center>
-                                </a>
+                                </div>
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                
-                                    {newsLinks}
-                                
+
+                                {newsLinks}
+
                             </HoverCard.Dropdown>
                         </HoverCard>
 
@@ -214,7 +212,7 @@ export function Header() {
                         </a>
                     )}
                 </Group>
-                
+
                 {/* <Group h="100%" gap={0} visibleFrom="sm" justify='center'> */}
                 <Carousel
                     withIndicators

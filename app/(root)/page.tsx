@@ -74,6 +74,7 @@ export default function Home() {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
+            marginBottom: '80px',
           },
         }}>
         <RadiusButton description="Berita Lainnya" />

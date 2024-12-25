@@ -53,7 +53,6 @@ const KontakKami = () => {
 
   return (
     <>
-      {/* <Title mx="auto" display="fixed">We Are Here To Help</Title> */}
       <Title
         order={1}
         style={{
@@ -65,7 +64,6 @@ const KontakKami = () => {
         We Are Here To Help
       </Title>
       <Container fluid p="xl" style={{ backgroundColor: "#0E1E40" }}>
-        {/* Section Title */}
         <div>
           <Title
             style={{
@@ -136,11 +134,11 @@ const KontakKami = () => {
             ref={recaptchaRef}
           />
           {/* Submit Button */}
-          <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
+          {/* <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}> */}
             <Button type="submit" fullWidth color="blue" radius="xl" size="md" style={{ fontWeight: 600 }}>
               SUBMIT
             </Button>
-          </motion.div>
+          {/* </motion.div> */}
         </form>
       </Container>
 

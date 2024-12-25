@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
-import { Box, Collapse, Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
+import { Anchor, Box, Collapse, Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
 import classes from '../styles/NavbarLinksGroup.module.css';
 
 interface LinksGroupProps {
@@ -8,9 +8,10 @@ interface LinksGroupProps {
   label: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];
+  singleLink?: string | "";
 }
 
-export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
+export function LinksGroup({ icon: Icon, label, initiallyOpened, singleLink, links }: LinksGroupProps) {
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const items = (hasLinks ? links : []).map((link) => (
@@ -34,7 +35,13 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
               <Icon size={18} />
             </ThemeIcon>
             }
-            <Box ml="md">{label}</Box>
+            {singleLink ? (
+              <Anchor href={singleLink} underline='never' className={classes.fontColor}>
+                  <Box ml="md">{label}</Box>
+              </Anchor>
+            ) : (
+              <Box ml="md">{label}</Box>
+            )}
           </Box>
           {hasLinks && (
             <IconChevronRight
