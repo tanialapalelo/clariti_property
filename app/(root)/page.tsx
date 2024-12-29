@@ -63,7 +63,7 @@ export default function Home() {
         width={1200}
         height={600}
         layout="responsive"
-        unoptimized />
+        />
       <Section title="Miss Us Already? Don't Worry" description="Kami akan selalu memberikan berita, kabar terbaru, acara, serta promosi dan informasi menarik lainnya kepada Anda. Cari tahu lebih lanjut mengenai aktivitas kami lainnya." />
       <CardsCarousel />
       <Container

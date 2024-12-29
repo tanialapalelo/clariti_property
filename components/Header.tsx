@@ -11,6 +11,7 @@ import {
 } from '@tabler/icons-react';
 import {
     Anchor,
+    AspectRatio,
     Autocomplete,
     Box,
     Burger,
@@ -118,7 +119,13 @@ export function Header() {
         <Box pb={55}>
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
-                    <Link href="/"><Image src="/assets/images/logo.webp" alt="icon" width={110} height={70} /></Link>
+
+                    <AspectRatio ratio={1920 / 1920}>
+                        <Link href="/">
+                            <Image src="/assets/images/logo.webp" alt="icon" width={95} height={50} />
+                        </Link>
+                    </AspectRatio>
+
 
                     <Group h="100%" gap={0} visibleFrom="md">
                         <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>

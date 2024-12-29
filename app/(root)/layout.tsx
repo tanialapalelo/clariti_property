@@ -1,6 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import CustomActionIcon from "@/components/ui/CustomActionIcon";
+import WhatsAppAction from "@/components/ui/WhatsAppAction";
 
 // children as props, and children are of a type React.ReactNode
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -18,7 +18,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </div>
             </main>
             <Footer />
-            <CustomActionIcon/>
+            <WhatsAppAction/>
         </div>
     );
 };
