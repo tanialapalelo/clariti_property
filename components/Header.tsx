@@ -9,7 +9,6 @@ import {
     IconSearch,
 } from '@tabler/icons-react';
 import {
-    Anchor,
     AspectRatio,
     Autocomplete,
     Box,
@@ -24,7 +23,6 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from '../styles/Header.module.css';
-import { beritaData, tentangKamiData } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel } from '@mantine/carousel';
