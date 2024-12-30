@@ -10,6 +10,13 @@ async function getAboutPageData() {
     const res = await fetch(`${process.env.WORDPRESS_URL}/pages?acf_format=standard&_field=id,slug,title,acf&slug=sejarah`, {
       next: { revalidate: 3600 } // Cache for 1 hour
     });
+
+    
+    if (!res) {
+        return {
+            notFound: true,
+        }
+    }
     
     if (!res.ok) throw new Error('Failed to fetch about page data');
     return res.json();
