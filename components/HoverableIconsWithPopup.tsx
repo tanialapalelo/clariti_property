@@ -64,14 +64,8 @@ const HoverableIconsWithPopup = () => {
           onClose={() => setOpened(null)}
           position="top"
           withArrow
-          transition="fade"
           radius="md"
           shadow="lg"
-          style={{
-            position: 'absolute',
-            top: data.y,
-            left: data.x,
-          }}
         >
           {/* Icon Trigger */}
           <Popover.Target>
