@@ -128,7 +128,7 @@ export function Header() {
 
 
                     <Group h="100%" gap={0} visibleFrom="md">
-                        <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
+                        {/* <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <a href="#" className={classes.link}>
                                     <Center inline>
@@ -141,13 +141,10 @@ export function Header() {
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                {/* <SimpleGrid cols={2} spacing={0}> */}
-                                {tentangKamiLinks}
-                                {/* </SimpleGrid> */}
                             </HoverCard.Dropdown>
-                        </HoverCard>
+                        </HoverCard> */}
 
-                        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+                        {/* <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <a href="#" className={classes.link}>
                                     <Center inline>
@@ -160,17 +157,14 @@ export function Header() {
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                <SimpleGrid cols={2} spacing={0}>
-                                    {tentangKamiLinks}
-                                </SimpleGrid>
                             </HoverCard.Dropdown>
-                        </HoverCard>
+                        </HoverCard> */}
 
                         <Link href="/fasilitas" className={classes.link}>
                             Fasilitas
                         </Link>
 
-                        <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
+                        {/* <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <div className={classes.link}>
                                     <Center inline>
@@ -184,10 +178,8 @@ export function Header() {
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
 
-                                {newsLinks}
-
                             </HoverCard.Dropdown>
-                        </HoverCard>
+                        </HoverCard> */}
 
                         <a href="/kontak-kami" className={classes.link}>
                             Hubungi Kami
