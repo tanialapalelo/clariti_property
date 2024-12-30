@@ -10,13 +10,6 @@ async function getAboutPageData() {
     const res = await fetch(`${process.env.WORDPRESS_URL}/pages?acf_format=standard&_field=id,slug,title,acf&slug=sejarah`, {
       next: { revalidate: 3600 } // Cache for 1 hour
     });
-
-    
-    if (!res) {
-        return {
-            notFound: true,
-        }
-    }
     
     if (!res.ok) throw new Error('Failed to fetch about page data');
     return res.json();
@@ -24,8 +17,17 @@ async function getAboutPageData() {
 
 const Sejarah = async () => {    
     const data = await getAboutPageData();
-    console.log("data", data[0].acf);
-    console.log("image tania", data[0].acf.hero.image.link);
+    
+    if (!data || !data[0]?.acf) {
+        console.error("ACF data is missing or undefined");
+        return <div>Error loading page data</div>;
+    }
+
+    const acf = data[0].acf;
+    const heroImage = acf.hero?.image?.link || "/default-image.jpg"; // Default image fallback
+    const heroTitle = acf.hero?.title || "Default Title";
+    const heroDescription = acf.hero?.description || "Default Description";
+
 
     const superHeroes = [
         {
@@ -62,7 +64,7 @@ const Sejarah = async () => {
                     color: "#000000",
                 }}
             >
-                {data[0].acf.title}
+                {acf.title || "Default Title"}
             </Title>
 
             {/* <Grid gutter={0}>
@@ -95,16 +97,18 @@ const Sejarah = async () => {
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={0}>
                 <div>
                     <AspectRatio ratio={1920 / 1920}>
-                        <Image src={"http://127.0.0.1/wordpress-tes/wp-content/uploads/2024/12/do-big-do-right.jpg"}
-                            alt={data[0].acf.hero.image.alt}
-                            width={300} height={300}
+                        <Image 
+                            src={heroImage} 
+                            alt={acf.hero?.image?.alt || "Default Alt"} 
+                            width={300} 
+                            height={300} 
                         />
                         
                     </AspectRatio>
                 </div>
                 <Paper px={{ base: "xl", sm: "100px" }} py={{ base: "xl" }}>
-                    <Title order={2}>{data[0].acf.hero.title}</Title>
-                    <Text my={'xl'}>{data[0].acf.hero.description}</Text>
+                    <Title order={2}>{heroTitle}</Title>
+                    <Text my={'xl'}>{heroDescription}</Text>
                 </Paper>
 
             </SimpleGrid>
