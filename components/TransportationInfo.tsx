@@ -4,7 +4,7 @@ import { IconBus, IconTrain } from "@tabler/icons-react";
 const TransportationInfo = () => {
   return (
     <Container fluid pt="xl" style={{ backgroundColor: "#f0f4ff" }}>
-      <SimpleGrid cols={2} spacing="xl" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+      <SimpleGrid cols={2} spacing="xl">
         {/* Column 1 */}
         <div>
           <Title order={3} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -35,7 +35,7 @@ const TransportationInfo = () => {
         </div>
       </SimpleGrid>
 
-      <SimpleGrid cols={2} spacing="xl" breakpoints={[{ maxWidth: "sm", cols: 1 }]} mt="xl">
+      <SimpleGrid cols={2} spacing="xl" mt="xl">
         {/* Column 1 */}
         <div>
           <Title order={3} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
