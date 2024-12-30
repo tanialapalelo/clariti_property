@@ -21,7 +21,6 @@ import {
     ScrollArea,
     Text,
     UnstyledButton,
-    useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from '../styles/Header.module.css';
@@ -35,28 +34,27 @@ import { LinksGroup } from './NavbarLinksGroup';
 export function Header() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     // const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-    const theme = useMantineTheme();
+    // const theme = useMantineTheme();
 
-    const tentangKamiLinks = tentangKamiData.map((item) => (
-        <UnstyledButton className={classes.subLink} key={item.title}>
-            <Group wrap="nowrap" align="flex-start">
-                <Anchor href={item.link} underline="never">
-                    {item.title}
-                </Anchor>
-            </Group>
-        </UnstyledButton>
-    ));
+    // const tentangKamiLinks = tentangKamiData.map((item) => (
+    //     <UnstyledButton className={classes.subLink} key={item.title}>
+    //         <Group wrap="nowrap" align="flex-start">
+    //             <Anchor href={item.link} underline="never">
+    //                 {item.title}
+    //             </Anchor>
+    //         </Group>
+    //     </UnstyledButton>
+    // ));
 
-    const newsLinks = beritaData.map((item) => (
-        <UnstyledButton className={classes.subLink} key={item.title}>
-            <Group wrap="nowrap" align="flex-start">
-                <Anchor href={item.link} underline="never">
-                    {item.title}
-                </Anchor>
-            </Group>
-        </UnstyledButton>
-    ));
-
+    // const newsLinks = beritaData.map((item) => (
+    //     <UnstyledButton className={classes.subLink} key={item.title}>
+    //         <Group wrap="nowrap" align="flex-start">
+    //             <Anchor href={item.link} underline="never">
+    //                 {item.title}
+    //             </Anchor>
+    //         </Group>
+    //     </UnstyledButton>
+    // ));
 
     const topProject = [
         {
