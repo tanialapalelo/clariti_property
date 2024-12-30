@@ -1,13 +1,11 @@
 "use client";
 
 import { Button, Container, Grid, Group, Select, SimpleGrid, Text, Textarea, TextInput, Title } from "@mantine/core";
-import { motion } from "framer-motion";
 import { useForm } from "@mantine/form";
 import { useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Image from "next/image";
-import Section from "@/components/Section";
-import { IconBrandWhatsapp, IconMail, IconMap, IconMap2, IconMapPin, IconMapPinFilled, IconMessage, IconPhone, IconPhoneFilled, IconRecordMail } from "@tabler/icons-react";
+import { IconBrandWhatsapp, IconMail, IconMapPinFilled, IconPhoneFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import TextWithIcon from "@/components/ui/TextWithIcon";
 import TransportationInfo from "@/components/TransportationInfo";

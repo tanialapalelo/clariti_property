@@ -1,4 +1,4 @@
-import { Container, SimpleGrid, Text, Title } from "@mantine/core";
+import { Container, SimpleGrid, Title } from "@mantine/core";
 import { IconBus, IconTrain } from "@tabler/icons-react";
 
 const TransportationInfo = () => {

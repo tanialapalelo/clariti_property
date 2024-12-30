@@ -1,11 +1,25 @@
-"use client"
+// "use client"
 
 import Section from '@/components/Section'
 import Superheroes from '@/components/SuperHeroes'
-import { AspectRatio, Button, Grid, Paper, SimpleGrid, Text, Title } from '@mantine/core'
+import { AspectRatio, Paper, SimpleGrid, Text, Title } from '@mantine/core'
 import Image from 'next/image'
 
-const Sejarah = () => {
+
+async function getAboutPageData() {
+    const res = await fetch(`${process.env.WORDPRESS_URL}/pages?acf_format=standard&_field=id,slug,title,acf&slug=sejarah`, {
+      next: { revalidate: 3600 } // Cache for 1 hour
+    });
+    
+    if (!res.ok) throw new Error('Failed to fetch about page data');
+    return res.json();
+  }
+
+const Sejarah = async () => {    
+    const data = await getAboutPageData();
+    console.log("data", data[0].acf);
+    console.log("image tania", data[0].acf.hero.image.link);
+
     const superHeroes = [
         {
             name: 'Hambali Hazali',
@@ -41,10 +55,10 @@ const Sejarah = () => {
                     color: "#000000",
                 }}
             >
-                Improving Life for the Next Generation
+                {data[0].acf.title}
             </Title>
 
-            <Grid gutter={0}>
+            {/* <Grid gutter={0}>
                 <Grid.Col span={{ base: 12, sm: 8 }} bg={"#0E1E40"}>
                     <div style={{ color: "#ffffff" }}>
                         <Title
@@ -69,8 +83,24 @@ const Sejarah = () => {
                         />
                     </AspectRatio>
                 </Grid.Col>
-            </Grid>
+            </Grid> */}
 
+            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={0}>
+                <div>
+                    <AspectRatio ratio={1920 / 1920}>
+                        <Image src={"http://127.0.0.1/wordpress-tes/wp-content/uploads/2024/12/do-big-do-right.jpg"}
+                            alt={data[0].acf.hero.image.alt}
+                            width={300} height={300}
+                        />
+                        
+                    </AspectRatio>
+                </div>
+                <Paper px={{ base: "xl", sm: "100px" }} py={{ base: "xl" }}>
+                    <Title order={2}>{data[0].acf.hero.title}</Title>
+                    <Text my={'xl'}>{data[0].acf.hero.description}</Text>
+                </Paper>
+
+            </SimpleGrid>
 
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={0}>
                 
@@ -78,7 +108,7 @@ const Sejarah = () => {
                 <AspectRatio ratio={1920 / 1920}>
                     <Image src="/assets/images/parkir.jpg"
                         alt="fasilitas"
-                        width={300} height={300} layout='responsive'
+                        width={300} height={300}
                     />
                     </AspectRatio>
                 </div>
@@ -87,7 +117,7 @@ const Sejarah = () => {
                     <Text my={'xl'}>Berikut adalah tarif sewa untuk berbagai kebutuhan acara dan aktivitas kreatif seperti pengambilan video dan fotografi profesional. Kami berkomitmen menyediakan layanan terbaik untuk mendukung kesuksesan acara dan kegiatan Anda.</Text>
                     <Image src="/assets/images/book.jpg"
                         alt="book"
-                        width={300} height={300} layout='responsive'
+                        width={300} height={300}
                     />
                 </Paper>
 
@@ -98,7 +128,7 @@ const Sejarah = () => {
                 <div>
                     <Image src="/assets/images/jogging.jpg"
                         alt="fasilitas"
-                        width={300} height={300} layout='responsive'
+                        width={300} height={300}
                     />
                 </div>
 
@@ -117,6 +147,10 @@ const Sejarah = () => {
                 })}
             </SimpleGrid>
         </>
+
+        // <div>
+        //     <p>tes</p>
+        // </div>
     )
 }
 

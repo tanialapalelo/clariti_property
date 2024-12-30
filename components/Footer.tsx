@@ -1,9 +1,9 @@
 "use client"
 
-import { Icon123, IconBrandInstagram, IconBrandTwitter, IconBrandWhatsapp, IconBrandYoutube, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
+import { IconBrandInstagram, IconBrandTwitter, IconBrandWhatsapp, IconBrandYoutube, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
 import { ActionIcon, Button, Container, Group, Text, TextInput, Title } from '@mantine/core';
 import classes from '../styles/Footer.module.css';
-import { useForm } from '@mantine/form';
+// import { useForm } from '@mantine/form';
 
 const data = [
     {
@@ -56,19 +56,19 @@ export function Footer() {
     });
 
 
-    const form = useForm({
-        mode: 'uncontrolled',
-        initialValues: {
-            email: '',
-        },
-    });
+    // const form = useForm({
+    //     mode: 'uncontrolled',
+    //     initialValues: {
+    //         email: '',
+    //     },
+    // });
 
 
     return (
         <footer className={classes.footer}>
             <Container className={classes.inner} size={'xl'}>
                 <div className={classes.logo}>
-                    <Title styles={{ root: { color: "white" } }} order={3}>Don't miss out, Stay in touch</Title>
+                    <Title styles={{ root: { color: "white" } }} order={3}>Don`&apos;`t miss out, Stay in touch</Title>
                     <div className={classes.controls}>
                         <TextInput
                             placeholder="Your email"

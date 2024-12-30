@@ -6,7 +6,7 @@ import HoverableIconsWithPopup from "@/components/HoverableIconsWithPopup";
 import Section from "@/components/Section";
 import RadiusButton from "@/components/ui/RadiusButton";
 import { strategyPlaces } from "@/constants";
-import { Box, Button, Container, Grid, SimpleGrid, Text, Title } from "@mantine/core";
+import { Container, Grid, SimpleGrid, Text, Title } from "@mantine/core";
 import Image from "next/image";
 
 export default function Home() {

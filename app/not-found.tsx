@@ -1,6 +1,5 @@
 import { Button, Container, Group, Title } from '@mantine/core';
 import classes from '../styles/not-found.module.css';
-import Link from 'next/link';
 
 const NotFound = () => {
     return (

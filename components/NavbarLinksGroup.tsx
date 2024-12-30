@@ -4,7 +4,7 @@ import { Anchor, Box, Collapse, Group, Text, ThemeIcon, UnstyledButton } from '@
 import classes from '../styles/NavbarLinksGroup.module.css';
 
 interface LinksGroupProps {
-  icon?: React.FC<any>;
+  icon?: React.FC<{ size?: number; stroke?: number }>;
   label: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];

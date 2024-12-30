@@ -38,7 +38,7 @@ import { LinksGroup } from './NavbarLinksGroup';
 
 export function Header() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
-    const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+    // const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const theme = useMantineTheme();
 
     const tentangKamiLinks = tentangKamiData.map((item) => (

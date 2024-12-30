@@ -2,7 +2,7 @@
 
 import SuperHeroes from '@/components/SuperHeroes'
 import Section from '@/components/Section'
-import { AspectRatio, Container, Grid, SimpleGrid, Text, Title } from '@mantine/core'
+import { AspectRatio, Grid, SimpleGrid, Text, Title } from '@mantine/core'
 import Image from 'next/image'
 import React from 'react'
 
