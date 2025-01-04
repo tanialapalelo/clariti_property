@@ -4,19 +4,23 @@ import {
     IconBuilding,
     IconBuildingBank,
     IconBuildingStore,
+    IconChevronDown,
     IconHome,
     IconMotorbike,
     IconSearch,
 } from '@tabler/icons-react';
 import {
+    Anchor,
     AspectRatio,
     Autocomplete,
     Box,
     Burger,
     Button,
+    Center,
     Divider,
     Drawer,
     Group,
+    HoverCard,
     ScrollArea,
     Text,
     UnstyledButton,
@@ -27,12 +31,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel } from '@mantine/carousel';
 import { LinksGroup } from './NavbarLinksGroup';
+import { beritaData, tentangKamiData } from '@/constants';
+import DropdownHover from './DropdownHover';
 
 
 export function Header() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     // const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-    // const theme = useMantineTheme();
 
     // const tentangKamiLinks = tentangKamiData.map((item) => (
     //     <UnstyledButton className={classes.subLink} key={item.title}>
@@ -44,15 +49,6 @@ export function Header() {
     //     </UnstyledButton>
     // ));
 
-    // const newsLinks = beritaData.map((item) => (
-    //     <UnstyledButton className={classes.subLink} key={item.title}>
-    //         <Group wrap="nowrap" align="flex-start">
-    //             <Anchor href={item.link} underline="never">
-    //                 {item.title}
-    //             </Anchor>
-    //         </Group>
-    //     </UnstyledButton>
-    // ));
 
     const topProject = [
         {
@@ -120,58 +116,60 @@ export function Header() {
 
 
                     <Group h="100%" gap={0} visibleFrom="md">
-                        {/* <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
+                        <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <a href="#" className={classes.link}>
                                     <Center inline>
                                         <Box component="span" mr={5}>
                                             Tentang Kami.
                                         </Box>
-                                        <IconChevronDown size={16} color={theme.colors.blue[6]} />
+                                        <IconChevronDown size={16} />
                                     </Center>
                                 </a>
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
+                                <DropdownHover data={tentangKamiData}/>
                             </HoverCard.Dropdown>
-                        </HoverCard> */}
+                        </HoverCard>
 
-                        {/* <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+                        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <a href="#" className={classes.link}>
                                     <Center inline>
                                         <Box component="span" mr={5}>
                                             Proyek
                                         </Box>
-                                        <IconChevronDown size={16} color={theme.colors.blue[6]} />
+                                        <IconChevronDown size={16} />
                                     </Center>
                                 </a>
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
+                                <DropdownHover data={beritaData}/>
                             </HoverCard.Dropdown>
-                        </HoverCard> */}
+                        </HoverCard>
 
                         <Link href="/fasilitas" className={classes.link}>
                             Fasilitas
                         </Link>
 
-                        {/* <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
+                        <HoverCard width={200} position="bottom" radius="md" shadow="md" withinPortal>
                             <HoverCard.Target>
                                 <div className={classes.link}>
                                     <Center inline>
                                         <Box component="span" mr={5}>
                                             Berita
                                         </Box>
-                                        <IconChevronDown size={16} color={theme.colors.blue[6]} />
+                                        <IconChevronDown size={16} />
                                     </Center>
                                 </div>
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-
+                                <DropdownHover data={beritaData}/>
                             </HoverCard.Dropdown>
-                        </HoverCard> */}
+                        </HoverCard>
 
                         <a href="/kontak-kami" className={classes.link}>
                             Hubungi Kami
@@ -180,7 +178,7 @@ export function Header() {
 
                     <Group visibleFrom="md">
                         <UnstyledButton><IconSearch /></UnstyledButton>
-                        <Button color='dark' component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
+                        <Button component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
                     </Group>
 
                     <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="md" />
@@ -239,7 +237,11 @@ export function Header() {
                 onClose={closeDrawer}
                 size="100%"
                 padding="md"
-                title={<Image src="/assets/images/logo.webp" alt="icon" width={100} height={60} />}
+                title={
+                    <Link href={"/"}>
+                        <Image src="/assets/images/logo.webp" alt="icon" width={100} height={60} />
+                    </Link>
+                }
                 hiddenFrom="md"
                 zIndex={1000000}
             >
@@ -254,7 +256,7 @@ export function Header() {
                             leftSection={<IconSearch size={16} stroke={1.5} />}
                             data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
                         />
-                        <Button color='dark' component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
+                        <Button component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
                     </Group>
                 </ScrollArea>
             </Drawer>

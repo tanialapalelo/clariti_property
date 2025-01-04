@@ -68,7 +68,7 @@ export function Footer() {
         <footer className={classes.footer}>
             <Container className={classes.inner} size={'xl'}>
                 <div className={classes.logo}>
-                    <Title styles={{ root: { color: "white" } }} order={3}>Don`&apos;`t miss out, Stay in touch</Title>
+                    <Title styles={{ root: { color: "white" } }} order={3}>Don&apos;t miss out, Stay in touch</Title>
                     <div className={classes.controls}>
                         <TextInput
                             placeholder="Your email"
