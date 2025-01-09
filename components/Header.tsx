@@ -1,16 +1,8 @@
 "use client"
 
+import { beritaData, tentangKamiData } from '@/constants';
+import { Carousel } from '@mantine/carousel';
 import {
-    IconBuilding,
-    IconBuildingBank,
-    IconBuildingStore,
-    IconChevronDown,
-    IconHome,
-    IconMotorbike,
-    IconSearch,
-} from '@tabler/icons-react';
-import {
-    Anchor,
     AspectRatio,
     Autocomplete,
     Box,
@@ -23,16 +15,23 @@ import {
     HoverCard,
     ScrollArea,
     Text,
-    UnstyledButton,
+    UnstyledButton
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import classes from '../styles/Header.module.css';
+import {
+    IconBuilding,
+    IconBuildingBank,
+    IconBuildingStore,
+    IconChevronDown,
+    IconHome,
+    IconMotorbike,
+    IconSearch,
+} from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Carousel } from '@mantine/carousel';
-import { LinksGroup } from './NavbarLinksGroup';
-import { beritaData, tentangKamiData } from '@/constants';
+import classes from '../styles/Header.module.css';
 import DropdownHover from './DropdownHover';
+import { LinksGroup } from './NavbarLinksGroup';
 
 
 export function Header() {
