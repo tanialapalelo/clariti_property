@@ -32,11 +32,21 @@ import Link from 'next/link';
 import classes from '../styles/Header.module.css';
 import DropdownHover from './DropdownHover';
 import { LinksGroup } from './NavbarLinksGroup';
+import { useState } from 'react';
+import SearchModal from './search/SearchModal';
 
 
 export function Header() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     // const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+
+    // Open search modal
+    const openSearchModal = () => setIsSearchOpen(true);
+
+    // Close search modal
+    const closeSearchModal = () => setIsSearchOpen(false);
 
     // const tentangKamiLinks = tentangKamiData.map((item) => (
     //     <UnstyledButton className={classes.subLink} key={item.title}>
@@ -128,7 +138,7 @@ export function Header() {
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                <DropdownHover data={tentangKamiData}/>
+                                <DropdownHover data={tentangKamiData} />
                             </HoverCard.Dropdown>
                         </HoverCard>
 
@@ -145,7 +155,7 @@ export function Header() {
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                <DropdownHover data={beritaData}/>
+                                <DropdownHover data={beritaData} />
                             </HoverCard.Dropdown>
                         </HoverCard>
 
@@ -166,7 +176,7 @@ export function Header() {
                             </HoverCard.Target>
 
                             <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                                <DropdownHover data={beritaData}/>
+                                <DropdownHover data={beritaData} />
                             </HoverCard.Dropdown>
                         </HoverCard>
 
@@ -176,7 +186,9 @@ export function Header() {
                     </Group>
 
                     <Group visibleFrom="md">
-                        <UnstyledButton><IconSearch /></UnstyledButton>
+                        <UnstyledButton onClick={openSearchModal}>
+                            <IconSearch />
+                        </UnstyledButton>                        
                         <Button component={Link} href="tel:+4733378901" variant='filled'>+47 333 78 901</Button>
                     </Group>
 
@@ -259,6 +271,11 @@ export function Header() {
                     </Group>
                 </ScrollArea>
             </Drawer>
+
+
+
+            {/* Search Modal */}
+            {isSearchOpen && <SearchModal close={closeSearchModal} />}
         </Box>
     );
 }
