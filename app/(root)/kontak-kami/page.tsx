@@ -1,53 +1,16 @@
-"use client";
-
-import { Button, Container, Grid, Group, Select, SimpleGrid, Text, Textarea, TextInput, Title } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import Image from "next/image";
-import { IconBrandWhatsapp, IconMail, IconMapPinFilled, IconPhoneFilled } from "@tabler/icons-react";
-import Link from "next/link";
-import TextWithIcon from "@/components/ui/TextWithIcon";
+import Kontak from "@/components/forms/Kontak";
 import TransportationInfo from "@/components/TransportationInfo";
+import TextWithIcon from "@/components/ui/TextWithIcon";
+import { Container, Grid, SimpleGrid, Text, Title } from "@mantine/core";
+import { IconBrandWhatsapp, IconMail, IconMapPinFilled, IconPhoneFilled } from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
 
+export const metadata = {
+  title: 'Hubungi Kami - Clariti',
+  description: 'Halaman Kontak Kami',
+}
 const KontakKami = () => {
-
-  const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference for reCAPTCHA
-
-  const form = useForm({
-    initialValues: {
-      name: "",
-      email: "",
-      mobile: "",
-      city: "",
-      subject: "",
-      message: "",
-    },
-    validate: {
-      name: (value) => (value.length === 0 ? "Invalid name" : null),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-      mobile: (value) => (/^\d+$/.test(value) ? null : "Invalid mobile number"),
-    },
-  });
-
-  const handleSubmit = async (values: typeof form.values) => {
-    // Get reCAPTCHA token
-    const token = await recaptchaRef.current?.executeAsync();
-    recaptchaRef.current?.reset();
-
-    // Send form data and token to API route
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...values, token }),
-    });
-
-    const result = await response.json();
-    console.log(result);
-  };
-
 
   return (
     <>
@@ -77,70 +40,10 @@ const KontakKami = () => {
             Kami selalu ada untuk Anda setiap hari. Jangan ragu untuk mengirim pesan melalui formulir di bawah ini.
           </p>
         </div>
-
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Group grow mb="md">
-            <TextInput
-              placeholder="Masukkan nama"
-              label="Nama"
-              styles={{ label: { color: "white" } }}
-              {...form.getInputProps("name")}
-            />
-            <Select
-              label="Subjek"
-              placeholder="Pilih subjek"
-              styles={{ label: { color: "white" } }}
-              data={["Umum", "Permintaan", "Lainnya"]}
-              {...form.getInputProps("subject")}
-            />
-          </Group>
-
-          <Group grow mb="md">
-            <TextInput
-              placeholder="Masukkan email"
-              label="Email"
-              styles={{ label: { color: "white" } }}
-              {...form.getInputProps("email")}
-            />
-            <TextInput
-              placeholder="Masukkan nomor telepon"
-              label="Mobile"
-              styles={{ label: { color: "white" } }}
-              {...form.getInputProps("mobile")}
-            />
-          </Group>
-
-          <TextInput
-            placeholder="Pilih kota"
-            label="Kota"
-            mb="md"
-            styles={{ label: { color: "white" } }}
-            {...form.getInputProps("city")}
-          />
-
-          <Textarea
-            placeholder="Tuliskan pesan"
-            label="Pesan"
-            minRows={4}
-            mb="md"
-            styles={{ label: { color: "white" } }}
-            {...form.getInputProps("message")}
-          />
-
-          <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-            ref={recaptchaRef}
-          />
-          {/* Submit Button */}
-          {/* <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}> */}
-            <Button type="submit" fullWidth color="blue" radius="xl" size="md" style={{ fontWeight: 600 }}>
-              SUBMIT
-            </Button>
-          {/* </motion.div> */}
-        </form>
+        <Kontak/>
       </Container>
 
-      <Container py={"xl"}>
+      {/* <Container py={"xl"}>
         <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }}>
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Title my={"sm"}>SouthCity Masterplan</Title>
@@ -167,7 +70,7 @@ const KontakKami = () => {
 
           </Grid.Col>
         </Grid>
-      </Container>
+      </Container> */}
 
       <Image src="/assets/images/dekstop-map.gif"
         alt="map"

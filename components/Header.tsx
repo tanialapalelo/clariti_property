@@ -33,7 +33,7 @@ import classes from '../styles/Header.module.css';
 import DropdownHover from './DropdownHover';
 import { LinksGroup } from './NavbarLinksGroup';
 import { useState } from 'react';
-import SearchModal from './search/SearchModal';
+import SearchModal from './shared/SearchModal';
 
 
 export function Header() {

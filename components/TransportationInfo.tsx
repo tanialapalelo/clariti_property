@@ -3,6 +3,7 @@ import { IconBus, IconTrain } from "@tabler/icons-react";
 
 const TransportationInfo = () => {
   return (
+    // pokoknya dibagi 2 cols dan loop sesuai informasi transportasinya bisa apa saja
     <Container fluid pt="xl" style={{ backgroundColor: "#f0f4ff" }}>
       <SimpleGrid cols={2} spacing="xl">
         {/* Column 1 */}

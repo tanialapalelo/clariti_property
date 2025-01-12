@@ -1,0 +1,43 @@
+/* AboutSection.module.css */
+
+/* For the whole section layout */
+.gridContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Styling for the image */
+  .sectionImage {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .sectionImage img {
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  /* Styling for the text */
+  .sectionText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+  
+  .sectionText h3 {
+    margin-bottom: 10px;
+  }
+  
+  /* Media query for mobile responsiveness */
+  @media (max-width: 768px) {
+    .sectionImage {
+      order: 2; /* Image below text on mobile */
+    }
+  
+    .sectionText {
+      order: 1; /* Text above image on mobile */
+    }
+  }
+  
