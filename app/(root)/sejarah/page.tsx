@@ -1,14 +1,11 @@
 import AboutSection from '@/components/AboutSection';
 
-// Section type for individual sections with alternating alignment
 interface Section {
-  title: string; // Title of the section
-  description: string; // Description of the section
-  image: string; // URL of the image
-  alignment: 'left' | 'right'; // Alignment of the content
+  title: string;
+  description: string;
+  image: string;
+  alignment: 'left' | 'right';
 }
-
-// Type for Vision and Mission section
 
 interface VisionMission {
   image: string;
@@ -18,39 +15,48 @@ interface VisionMission {
   mission_description: string;
 }
 
-// Type for the CEO section
 interface CEO {
-  image: string; // URL of the CEO's image
-  title: string; // Title or Name of the CEO
-  description: string; // Description or message from the CEO
+  image: string;
+  title: string;
+  description: string;
 }
 
-// Type for Team Member details
 interface TeamMember {
-  image: string; // URL of the team member's image
-  name: string; // Name of the team member
-  role: string; // Role or designation of the team member
+  image: string;
+  name: string;
+  role: string;
 }
 
-// Props for the AboutSection component
+interface WordPressTeamMember {
+  title: { rendered: string }; // The name of the team member
+  acf: { role: string }; // The role of the team member from ACF
+  _embedded: {
+    'wp:featuredmedia'?: [
+      {
+        source_url: string; // The URL of the featured image
+      }
+    ];
+  };
+}
+
 interface AboutSectionProps {
-  mainTitle: string; // Main title of the page
-  sections: Section; // Array of sections for the alternating content
-  visionMission: VisionMission; // Vision and Mission content
-  ceo: CEO; // CEO information
+  mainTitle: string;
+  sections: Section;
+  visionMission: VisionMission;
+  ceo: CEO;
   superHeroTitle: string; 
   superHeroDescription: string;
-  teamMembers: TeamMember[]; // Array of team members
+  teamMembers: TeamMember[];
 }
 
 async function fetchTeamMembers(): Promise<TeamMember[]> {
   const res = await fetch(`${process.env.WORDPRESS_URL}/team_member?_embed`);
-  const data = await res.json();
-  console.log("dataaa", data);
+  const data: WordPressTeamMember[] = await res.json();
+  
   return data.map((member: any) => ({
-    image: member._embedded['wp:featuredmedia']?.[0]?.source_url || '', // Image URL
-    name: member.title.rendered, // Team member name
-    role: member.acf.role, // Role from ACF
+    image: member._embedded['wp:featuredmedia']?.[0]?.source_url || '',
+    name: member.title.rendered,
+    role: member.acf.role,
   }));
 }
 
@@ -75,8 +81,8 @@ async function fetchAboutData(): Promise<Omit<AboutSectionProps, 'teamMembers'>>
 }
 
 const AboutUsPage = async () => {
-  const aboutDataPromise = fetchAboutData(); // Fetch About Us page data
-  const teamMembersPromise = fetchTeamMembers(); // Fetch team members
+  const aboutDataPromise = fetchAboutData();
+  const teamMembersPromise = fetchTeamMembers();
 
   const [aboutData, teamMembers] = await Promise.all([aboutDataPromise, teamMembersPromise]);
 

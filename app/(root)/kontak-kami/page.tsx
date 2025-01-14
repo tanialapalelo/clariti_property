@@ -1,10 +1,7 @@
 import Kontak from "@/components/forms/Kontak";
 import TransportationInfo from "@/components/TransportationInfo";
-import TextWithIcon from "@/components/ui/TextWithIcon";
-import { Container, Grid, SimpleGrid, Text, Title } from "@mantine/core";
-import { IconBrandWhatsapp, IconMail, IconMapPinFilled, IconPhoneFilled } from "@tabler/icons-react";
+import { Container, Title } from "@mantine/core";
 import Image from "next/image";
-import Link from "next/link";
 
 export const metadata = {
   title: 'Hubungi Kami - Clariti',
