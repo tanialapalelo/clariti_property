@@ -53,7 +53,7 @@ async function fetchTeamMembers(): Promise<TeamMember[]> {
   const res = await fetch(`${process.env.WORDPRESS_URL}/team_member?_embed`);
   const data: WordPressTeamMember[] = await res.json();
   
-  return data.map((member: any) => ({
+  return data.map((member) => ({
     image: member._embedded['wp:featuredmedia']?.[0]?.source_url || '',
     name: member.title.rendered,
     role: member.acf.role,
