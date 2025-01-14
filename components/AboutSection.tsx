@@ -31,12 +31,14 @@ interface AboutSectionProps {
   sections: Section;
   visionMission: VisionMission;
   ceo: { image: string; title: string; description: string };
-  teamMembers: TeamMember;
+  superHeroTitle: string; 
+  superHeroDescription: string;
+  teamMembers: TeamMember[];
 }
 
-const AboutSection = ({ mainTitle, sections, visionMission, ceo, teamMembers }: AboutSectionProps) => {
+const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle, superHeroDescription, teamMembers }: AboutSectionProps) => {
   return (
-    <div>
+    <>
 
       <Title
         order={1}
@@ -91,35 +93,33 @@ const AboutSection = ({ mainTitle, sections, visionMission, ceo, teamMembers }: 
       </Grid>
 
       <Section
-        title="Meet Our Superheroes"
-        description="Tim manajemen SouthCity adalah bagian terpenting yang memimpin perusahaan untuk dapat terus berkembang dan merealisasikan tujuan kami. SouthCity tidak akan terwujud tanpa adanya tim kami."
+        title={superHeroTitle}
+        description={superHeroDescription}
       />
 
       <SimpleGrid cols={{ base: 1, sm: 4 }} spacing={'xs'} mb={'xl'}>
-        {/* {superHeroes.map(hero => { */}
-        {/* return  */}
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 1 * 0.2 }}
-        >
-          <Superheroes key={teamMembers.name} name={teamMembers.name} title={teamMembers.role} image={"/assets/images/sofini-periatna.jpg"} />
+        {teamMembers.map((member, index) => (
+
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 1 * 0.2 }}
+          >
+
+            <Superheroes
+              key={member.name}
+              name={member.name}
+              title={member.role}
+              image={member.image}
+            />
           </motion.div>
-          
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 1 * 0.2 }}
-        >
-          <Superheroes key={teamMembers.name} name={teamMembers.name} title={teamMembers.role} image={"/assets/images/sofini-periatna.jpg"} />
-          </motion.div>
-          <Superheroes key={teamMembers.name} name={teamMembers.name} title={teamMembers.role} image={"/assets/images/sofini-periatna.jpg"} />
-          <Superheroes key={teamMembers.name} name={teamMembers.name} title={teamMembers.role} image={"/assets/images/sofini-periatna.jpg"} />
-        
+
+        ))}
         {/* })} */}
       </SimpleGrid>
-    </div>
+    </>
   );
 };
 
