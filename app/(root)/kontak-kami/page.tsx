@@ -1,5 +1,6 @@
 import Kontak from "@/components/forms/Kontak";
 import TransportationInfo from "@/components/TransportationInfo";
+import VisitUs from "@/components/VisitUs";
 import { Container, Title } from "@mantine/core";
 import Image from "next/image";
 
@@ -7,7 +8,83 @@ export const metadata = {
   title: 'Hubungi Kami - Clariti',
   description: 'Halaman Kontak Kami',
 }
-const KontakKami = () => {
+
+type Transportation = {
+  title: string;
+  content: string;
+};
+
+type WordPressTransportation = {
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
+};
+
+type MarketingGallery = {
+  title: string;
+  description: string;
+  address: string;
+  address_map: string;
+  whatsapp_number: string;
+  phone_number: string;
+  email: string;
+};
+
+interface ContactUsProps {
+  mainTitle: string;
+  mapImage: string;
+  transportations: Transportation[];
+}
+
+
+async function fetchMarketingGallery(): Promise<MarketingGallery> {
+  const res = await fetch(`${process.env.WORDPRESS_URL}/visit_us_detail?slug=marketing-gallery`);
+  const data = await res.json();
+  const content = data[0].acf;;
+  
+  return {
+    title: data[0].title.rendered,
+    address: content.address,
+    address_map: content.address_map,
+    whatsapp_number: content.whatsapp_number,
+    phone_number: content.phone_number,
+    email: content.email,
+    description: content.description,
+  };
+}
+
+async function fetchTransportation(): Promise<Transportation[]> {
+  const res = await fetch(`${process.env.WORDPRESS_URL}/transportation?_embed`);
+  const data: WordPressTransportation[] = await res.json();
+
+  return data.map((transport) => ({
+    title: transport.title.rendered,
+    content: transport.content.rendered,
+  }));
+}
+
+async function fetchContactUsData(): Promise<Omit<ContactUsProps, 'transportations'>> {
+  const res = await fetch(`${process.env.WORDPRESS_URL}/pages?slug=contact-us&acf_format=standard`, {
+    next: { revalidate: 10 },
+  });
+  const data = await res.json();
+  const content = data[0].acf;
+  return {
+    mainTitle: content.main_title,
+    mapImage: content.map_image.url,
+  };
+}
+
+
+const KontakKami = async () => {
+  const contactUsPromise = await fetchContactUsData();
+  const transportationPromise = await fetchTransportation();
+  const marketingPromise = await fetchMarketingGallery();
+  
+  const [contactUsData, transportations, marketingGallery] = await Promise.all([contactUsPromise, transportationPromise, marketingPromise]);
 
   return (
     <>
@@ -19,7 +96,7 @@ const KontakKami = () => {
           margin: "2.5rem 0",
         }}
       >
-        We Are Here To Help
+        {contactUsData.mainTitle}
       </Title>
       <Container fluid p="xl" style={{ backgroundColor: "#0E1E40" }}>
         <div>
@@ -40,43 +117,17 @@ const KontakKami = () => {
         <Kontak/>
       </Container>
 
-      {/* <Container py={"xl"}>
-        <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }}>
-          <Grid.Col span={{ base: 12, md: 6 }}>
-            <Title my={"sm"}>SouthCity Masterplan</Title>
-            <Text>SouthCity merupakan kawasan 57 hektar yang disiapkan untuk pengembangan proyek hunian, pusat komersial, dan perhotelan yang akan hadir di masa mendatang. Terletak di lokasi yang strategis di Jakarta Selatan, Cinere dan Pondok Cabe serta memiliki kemudahan akses menuju tol Depok-Antasari (gerbang tol Limo), tol Cinere-Jagorawi (gerbang tol Pamulang), dan tol Antasari-Brigif (gerbang tol Brigif). Selain itu berbagai pilihan transportasi umum juga tersedia di dalam kawasan SouthCity dengan dibangunnya halte TransJakarta serta adanya MRT di Lebak Bulus dan Fatmawati.</Text>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6 }}>
-            <Title my={"sm"}>Marketing Galery</Title>
-            <SimpleGrid cols={2}>
-              <div>
-                <IconMapPinFilled size={22} />
-                <Text>Jl. Raya SouthCity Utara, Lot 5 No. 12, Pondok Cabe, Tangerang Selatan, Banten 15418, Indonesia</Text>
-                <Link href="https://maps.app.goo.gl/cQ5d73izkWdnabXD6?g_st=ic">Open in Google Maps</Link>
-              </div>
+      <VisitUs data={marketingGallery}
+      />
 
-              <div>
-                <TextWithIcon icon={<IconBrandWhatsapp size={22} />} label="+62 818 0621 8999" />
-                <TextWithIcon icon={<IconPhoneFilled size={22} />} label="+62 21 749 8999" />
-                <TextWithIcon icon={<IconMail size={22} />} label="info@southcity.co.id" />
-                <TextWithIcon icon={<IconMail size={22} />} label="recruitment@southcity.co.id" />
-
-              </div>
-
-            </SimpleGrid>
-
-          </Grid.Col>
-        </Grid>
-      </Container> */}
-
-      <Image src="/assets/images/dekstop-map.gif"
+      <Image src={contactUsData.mapImage}
         alt="map"
         width={1200}
         height={600}
         layout="responsive"
         unoptimized
       />
-      <TransportationInfo/>
+      <TransportationInfo data={transportations} />
     </>
   );
 };

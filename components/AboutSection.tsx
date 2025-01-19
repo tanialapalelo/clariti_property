@@ -1,9 +1,11 @@
 "use client"
 
-import { Grid, Image, SimpleGrid, Text, Title } from '@mantine/core';
+import { getGradient, Grid, SimpleGrid, Text, Title, useMantineTheme } from '@mantine/core';
 import { motion } from 'framer-motion';
 import Section from './Section';
 import Superheroes from './SuperHeroes';
+import Image from 'next/image';
+import classes from '../styles/AboutSection.module.css';
 
 interface Section {
   title: string;
@@ -30,15 +32,17 @@ interface AboutSectionProps {
   mainTitle: string;
   sections: Section;
   visionMission: VisionMission;
-  ceo: { image: string; title: string; description: string };
-  superHeroTitle: string; 
+  ceo: { image: string; title: string; name: string, description: string };
+  superHeroTitle: string;
   superHeroDescription: string;
   teamMembers: TeamMember[];
 }
 
 const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle, superHeroDescription, teamMembers }: AboutSectionProps) => {
+  console.log("AboutSection", sections)
+  const theme = useMantineTheme();
   return (
-    <>
+    <div>
 
       <Title
         order={1}
@@ -47,7 +51,6 @@ const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle,
           textAlign: "center",
           padding: "100px",
           backgroundColor: "#f0f4ff",
-          color: "#000000",
         }}
       >
         {mainTitle}
@@ -58,36 +61,60 @@ const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle,
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Grid gutter="xl" my="lg">
-          <Grid.Col span={6} order={sections.alignment === 'left' ? 1 : 2}>
-            <Image src={"/assets/images/sofini-periatna.jpg"} alt={sections.title} />
+        <Grid gutter={0}>
+          <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 2, md: 1 }}>
+            <div style={{ position: "relative", width: "100%", height: "400px" }}>
+              <Image
+                src={sections.image}
+                alt={sections.title}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
           </Grid.Col>
-          <Grid.Col span={6} order={sections.alignment === 'left' ? 2 : 1}>
-            <Title order={3} ta={"center"}
-              my={'xl'}>{sections.title}</Title>
-
-            <Text>{sections.description}</Text>
+          <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 1, md: 2 }} p={{ base: "xs", md: 'xl' }} bg={"#0E2244"}>
+            <Title order={3} ta={"center"} m={"xl"} style={{ color: "#FFFFFF" }}>{sections.title}</Title>
+            <Text m={'xl'} style={{ color: "#FFFFFF" }}>{sections.description}</Text>
           </Grid.Col>
         </Grid>
       </motion.div>
 
-      <Grid gutter="xl" my="lg">
-        <Grid.Col span={6}>
-          <Image src={"/assets/images/sofini-periatna.jpg"} alt="Vision and Mission" />
+      <Grid gutter={0}>
+        <Grid.Col span={{ base: 12, md: 6 }} p={{ base: "xs", md: 'xl' }}>
+          <Title order={3} m={"xl"}>{visionMission.vision_title}</Title>
+          <Text m={"xl"}>{visionMission.vision_description}</Text>
+          <Title order={3} m={"xl"}>{visionMission.mission_title}</Title>
+          <Text m={"xl"}>{visionMission.mission_description}</Text>
         </Grid.Col>
-        <Grid.Col span={6}>
-          <Title order={3}>{visionMission.vision_title}</Title>
-          <Text>{visionMission.vision_description}</Text>
-          <Title order={3} mt="lg">{visionMission.mission_title}</Title>
-          <Text>{visionMission.mission_description}</Text>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+
+          <div style={{ position: "relative", width: "100%", height: "500px" }}>
+            <Image
+              src={visionMission.image}
+              alt={visionMission.vision_title}
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
         </Grid.Col>
       </Grid>
-      <Grid gutter="xl" my="lg">
-        <Grid.Col span={6}>
-          <Image src={"/assets/images/sofini-periatna.jpg"} alt="CEO" />
+
+      <Grid gutter={0} bg={getGradient({ deg: 50, from: '#F6F7F8', to: '#F6F7F8' }, theme)}>
+        <Grid.Col span={{ base: 12, md: 3 }} order={{ base: 3, md: 1 }} >
+          <div
+            style={{ display: 'flex', justifyContent: 'center' }}>
+
+            <Image src={ceo.image} alt="CEO"
+              width={250}
+              height={400}
+            />
+          </div>
         </Grid.Col>
-        <Grid.Col span={6}>
-          <Title order={3}>{ceo.title}</Title>
+        <Grid.Col span={{ base: 12, md: 4 }} order={{ base: 1, md: 2 }} p={{ base: "xs", md: 'xl' }}>
+          <Title order={3} style={{ marginBottom: "10px" }}>{ceo.title}</Title>
+          <Text>{ceo.name} - Chief Executive Officer</Text>
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 5 }} order={{ base: 2, md: 3 }} p={{ base: "xs", md: 'xl' }}>
           <Text>{ceo.description}</Text>
         </Grid.Col>
       </Grid>
@@ -119,7 +146,7 @@ const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle,
         ))}
         {/* })} */}
       </SimpleGrid>
-    </>
+    </div>
   );
 };
 

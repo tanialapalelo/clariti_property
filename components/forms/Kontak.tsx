@@ -2,13 +2,36 @@
 
 import { Button, Group, Select, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
-
 const Kontak = () => {
-
+    const [cities, setCities] = useState<string[]>([]); // State to store cities data
     const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference for reCAPTCHA
+    
+    // Fetch cities data when the component mounts
+    useEffect(() => {
+        const fetchCities = async () => {
+            try {
+                // Check if the API URL is defined
+                const cityApiUrl = process.env.NEXT_PUBLIC_CITY_API;
+
+                if (!cityApiUrl) {
+                    throw new Error("CITY_API URL is not defined.");
+                }
+
+                const res = await fetch(cityApiUrl);
+                const data = await res.json();
+                const cityNames = data.map((city: any) => city.name); // Extract the city names
+                setCities(cityNames); // Set city names to state
+            } catch (error) {
+                console.error("Failed to fetch cities:", error);
+            }
+        };
+
+        fetchCities(); // Call the function
+    }, []); // Empty dependency array ensures it runs once when the component mounts
+
 
     const form = useForm({
         initialValues: {
@@ -78,11 +101,12 @@ const Kontak = () => {
                         {...form.getInputProps("mobile")}
                     />
                 </Group>
-
-                <TextInput
-                    placeholder="Pilih kota"
+                
+                <Select
                     label="Kota"
-                    mb="md"
+                    placeholder="Pilih kota"
+                    data={cities}
+                    searchable
                     styles={{ label: { color: "white" } }}
                     {...form.getInputProps("city")}
                 />

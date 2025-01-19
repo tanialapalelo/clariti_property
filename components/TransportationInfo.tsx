@@ -1,76 +1,61 @@
-import { Container, SimpleGrid, Title } from "@mantine/core";
-import { IconBus, IconTrain } from "@tabler/icons-react";
+"use client"
 
-const TransportationInfo = () => {
+import { Grid, Title } from '@mantine/core';
+import { IconBike, IconBus, IconCar, IconQuestionMark, IconShip, IconTrain, IconWalk } from '@tabler/icons-react';
+import React from 'react';
+
+type Transportation = {
+  title: string;
+  content: string;
+};
+
+interface TransportationInfoProps {
+  data: Transportation[];
+}
+
+const transportationIconMap: Record<string, React.FC<any>> = {
+  MRT: IconTrain,
+  Busway: IconBus,
+  'Regular Bus': IconBus,
+  'Commuter Line': IconTrain,
+  Car: IconCar,
+  Bicycle: IconBike,
+  Walking: IconWalk,
+  Ferry: IconShip,
+  Default: IconQuestionMark,
+};
+
+const getTransportationIcon = (type: string) => {
+  return transportationIconMap[type] || transportationIconMap.Default;
+};
+
+
+const TransportationInfo: React.FC<TransportationInfoProps> = ({ data }) => {
   return (
-    // pokoknya dibagi 2 cols dan loop sesuai informasi transportasinya bisa apa saja
-    <Container fluid pt="xl" style={{ backgroundColor: "#f0f4ff" }}>
-      <SimpleGrid cols={2} spacing="xl">
-        {/* Column 1 */}
-        <div>
-          <Title order={3} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <IconBus size={28} />
-            Busway
-          </Title>
-          <ul style={{ marginTop: "0.5rem", paddingLeft: "1.5rem" }}>
-            <li>SouthCity - Kuningan</li>
-            <li>SouthCity - Lebak Bulus</li>
-            <li>Pondok Cabe - Tanah Abang</li>
-            <li>Harmoni - Terminal Lebak Bulus: TransJakarta Koridor 8 (7.8 km dari SouthCity)</li>
-            <li>Kota - Ciputat: APTB (4.2 km dari SouthCity)</li>
-          </ul>
-        </div>
+    <Grid gutter={0} bg={"#E6F0FD"}>
+      {/* Render each category dynamically */}
+      {data.map((transport, index) => {
 
-        {/* Column 2 */}
-        <div>
-          <Title order={3} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <IconBus size={28} />
-            Regular Bus
-          </Title>
-          <ul style={{ marginTop: "0.5rem", paddingLeft: "1.5rem" }}>
-            <li>Kota - Terminal Lebak Bulus: PPD AC PAC 01, Kopaja B 86</li>
-            <li>Tanah Abang - Terminal Lebak Bulus: Kopaja P 13, Kopaja S 615</li>
-            <li>Senen - Terminal Lebak Bulus: Kopaja P 20</li>
-            <li>Blok M - Terminal Lebak Bulus: Metromini S 72</li>
-          </ul>
-        </div>
-      </SimpleGrid>
+        const Icon = getTransportationIcon(transport.title);
+        return (
+          <Grid.Col key={index} span={{ base: 12, md: 6 }} p={{ base: "xs", md: "xl" }}>
+            <div>
 
-      <SimpleGrid cols={2} spacing="xl" mt="xl">
-        {/* Column 1 */}
-        <div>
-          <Title order={3} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <IconTrain size={28} />
-            Commuter Line
-          </Title>
-          <ul style={{ marginTop: "0.5rem", paddingLeft: "1.5rem" }}>
-            <li>Sudimara Station (11.9 km dari SouthCity)</li>
-            <li>Jurangmangu Station (10 km dari SouthCity)</li>
-            <li>Tanah Abang - Terminal Lebak Bulus: Kopaja P 13, Kopaja S 615</li>
-            <li>Jurangmangu Station (10 km dari SouthCity)</li>
-            <li>Blok M - Terminal Lebak Bulus: Metromini S 72</li>
-            <li>Jurangmangu Station (10 km dari SouthCity)</li>
-            <li>Tanah Abang - Terminal Lebak Bulus: Kopaja P 13, Kopaja S 615</li>
-            <li>Blok M - Terminal Lebak Bulus: Metromini S 72</li>
-            <li>Jurangmangu Station (10 km dari SouthCity)</li>
-            <li>Tanah Abang - Terminal Lebak Bulus: Kopaja P 13, Kopaja S 615</li>
-            <li>Jurangmangu Station (10 km dari SouthCity)</li>
-          </ul>
-        </div>
 
-        {/* Column 2 */}
-        <div>
-          <Title order={3} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <IconTrain size={28} />
-            MRT
-          </Title>
-          <ul style={{ marginTop: "0.5rem", paddingLeft: "1.5rem" }}>
-            <li>Bundaran HI - Lebak Bulus MRT Station</li>
-            <li>Bundaran HI - Fatmawati MRT Station</li>
-          </ul>
-        </div>
-      </SimpleGrid>
-    </Container>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Icon size={36} />
+                <Title order={3} m={"sm"}>{transport.title}</Title>
+              </div>
+
+              <div
+                dangerouslySetInnerHTML={{ __html: transport.content }}
+              />
+            </div>
+          </Grid.Col>
+        );
+      })}
+    </Grid>
+    // </div>
   );
 };
 
