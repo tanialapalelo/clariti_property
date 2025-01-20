@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 import WhatsAppAction from "@/components/ui/WhatsAppAction";
 
 // children as props, and children are of a type React.ReactNode
@@ -18,6 +19,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </div>
             </main>
             <Footer />
+            <ScrollToTop/>
             <WhatsAppAction/>
         </div>
     );

@@ -1,20 +1,28 @@
+"use client"
+
 import { Container } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import ArticleCard from './ArticleCard';
-import { dataBerita } from '@/constants';
-
 
 interface Article {
+  id: string;
   title: string;
-  image: string;
+  excerpt: string;
+  featuredImage: string;
+  category: string;
+  slug: string;
   date: string;
 }
 
-export function CardsCarousel() {
+interface CardsCarouselProps {
+  berita: Article[];
+}
+
+export function CardsCarousel({ berita }: CardsCarouselProps) {
   // Group dataBerita into chunks of 3 using reduce for better readability
   const chunkedData: Article[][] = [];
-  for (let i = 0; i < dataBerita.length; i += 3) {
-    chunkedData.push(dataBerita.slice(i, i + 3));
+  for (let i = 0; i < berita.length; i += 3) {
+    chunkedData.push(berita.slice(i, i + 3));
   }
 
 

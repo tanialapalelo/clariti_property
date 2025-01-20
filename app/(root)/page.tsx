@@ -5,7 +5,7 @@ import { Hero } from "@/components/Hero";
 import HoverableIconsWithPopup from "@/components/HoverableIconsWithPopup";
 import Section from "@/components/Section";
 import RadiusButton from "@/components/ui/RadiusButton";
-import { strategyPlaces } from "@/constants";
+import { mockPosts, strategyPlaces } from "@/constants";
 import { Container, Grid, SimpleGrid, Text, Title } from "@mantine/core";
 import Image from "next/image";
 
@@ -65,7 +65,7 @@ export default function Home() {
         layout="responsive"
         />
       <Section title="Miss Us Already? Don't Worry" description="Kami akan selalu memberikan berita, kabar terbaru, acara, serta promosi dan informasi menarik lainnya kepada Anda. Cari tahu lebih lanjut mengenai aktivitas kami lainnya." />
-      <CardsCarousel />
+      <CardsCarousel berita={mockPosts}/>
       <Container
         styles={{
           root: {

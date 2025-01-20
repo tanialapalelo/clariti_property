@@ -78,14 +78,13 @@ async function fetchContactUsData(): Promise<Omit<ContactUsProps, 'transportatio
   };
 }
 
-
 const KontakKami = async () => {
   const contactUsPromise = await fetchContactUsData();
   const transportationPromise = await fetchTransportation();
   const marketingPromise = await fetchMarketingGallery();
   
   const [contactUsData, transportations, marketingGallery] = await Promise.all([contactUsPromise, transportationPromise, marketingPromise]);
-
+  
   return (
     <>
       <Title

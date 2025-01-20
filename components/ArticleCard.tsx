@@ -1,28 +1,56 @@
-import { AspectRatio, Card, Image, Text } from '@mantine/core';
-import Link from 'next/link';
-import classes from '../styles/ArticleCard.module.css';
+import { AspectRatio, Card, Image, Text } from "@mantine/core";
+import Link from "next/link";
+import classes from "../styles/ArticleCard.module.css";
+import { motion } from "framer-motion";
 
 interface ArticleProps {
   title: string;
   date: string;
-  image: string;
+  category: string;
+  slug: string;
+  featuredImage: string;
 }
 
-const ArticleCard = ({ title, date, image }: ArticleProps) => {
+const ArticleCard = ({
+  title,
+  date,
+  category,
+  slug,
+  featuredImage,
+}: ArticleProps) => {
   return (
-    <Card mx="auto" radius="md" className={classes.card} style={{ flex: 1, minWidth: '30%', maxWidth: '30%', height: '350px' }}>
-      <AspectRatio ratio={1920 / 1920}>
-        <Image src={image} alt={title} />
-      </AspectRatio>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px' }}>
-        <Text c="dimmed" size="xs" tt="uppercase" fw={700}>
+    <Card mx="auto" radius="md" style={{ width: "350px", height: "350px" }}>
+      
+      <Link href={`/berita/${slug}`} passHref>
+        <AspectRatio ratio={1080 / 720} style={{ overflow: "hidden" }}>
+          <motion.div
+            whileHover={{ scale: 1.05 }} // Scale up on hover
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+            <Image src={featuredImage} alt={title} />
+          </motion.div>
+        </AspectRatio>
+      </Link>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "12px",
+        }}
+      >
+        <Text c="dimmed" size="xs" tt="uppercase" fw={400}>
+          {category}
+        </Text>
+        <Text c="dimmed" size="xs" tt="uppercase" fw={400}>
           {date}
         </Text>
       </div>
-      <Text className={classes.title} mt={5}>
+      <Text className={classes.title} mt={5} lineClamp={2} component="a" href={`/berita/${slug}`}>
         {title}
       </Text>
-      <Link href="/tes">Read More</Link>
+      <Link href={`/berita/${slug}`}>Read More</Link>
     </Card>
   );
 };
