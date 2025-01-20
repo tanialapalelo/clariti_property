@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import Section from './Section';
 import Superheroes from './SuperHeroes';
 import Image from 'next/image';
-import classes from '../styles/AboutSection.module.css';
 
 interface Section {
   title: string;
@@ -39,7 +38,7 @@ interface AboutSectionProps {
 }
 
 const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle, superHeroDescription, teamMembers }: AboutSectionProps) => {
-  console.log("AboutSection", sections)
+  
   const theme = useMantineTheme();
   return (
     <div>

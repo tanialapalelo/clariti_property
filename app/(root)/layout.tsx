@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import Header from "@/components/Header";
+
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import WhatsAppAction from "@/components/ui/WhatsAppAction";
 
