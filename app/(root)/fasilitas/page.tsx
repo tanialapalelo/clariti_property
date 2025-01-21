@@ -1,13 +1,10 @@
 "use client";
 
 import {
-  Button,
-  Grid,
-  Image,
-  Paper,
-  SimpleGrid,
-  Text,
-  Title,
+    Grid,
+    Image,
+    Text,
+    Title
 } from "@mantine/core";
 
 const Fasilitas = () => {

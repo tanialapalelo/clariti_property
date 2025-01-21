@@ -20,7 +20,9 @@ interface CardsCarouselProps {
 }
 
 export function CardsCarousel({ berita }: CardsCarouselProps) {
+  // Initialize autoplay only once
   const autoplay = useRef(Autoplay({ delay: 5000 }));
+
   // Group dataBerita into chunks of 3 using reduce for better readability
   const chunkedData: Article[][] = [];
   for (let i = 0; i < berita.length; i += 3) {

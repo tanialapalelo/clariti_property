@@ -2,7 +2,6 @@
 
 import { ProjectData } from "@/lib/shared.types";
 import {
-  AspectRatio,
   Center,
   Container,
   Grid,
@@ -10,7 +9,7 @@ import {
   SimpleGrid,
   Tabs,
   Text,
-  Title,
+  Title
 } from "@mantine/core";
 import { useState } from "react";
 

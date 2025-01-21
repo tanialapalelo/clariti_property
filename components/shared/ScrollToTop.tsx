@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionIcon, Affix, Button, Transition } from "@mantine/core";
+import { ActionIcon, Affix, Transition } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import { IconArrowUp } from "@tabler/icons-react";
 
