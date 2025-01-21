@@ -5,6 +5,11 @@ import { useForm } from "@mantine/form";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
+interface Province {
+    id: string;
+    name: string;
+  }
+  
 const Kontak = () => {
     const [cities, setCities] = useState<string[]>([]); // State to store cities data
     const recaptchaRef = useRef<ReCAPTCHA>(null); // Reference for reCAPTCHA
@@ -22,7 +27,7 @@ const Kontak = () => {
 
                 const res = await fetch(cityApiUrl);
                 const data = await res.json();
-                const cityNames = data.map((city: any) => city.name); // Extract the city names
+                const cityNames = data.map((city: Province) => city.name); // Extract the city names
                 setCities(cityNames); // Set city names to state
             } catch (error) {
                 console.error("Failed to fetch cities:", error);

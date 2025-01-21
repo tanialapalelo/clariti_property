@@ -36,11 +36,17 @@ import { useState } from 'react';
 import SearchModal from './shared/SearchModal';
 import ProjectNavigation from './ProjectNavigation';
 
+interface Project {
+id: number;
+name: string;
+slug: string;
+type: string;
+}
 
 interface HeaderLayoutProps {
-    projects: any[]; // Adjust type if needed
-  }
-  
+projects: Project[];
+}
+
   export function HeaderLayout({ projects }: HeaderLayoutProps) {
     console.log("projets", projects)
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);

@@ -6,7 +6,6 @@ import {
   Center,
   Grid,
   Pagination,
-  SimpleGrid,
   Tabs,
   Title
 } from "@mantine/core";

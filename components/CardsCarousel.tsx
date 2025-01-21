@@ -1,8 +1,8 @@
 "use client";
 
 import { Carousel } from "@mantine/carousel";
-import Autoplay from "embla-carousel-autoplay";
-import { useRef } from "react";
+// import Autoplay from "embla-carousel-autoplay";
+// import { useRef } from "react";
 import ArticleCard from "./ArticleCard";
 
 interface Article {
@@ -21,7 +21,7 @@ interface CardsCarouselProps {
 
 export function CardsCarousel({ berita }: CardsCarouselProps) {
   // Initialize autoplay only once
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
+  // const autoplay = useRef(Autoplay({ delay: 5000 }));
 
   // Group dataBerita into chunks of 3 using reduce for better readability
   const chunkedData: Article[][] = [];
@@ -36,9 +36,9 @@ export function CardsCarousel({ berita }: CardsCarouselProps) {
       slideSize="100%"
       align="start"
       loop
-      plugins={[autoplay.current]}
-      onMouseEnter={autoplay.current.stop}
-      onMouseLeave={autoplay.current.reset}
+      // plugins={[autoplay.current]}
+      // onMouseEnter={autoplay.current.stop}
+      // onMouseLeave={autoplay.current.reset}
     >
       {chunkedData.map((group, index) => (
         <Carousel.Slide key={index}>

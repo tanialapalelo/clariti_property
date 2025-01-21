@@ -1,8 +1,11 @@
 import { HeaderLayout } from './HeaderLayout';
 
-interface HeaderProps {
-  projects: any[]; 
-}
+
+type HeaderProps = {
+  title: {
+    rendered: string;
+  };
+};
 
 const Header = async () => {
   try {
@@ -10,11 +13,10 @@ const Header = async () => {
     const data = await res.json();
 
     // Ensure that you're extracting the rendered content from each project
-    const projects = data.map((project: any) => {
+    const projects = data.map((project: HeaderProps) => {
       // Check if `rendered` exists and safely extract its content
       return {
         title: project.title?.rendered || 'Untitled Project',
-        description: project.excerpt?.rendered || 'No description available',
         // Add more fields as necessary
       };
     });

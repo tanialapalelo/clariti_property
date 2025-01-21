@@ -72,7 +72,7 @@ const ProyekPage = async ({
 }: {
   params: { slug: string };
 }) => {
-  
+  console.log(params);
   // const projectPromise = fetchProjectData(params.slug);
   // const [project] = await Promise.all([projectPromise]);
 
