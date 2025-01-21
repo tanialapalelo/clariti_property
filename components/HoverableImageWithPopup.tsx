@@ -4,10 +4,9 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { IconBarbellFilled, IconHomeFilled, IconShoppingCartFilled, IconWifi } from '@tabler/icons-react';
 
-const HoverableIconsWithPopup = () => {
+const HoverableImageWithPopup = () => {
   const [opened, setOpened] = useState<string | null>(null);
 
-  // Icon data with title, description, and read more link
   const iconData = [
     {
       id: 'home',
@@ -66,15 +65,23 @@ const HoverableIconsWithPopup = () => {
           withArrow
           radius="md"
           shadow="lg"
+          trapFocus={false}
+          closeOnEscape={false}
         >
           {/* Icon Trigger */}
           <Popover.Target>
             <motion.div
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              onHoverStart={() => setOpened(data.id)}
-              onHoverEnd={() => setOpened(null)}
-              style={{ cursor: 'pointer' }}
+              onMouseEnter={() => setOpened(data.id)}
+              onMouseLeave={() => setTimeout(() => setOpened(null), 300)} // Prevent flickering
+              style={{
+                position: 'absolute',
+                left: data.x,
+                top: data.y,
+                transform: 'translate(-50%, -50%)',
+                cursor: 'pointer',
+              }}
             >
               <ActionIcon
                 variant="gradient"
@@ -90,11 +97,14 @@ const HoverableIconsWithPopup = () => {
 
           {/* Popup Content */}
           <Popover.Dropdown
+            onMouseEnter={() => setOpened(data.id)}
+            onMouseLeave={() => setOpened(null)}
             style={{
               background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
               color: 'white',
               padding: '16px',
-              borderRadius: '12px'
+              borderRadius: '12px',
+              maxWidth: '250px',
             }}
           >
             <Box>
@@ -124,4 +134,4 @@ const HoverableIconsWithPopup = () => {
   );
 };
 
-export default HoverableIconsWithPopup;
+export default HoverableImageWithPopup;

@@ -1,29 +1,44 @@
-// ProjectPagination.tsx
-"use client";
+import { Grid, Title } from "@mantine/core";
+import Link from "next/link";
 
-import { Box, Pagination, Text } from '@mantine/core';
-
-interface ProjectPaginationProps {
-  projects: any[]; // Adjust type as needed
+interface Project {
+  id: number;
+  name: string;
+  slug: string;
+  type: string;
 }
 
-const ProjectNavigation = ({ projects }: ProjectPaginationProps) => {
-  const itemsPerPage = 5; // Adjust this to fit your pagination requirements
-  const totalPages = Math.ceil(projects.length / itemsPerPage);
+interface ProjectNavigationProps {
+  projects: Project[];
+}
+
+const ProjectNavigation = ({ projects }: ProjectNavigationProps) => {
+  // Group projects by type
+  const groupedProjects = projects.reduce((acc, project) => {
+    if (!acc[project.type]) {
+      acc[project.type] = [];
+    }
+    acc[project.type].push(project);
+    return acc;
+  }, {} as Record<string, Project[]>);
 
   return (
-    <Box>
-      {/* Render your projects */}
-      {projects.slice(0, itemsPerPage).map((project, index) => (
-        <Box key={index}>
-          <Text>{project.title}</Text>
-          {/* Other project details */}
-        </Box>
-      ))}
+    <Grid gutter={{ base: 5, xs: "md", md: "xl", xl: 50 }}>
+      {Object.entries(groupedProjects).map(([type, projects]) => (
+        <Grid.Col span={{ base: 12, md: 6 }} key={type}>
+          <Title my={"sm"} size={"sm"} c={"#444444"}>{type}</Title>
 
-      {/* Render pagination controls */}
-      <Pagination total={totalPages} />
-    </Box>
+            <ul>
+            {projects.map((project) => (
+              <li key={project.id}>
+                <Link href={`/proyek/${project.slug}`} >{project.name}</Link>
+                </li>
+            ))}
+            </ul>
+          
+        </Grid.Col>
+      ))}
+    </Grid>
   );
 };
 

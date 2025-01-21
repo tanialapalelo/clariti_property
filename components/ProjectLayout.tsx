@@ -1,18 +1,31 @@
-"use client"
+"use client";
 
-import { Center, Grid, Image, Tabs, Text, Title } from "@mantine/core";
+import { ProjectData } from "@/lib/shared.types";
+import {
+  AspectRatio,
+  Center,
+  Container,
+  Grid,
+  Image,
+  SimpleGrid,
+  Tabs,
+  Text,
+  Title,
+} from "@mantine/core";
 import { useState } from "react";
 
+interface ProjectLayoutProps {
+  projectData: ProjectData;
+}
 
 const categories = [
-    { id: "exterior", label: "Exterior" },
-    { id: "interior", label: "Interior" },
-    { id: "facilities", label: "Facilities" },
-    { id: "360", label: "360°" },
-  ];
+  { id: "exterior", label: "Exterior" },
+  { id: "interior", label: "Interior" },
+  { id: "facilities", label: "Facilities" },
+  // { id: "360", label: "360°" },
+];
 
-const ProjectLayout = () => {
-    
+const ProjectLayout = ({ projectData }: ProjectLayoutProps) => {
   const [activeTab, setActiveTab] = useState<string>("exterior");
 
   // Function to update URL and state when tab changes
@@ -20,10 +33,19 @@ const ProjectLayout = () => {
     setActiveTab(val);
   };
 
+  // Check if projectData is undefined
+  if (!projectData) {
+    return (
+      <Center style={{ height: "100vh" }}>
+        <Text size="lg" c="gray">
+          Project data not found.
+        </Text>
+      </Center>
+    );
+  }
 
   return (
     <div>
-        
       <Title
         order={1}
         style={{
@@ -34,22 +56,17 @@ const ProjectLayout = () => {
           color: "#FFFFFF",
         }}
       >
-        Judul
+        {projectData.mainTitle}
       </Title>
 
       <Grid justify="center" my={"xl"} p={"xl"}>
         <Grid.Col span={{ base: 12, md: 4 }}>
-          <Title m={"sm"} w={250} mx={"auto"} order={2}>
-            Join Our Team of Superstars
+          <Title m={"sm"} w={250} mx={"auto"} order={1}>
+            {projectData.heroTitle}
           </Title>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 7 }}>
-          <Text m={"lg"}>
-            Kami selalu mencari tim baru yang memiliki impian dan visi yang sama
-            dengan kami untuk mengembangkan kawasan SouthCity. Apakah Anda ingin
-            menjadi bagian dari tim SouthCity? Silahkan email ke
-            recruitment@southcity.co.id.
-          </Text>
+          <Text m={"lg"}>{projectData.heroDescription}</Text>
         </Grid.Col>
       </Grid>
 
@@ -81,37 +98,143 @@ const ProjectLayout = () => {
         Floor Plan
       </Title>
 
-      <Grid gutter={"md"}>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <div style={{ position: "relative", width: "100%", height: "500px" }}>
-            <Image
-              src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80"
-              alt="tes"
-            />
-          </div>
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <div style={{ position: "relative", width: "100%", height: "500px" }}>
-            <Image
-              src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80"
-              alt="tes"
-            />
-          </div>
-        </Grid.Col>
+      <Grid>
+        {projectData.floorPlan.map((item, index) => (
+          <Grid.Col span={{ base: 12, md: 6 }} key={index}>
+            <Title ta={"center"} order={3}>
+              {item.title}
+            </Title>
+            <Image src={item.image} alt={item.title} />
+          </Grid.Col>
+        ))}
       </Grid>
 
+
+      <Container my={"sm"}>
       <Title
         order={1}
         style={{
           fontWeight: 800,
           textAlign: "center",
-          padding: "100px",
+          padding: "50px",
         }}
       >
-        Specifications
+        {projectData.specifications.title}
       </Title>
-    </div>
-  )
-}
+      <Text mb={"xs"}>
+        {projectData.specifications.description}
+      </Text>
 
-export default ProjectLayout
+        <SimpleGrid cols={2}>
+          {projectData.specifications.pondasi && (
+            <div>
+              <Title order={4} c={"#333333"} my={"xs"}>
+                Pondasi
+              </Title>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: projectData.specifications.pondasi,
+                }}
+              />
+            </div>
+          )}
+
+          {projectData.specifications.lantai && (
+            <div>
+              <Title order={4} c={"#333333"} my={"xs"}>
+                Lantai
+              </Title>
+              <div
+                style={{
+                  color: "#444444",
+                }}
+                dangerouslySetInnerHTML={{
+                  
+                  __html: projectData.specifications.lantai.replace(
+                    /(?:\r\n|\r|\n)/g,
+                    "<br />"
+                  ),
+                }}
+              />
+            </div>
+          )}
+
+          {projectData.specifications.dinding && (
+            <div>
+              <Title order={4} c={"#333333"} my={"xs"}>
+                Dinding
+              </Title>
+              <div
+                style={{
+                  color: "#444444",
+                }}
+                dangerouslySetInnerHTML={{
+                  
+                  __html: projectData.specifications.dinding.replace(
+                    /(?:\r\n|\r|\n)/g,
+                    "<br />"
+                  ),
+                }}
+              />
+            </div>
+          )}
+
+          {projectData.specifications.dapur && (
+            <div>
+              <Title order={4} c={"#333333"} my={"xs"}>
+                Dapur
+              </Title>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: projectData.specifications.dapur,
+                }}
+              />
+            </div>
+          )}
+
+          {projectData.specifications.pintu_jendela && (
+            <div>
+              <Title order={4} c={"#333333"} my={"xs"}>
+                Pintu & Jendela
+              </Title>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: projectData.specifications.pintu_jendela,
+                }}
+              />
+            </div>
+          )}
+          {projectData.specifications.kamar_mandi && (
+            <div>
+              <Title order={4} c={"#333333"} my={"xs"}>
+                Kamar Mandi
+              </Title>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: projectData.specifications.kamar_mandi,
+                }}
+              />
+            </div>
+          )}
+          {projectData.specifications.lain_lain && (
+            <div>
+              <Title order={4} c={"#333333"} my={"xs"}>
+                Lain-Lain
+              </Title>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: projectData.specifications.lain_lain.replace(
+                    /(?:\r\n|\r|\n)/g,
+                    "<br />"
+                  ),
+                }}
+              />
+            </div>
+          )}
+        </SimpleGrid>
+      </Container>
+    </div>
+  );
+};
+
+export default ProjectLayout;
