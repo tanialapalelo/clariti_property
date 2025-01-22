@@ -35,13 +35,7 @@ import { LinksGroup } from "./NavbarLinksGroup";
 import { useState } from "react";
 import SearchModal from "./shared/SearchModal";
 import ProjectNavigation from "./ProjectNavigation";
-
-interface Project {
-  id: number;
-  name: string;
-  slug: string;
-  type: string;
-}
+import { Project } from "@/lib/shared.types";
 
 interface HeaderLayoutProps {
   projects: Project[];
@@ -59,16 +53,6 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
 
   // Close search modal
   const closeSearchModal = () => setIsSearchOpen(false);
-
-  // const tentangKamiLinks = tentangKamiData.map((item) => (
-  //     <UnstyledButton className={classes.subLink} key={item.title}>
-  //         <Group wrap="nowrap" align="flex-start">
-  //             <Anchor href={item.link} underline="never">
-  //                 {item.title}
-  //             </Anchor>
-  //         </Group>
-  //     </UnstyledButton>
-  // ));
 
   const topProject = [
     {

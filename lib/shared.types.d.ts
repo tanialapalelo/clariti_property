@@ -15,3 +15,10 @@ export interface ProjectData {
     lain_lain: string;
   };
 }
+
+export interface Project {
+  id: number;
+  name: string;
+  slug: string;
+  type: string;
+}
