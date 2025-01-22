@@ -10,6 +10,7 @@ export function Hero() {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   return (
       <Carousel
+        loop
         slideGap="md"
         align="start"
         styles={{ control: { color: "white" } }}
@@ -38,7 +39,7 @@ export function Hero() {
 
               <Button
                 variant="gradient"
-                size="xl"
+                size="md"
                 radius="xl"
                 className={classes.control}
               >

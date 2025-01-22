@@ -29,12 +29,12 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import classes from "../styles/Header.module.css";
-import DropdownHover from "./DropdownHover";
-import { LinksGroup } from "./NavbarLinksGroup";
+import classes from "../../styles/Header.module.css"; ///../styles/Header.module.css
+import DropdownHover from "../DropdownHover";
+import { LinksGroup } from "../NavbarLinksGroup";
 import { useState } from "react";
-import SearchModal from "./shared/SearchModal";
-import ProjectNavigation from "./ProjectNavigation";
+import SearchModal from "../shared/SearchModal";
+import ProjectNavigation from "../ProjectNavigation";
 import { Project } from "@/lib/shared.types";
 
 interface HeaderLayoutProps {
@@ -42,7 +42,6 @@ interface HeaderLayoutProps {
 }
 
 export function HeaderLayout({ projects }: HeaderLayoutProps) {
-  console.log("projets", projects);
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   // const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -207,12 +206,12 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
           ))}
         </Group>
 
-        {/* <Group h="100%" gap={0} visibleFrom="sm" justify='center'> */}
         <Carousel
           height={60}
           loop
           hiddenFrom="md"
-          classNames={{slide: classes.slide}}
+          slideSize="33.333333%"
+          slideGap="md"
         >
           {topProject.map((data) => (
             <Carousel.Slide key={data.title}>
@@ -226,11 +225,9 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
                   </div>
                 </Group>
               </a>
-              {/* <p style={{width: "100px", justifyContent: "center", display: "flex"}}>tes</p> */}
             </Carousel.Slide>
           ))}
         </Carousel>
-        {/* </Group> */}
       </header>
       {/* mobile */}
       <Drawer

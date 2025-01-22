@@ -23,11 +23,50 @@ export interface Project {
   type: string;
 }
 
-
 export interface ProjectImage {
   id: number;
   acf:{
     title: string;
     image: number;
   }
+}
+
+
+export interface Section {
+  title: string;
+  description: string;
+  image: string;
+  alignment: 'left' | 'right';
+}
+
+export interface VisionMission {
+  image: string;
+  vision_title: string;
+  vision_description: string;
+  mission_title: string;
+  mission_description: string;
+}
+
+export interface CEO {
+  image: string;
+  title: string;
+  name: string;
+  description: string;
+}
+
+export interface TeamMember {
+  image: string;
+  name: string;
+  role: string;
+}
+
+
+export interface AboutSectionProps {
+  mainTitle: string;
+  sections: Section;
+  visionMission: VisionMission;
+  ceo: CEO;
+  superHeroTitle: string; 
+  superHeroDescription: string;
+  teamMembers: TeamMember[];
 }

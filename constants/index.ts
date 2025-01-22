@@ -330,28 +330,28 @@ export const mockPosts = [
 
 export const navMobile = [
   {
-      label: 'Tentang Kami',
-      links: [
-          { label: 'Sejarah', link: '/sejarah' },
-          { label: 'Karir', link: '/karir' },
-      ],
+    label: 'Tentang Kami',
+    links: [
+      { label: 'Sejarah', link: '/sejarah' },
+      { label: 'Karir', link: '/karir' },
+    ],
   },
   {
-      label: 'Proyek',
-      links: [
-          { label: 'Sejarah', link: '/' },
-          { label: 'Karir', link: '/' },
-          { label: 'Outlook', link: '/' },
-          { label: 'Real time', link: '/' },
-      ],
+    label: 'Proyek',
+    links: [
+      { label: 'Sejarah', link: '/' },
+      { label: 'Karir', link: '/' },
+      { label: 'Outlook', link: '/' },
+      { label: 'Real time', link: '/' },
+    ],
   },
   { label: 'Fasilitas', singleLink: '/fasilitas' },
   {
-      label: 'Berita',
-      links: [
-          { label: 'Berita', link: '/category/berita' },
-          { label: 'Promosi', link: '/category/promosi' },
-      ],
+    label: 'Berita',
+    links: [
+      { label: 'Berita', link: '/berita?category=berita' },
+      { label: 'Promosi', link: '/berita?category=promosi' },
+    ],
   },
   { label: 'Hubungi Kami', singleLink: '/kontak-kami' },
 ];

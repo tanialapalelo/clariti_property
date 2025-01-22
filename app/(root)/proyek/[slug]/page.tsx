@@ -1,4 +1,5 @@
-import ProjectLayout from "@/components/ProjectLayout";
+
+import ProjectLayout from "@/components/layout/ProjectLayout";
 import { ProjectData, ProjectImage } from "@/lib/shared.types";
 import { Center } from "@mantine/core";
 

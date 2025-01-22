@@ -1,4 +1,4 @@
-import { HeaderLayout } from './HeaderLayout';
+import { HeaderLayout } from './layout/HeaderLayout';
 
 interface WordpressProject {
   id: number;

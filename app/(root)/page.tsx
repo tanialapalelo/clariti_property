@@ -87,7 +87,7 @@ export default function Home() {
         <RadiusButton description="Explore with 360" />
       </Container>
 
-      <SimpleGrid cols={{base: 1, md: 2}}>
+      <SimpleGrid cols={{base: 1, md: 2}} spacing={0}>
         <Group justify="center">
           <Title order={3} m={"sm"} ta={"center"}>
             Beautiful Spaces Created With Passion
@@ -99,7 +99,7 @@ export default function Home() {
             terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
           </Text>
           <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "400px" }}>
+          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
             <Image
               src="/assets/images/Fortunia-Residence-2-80-1.webp"
               alt="tes"
@@ -120,7 +120,7 @@ export default function Home() {
             terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
           </Text>
           <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "400px" }}>
+          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
             <Image
               src="/assets/images/Fortunia-Residence-2-80-1.webp"
               alt="tes"
@@ -140,7 +140,7 @@ export default function Home() {
             terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
           </Text>
           <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "400px" }}>
+          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
             <Image
               src="/assets/images/Fortunia-Residence-2-80-1.webp"
               alt="tes"
@@ -160,7 +160,7 @@ export default function Home() {
             terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
           </Text>
           <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "400px" }}>
+          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
             <Image
               src="/assets/images/Fortunia-Residence-2-80-1.webp"
               alt="tes"
@@ -177,12 +177,12 @@ export default function Home() {
       <SimpleGrid cols={{base: 1, md: 2}}>
         <div>
           
-        <Title ta={"right"}>
+        <Title ta={{base: "center", md: "center"}} m={{base: "sm", md: "55px"}}>
             SouthCity Masterplan
           </Title>
         </div>
         <div>
-        <Text>
+        <Text m={"lg"}>
             SouthCity merupakan kawasan 57 hektar yang disiapkan untuk
             pengembangan proyek hunian, pusat komersial, dan perhotelan yang
             akan hadir di masa mendatang. Terletak di lokasi yang strategis di
@@ -196,13 +196,13 @@ export default function Home() {
         </div>
       </SimpleGrid>
 
-      {/* <Grid my={"xl"}>
-        <Grid.Col>
+      {/* <Grid>
+        <Grid.Col span={{base: 12, md: 4}}>
           <Title ta={"right"}>
             SouthCity Masterplan
           </Title>
         </Grid.Col>
-        <Grid.Col>
+        <Grid.Col span={{base: 12, md: "auto"}}>
           <Text>
             SouthCity merupakan kawasan 57 hektar yang disiapkan untuk
             pengembangan proyek hunian, pusat komersial, dan perhotelan yang
@@ -236,7 +236,7 @@ export default function Home() {
       >
         <SimpleGrid cols={{ base: 2, sm: 4 }}>
           {strategyPlaces.map((item) => (
-            <div key={item.description}>
+            <div key={item.description} style={{padding: "10px"}}>
               <Title c={"#2763D6"}>{item.time}</Title>
               <Text c={"#2763D6"}>{item.unitOfTime}</Text>
               <Text c={"gray"}>{item.description}</Text>
