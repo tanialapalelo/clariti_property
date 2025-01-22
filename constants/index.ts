@@ -327,3 +327,60 @@ export const mockPosts = [
     tags: ["finance", "market", "business"],
   },
 ];
+
+export const navMobile = [
+  {
+      label: 'Tentang Kami',
+      links: [
+          { label: 'Sejarah', link: '/sejarah' },
+          { label: 'Karir', link: '/karir' },
+      ],
+  },
+  {
+      label: 'Proyek',
+      links: [
+          { label: 'Sejarah', link: '/' },
+          { label: 'Karir', link: '/' },
+          { label: 'Outlook', link: '/' },
+          { label: 'Real time', link: '/' },
+      ],
+  },
+  { label: 'Fasilitas', singleLink: '/fasilitas' },
+  {
+      label: 'Berita',
+      links: [
+          { label: 'Berita', link: '/category/berita' },
+          { label: 'Promosi', link: '/category/promosi' },
+      ],
+  },
+  { label: 'Hubungi Kami', singleLink: '/kontak-kami' },
+];
+
+
+export const mockProjectData = {
+  mainTitle: "Luxury Apartments",
+  heroTitle: "Your Dream Home Awaits",
+  heroDescription:
+    "Discover the epitome of modern living with our luxury apartments, featuring state-of-the-art amenities and prime locations.",
+  floorPlan: [
+    {
+      title: "2 Bedroom Apartment",
+      image: "https://via.placeholder.com/600x400?text=2+Bedroom+Floor+Plan",
+    },
+    {
+      title: "3 Bedroom Apartment",
+      image: "https://via.placeholder.com/600x400?text=3+Bedroom+Floor+Plan",
+    },
+  ],
+  specifications: {
+    title: "Specifications",
+    description: "Here are the detailed specifications of the apartment:",
+    pondasi: "<p>Concrete reinforced foundations</p>",
+    lantai: `Ceramic tiles in living and bedroom areas\nVinyl in kitchen and bathrooms`,
+    dinding: `Painted plaster walls\nMoisture-resistant in bathrooms`,
+    dapur: `<p>Modern modular kitchen with granite countertops</p>`,
+    pintu_jendela: `<p>Wooden doors and UPVC windows</p>`,
+    kamar_mandi: `<p>Premium fittings and tiles</p>`,
+    lain_lain: `Solar water heater system\nLED lighting fixtures\nCCTV security system`,
+  },
+};

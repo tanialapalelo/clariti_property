@@ -1,4 +1,5 @@
 import ProjectLayout from "@/components/ProjectLayout";
+import { mockProjectData } from "@/constants";
 // import { ProjectData } from "@/lib/shared.types";
 
 // async function fetchImageData(imageId: number): Promise<string> {
@@ -37,34 +38,6 @@ import ProjectLayout from "@/components/ProjectLayout";
 //     };
 //   }
 // }
-
-export const mockProjectData = {
-  mainTitle: "Luxury Apartments",
-  heroTitle: "Your Dream Home Awaits",
-  heroDescription:
-    "Discover the epitome of modern living with our luxury apartments, featuring state-of-the-art amenities and prime locations.",
-  floorPlan: [
-    {
-      title: "2 Bedroom Apartment",
-      image: "https://via.placeholder.com/600x400?text=2+Bedroom+Floor+Plan",
-    },
-    {
-      title: "3 Bedroom Apartment",
-      image: "https://via.placeholder.com/600x400?text=3+Bedroom+Floor+Plan",
-    },
-  ],
-  specifications: {
-    title: "Specifications",
-    description: "Here are the detailed specifications of the apartment:",
-    pondasi: "<p>Concrete reinforced foundations</p>",
-    lantai: `Ceramic tiles in living and bedroom areas\nVinyl in kitchen and bathrooms`,
-    dinding: `Painted plaster walls\nMoisture-resistant in bathrooms`,
-    dapur: `<p>Modern modular kitchen with granite countertops</p>`,
-    pintu_jendela: `<p>Wooden doors and UPVC windows</p>`,
-    kamar_mandi: `<p>Premium fittings and tiles</p>`,
-    lain_lain: `Solar water heater system\nLED lighting fixtures\nCCTV security system`,
-  },
-};
 
 
 const ProyekPage = async ({

@@ -1,7 +1,7 @@
 "use client"
 
 import { Grid, Title } from '@mantine/core';
-import { IconBike, IconBus, IconCar, IconQuestionMark, IconShip, IconTrain, IconWalk } from '@tabler/icons-react';
+import { IconBike, IconBus, IconCar, IconQuestionMark, IconShip, IconTrain, type IconProps } from '@tabler/icons-react';
 import React from 'react';
 
 type Transportation = {
@@ -13,14 +13,14 @@ interface TransportationInfoProps {
   data: Transportation[];
 }
 
-const transportationIconMap: Record<string, React.FC<any>> = {
+
+const transportationIconMap: Record<string, React.FC<IconProps>> = {
   MRT: IconTrain,
   Busway: IconBus,
   'Regular Bus': IconBus,
   'Commuter Line': IconTrain,
   Car: IconCar,
   Bicycle: IconBike,
-  Walking: IconWalk,
   Ferry: IconShip,
   Default: IconQuestionMark,
 };

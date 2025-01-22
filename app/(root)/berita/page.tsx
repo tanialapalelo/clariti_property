@@ -2,13 +2,7 @@
 
 import ArticleCard from "@/components/ArticleCard";
 import { mockPosts } from "@/constants";
-import {
-  Center,
-  Grid,
-  Pagination,
-  Tabs,
-  Title
-} from "@mantine/core";
+import { Center, Grid, Pagination, Tabs, Title } from "@mantine/core";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -34,10 +28,12 @@ const BeritaPage = () => {
   }, [initialCategory]);
 
   // Function to update URL and state when tab changes
-  const handleTabChange = (val: string) => {
-    setActiveTab(val);
-    setPage(1);
-    router.push(`/berita?category=${val}`, { scroll: false });
+  const handleTabChange = (val: string | null) => {
+    if (val) {
+      setActiveTab(val);
+      setPage(1);
+      router.push(`/berita?category=${val}`, { scroll: false });
+    }
   };
 
   const filteredPosts = useMemo(() => {
@@ -64,7 +60,7 @@ const BeritaPage = () => {
         Latest News from Us
       </Title>
 
-      <Center mt={{base: "sm", md: "xl"}}>
+      <Center mt={{ base: "sm", md: "xl" }}>
         <Tabs
           value={activeTab}
           onChange={handleTabChange}
@@ -93,7 +89,7 @@ const BeritaPage = () => {
           //   mx={{ base: "", md: "xl" }}
           //   spacing={"xs"}
           // >
-          
+
           <Grid justify="center" align="center" mx={"xl"} px={"xl"}>
             {paginatedPosts.map((post) => (
               // <div key={post.id}>
@@ -105,10 +101,10 @@ const BeritaPage = () => {
                   slug={post.slug}
                   featuredImage={post.featuredImage}
                 />
-              {/* </div> */}
+                {/* </div> */}
               </Grid.Col>
             ))}
-          {/* </SimpleGrid> */}
+            {/* </SimpleGrid> */}
           </Grid>
         ) : (
           <p>No posts available.</p>

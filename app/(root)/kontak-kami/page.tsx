@@ -5,9 +5,9 @@ import { Container, Title } from "@mantine/core";
 import Image from "next/image";
 
 export const metadata = {
-  title: 'Hubungi Kami - Clariti',
-  description: 'Halaman Kontak Kami',
-}
+  title: "Hubungi Kami - Clariti",
+  description: "Halaman Kontak Kami",
+};
 
 type Transportation = {
   title: string;
@@ -39,12 +39,13 @@ interface ContactUsProps {
   transportations: Transportation[];
 }
 
-
 async function fetchMarketingGallery(): Promise<MarketingGallery> {
-  const res = await fetch(`${process.env.WORDPRESS_URL}/visit_us_detail?slug=marketing-gallery`);
+  const res = await fetch(
+    `${process.env.WORDPRESS_URL}/visit_us_detail?slug=marketing-gallery`
+  );
   const data = await res.json();
-  const content = data[0].acf;;
-  
+  const content = data[0].acf;
+
   return {
     title: data[0].title.rendered,
     address: content.address,
@@ -66,10 +67,15 @@ async function fetchTransportation(): Promise<Transportation[]> {
   }));
 }
 
-async function fetchContactUsData(): Promise<Omit<ContactUsProps, 'transportations'>> {
-  const res = await fetch(`${process.env.WORDPRESS_URL}/pages?slug=contact-us&acf_format=standard`, {
-    next: { revalidate: 10 },
-  });
+async function fetchContactUsData(): Promise<
+  Omit<ContactUsProps, "transportations">
+> {
+  const res = await fetch(
+    `${process.env.WORDPRESS_URL}/pages?slug=contact-us&acf_format=standard`,
+    {
+      next: { revalidate: 10 },
+    }
+  );
   const data = await res.json();
   const content = data[0].acf;
   return {
@@ -82,9 +88,13 @@ const KontakKami = async () => {
   const contactUsPromise = await fetchContactUsData();
   const transportationPromise = await fetchTransportation();
   const marketingPromise = await fetchMarketingGallery();
-  
-  const [contactUsData, transportations, marketingGallery] = await Promise.all([contactUsPromise, transportationPromise, marketingPromise]);
-  
+
+  const [contactUsData, transportations, marketingGallery] = await Promise.all([
+    contactUsPromise,
+    transportationPromise,
+    marketingPromise,
+  ]);
+
   return (
     <>
       <Title
@@ -109,17 +119,24 @@ const KontakKami = async () => {
           >
             Kirim Pesan
           </Title>
-          <p style={{ color: "white", textAlign: "center", marginBottom: "2rem" }}>
-            Kami selalu ada untuk Anda setiap hari. Jangan ragu untuk mengirim pesan melalui formulir di bawah ini.
+          <p
+            style={{
+              color: "white",
+              textAlign: "center",
+              marginBottom: "2rem",
+            }}
+          >
+            Kami selalu ada untuk Anda setiap hari. Jangan ragu untuk mengirim
+            pesan melalui formulir di bawah ini.
           </p>
         </div>
-        <Kontak/>
+        <Kontak />
       </Container>
 
-      <VisitUs data={marketingGallery}
-      />
+      <VisitUs data={marketingGallery} />
 
-      <Image src={contactUsData.mapImage}
+      <Image
+        src={contactUsData.mapImage}
         alt="map"
         width={1200}
         height={600}

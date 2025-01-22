@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { ActionIcon } from "@mantine/core"
-import { IconBrandWhatsappFilled } from "@tabler/icons-react"
-import classes from '../../styles/WhatsAppAction.module.css';
+import { ActionIcon } from "@mantine/core";
+import { IconBrandWhatsappFilled } from "@tabler/icons-react";
+import classes from "../../styles/WhatsAppAction.module.css";
 
 const WhatsAppAction = () => {
   return (
@@ -16,9 +16,9 @@ const WhatsAppAction = () => {
       radius={"100"}
       className={classes.customIcon}
     >
-      <IconBrandWhatsappFilled size={55}/>
+      <IconBrandWhatsappFilled size={55} />
     </ActionIcon>
-  )
-}
+  );
+};
 
-export default WhatsAppAction
+export default WhatsAppAction;

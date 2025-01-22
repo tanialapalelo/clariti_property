@@ -1,6 +1,15 @@
 import { CardsCarousel } from "@/components/CardsCarousel";
 import { mockPosts } from "@/constants"; // Adjust the import path accordingly
 import { Container, Image, Text, Title } from "@mantine/core";
+import { Metadata } from "next";
+
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
+  return {
+    title: params.slug,
+  };
+}
 
 // Generate static params based on the slugs from the mockPosts
 export async function generateStaticParams() {
