@@ -22,3 +22,12 @@ export interface Project {
   slug: string;
   type: string;
 }
+
+
+export interface ProjectImage {
+  id: number;
+  acf:{
+    title: string;
+    image: number;
+  }
+}

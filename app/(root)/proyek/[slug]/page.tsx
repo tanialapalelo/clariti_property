@@ -1,5 +1,5 @@
 import ProjectLayout from "@/components/ProjectLayout";
-import { ProjectData } from "@/lib/shared.types";
+import { ProjectData, ProjectImage } from "@/lib/shared.types";
 
 async function fetchImageData(imageId: number): Promise<string> {
   const res = await fetch(`${process.env.WORDPRESS_URL}/media/${imageId}`);
@@ -25,7 +25,7 @@ async function fetchProjectData(slug: string): Promise<ProjectData> {
   if (project && embeddedImages) {
      // Map through the embedded images to extract titles and image URLs
      const floorPlan = await Promise.all(
-      embeddedImages.map(async (imageData: any) => {
+      embeddedImages.map(async (imageData: ProjectImage) => {
         const imageUrl = await fetchImageData(imageData.acf.image); // Fetch image based on the `acf.image` field
         return {
           title: imageData.acf.title, // Extract title from the embedded data
