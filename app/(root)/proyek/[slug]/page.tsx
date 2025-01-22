@@ -12,15 +12,30 @@ async function fetchProjectData(slug: string): Promise<ProjectData> {
     next: { revalidate: 3600 },
   });
 
-  
+  if (!res.ok) {
+    throw new Error(`Failed to fetch project data: ${res.status} ${res.statusText}`);
+  }
+
   const data = await res.json();
+  console.log("Fetched project data:", data);
   
+  if (!data || data.length === 0) {
+    throw new Error("Project not found");
+  }
+
   if (!data || data.length === 0) {
     throw new Error("Project not found");
   }
   
   const project = data[0]?.acf;
   const embeddedImages = data[0]?._embedded?.["acf:post"];
+
+  if (!project) {
+    throw new Error("Project ACF data is missing");
+  }
+  if (!embeddedImages) {
+    throw new Error("Embedded images are missing");
+  }
 
   if (project && embeddedImages) {
      // Map through the embedded images to extract titles and image URLs
@@ -62,16 +77,21 @@ const ProyekPage = async ({
 }: {
   params: { slug: string };
 }) => {
-  
-  const projectPromise = fetchProjectData(params.slug);
-  const [project] = await Promise.all([projectPromise]);
+  try {
+    
+    const projectPromise = fetchProjectData(params.slug);
+    const [project] = await Promise.all([projectPromise]);
 
-  // console.log("project page", project)
-  return (
-    <>
-    <ProjectLayout projectData={project}/>
-    </>
-  );
+    // console.log("project page", project)
+    return (
+      <>
+      <ProjectLayout projectData={project}/>
+      </>
+    );
+  } catch (error) {
+    console.error("Error fetching project data:", error);
+    return <div>Failed to load project data.</div>;
+  }
 };
 
 export default ProyekPage;
