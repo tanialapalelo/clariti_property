@@ -1,5 +1,6 @@
 import ProjectLayout from "@/components/ProjectLayout";
 import { ProjectData, ProjectImage } from "@/lib/shared.types";
+import { Center } from "@mantine/core";
 
 async function fetchImageData(imageId: number): Promise<string> {
   const res = await fetch(`${process.env.WORDPRESS_URL}/media/${imageId}`);
@@ -8,17 +9,22 @@ async function fetchImageData(imageId: number): Promise<string> {
 }
 
 async function fetchProjectData(slug: string): Promise<ProjectData> {
-  const res = await fetch(`${process.env.WORDPRESS_URL}/project?slug=${slug}&_embed`, {
-    next: { revalidate: 3600 },
-  });
+  const res = await fetch(
+    `${process.env.WORDPRESS_URL}/project?slug=${slug}&_embed`,
+    {
+      next: { revalidate: 3600 },
+    }
+  );
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch project data: ${res.status} ${res.statusText}`);
+    throw new Error(
+      `Failed to fetch project data: ${res.status} ${res.statusText}`
+    );
   }
 
   const data = await res.json();
   console.log("Fetched project data:", data);
-  
+
   if (!data || data.length === 0) {
     throw new Error("Project not found");
   }
@@ -26,9 +32,9 @@ async function fetchProjectData(slug: string): Promise<ProjectData> {
   if (!data || data.length === 0) {
     throw new Error("Project not found");
   }
-  
+
   const project = data[0]?.acf;
-  const embeddedImages = data[0]?._embedded?.["acf:post"];
+  const embeddedImages = data[0]?._embedded?.["acf:post"] || []; 
 
   if (!project) {
     throw new Error("Project ACF data is missing");
@@ -38,16 +44,18 @@ async function fetchProjectData(slug: string): Promise<ProjectData> {
   }
 
   if (project && embeddedImages) {
-     // Map through the embedded images to extract titles and image URLs
-     const floorPlan = await Promise.all(
-      embeddedImages.map(async (imageData: ProjectImage) => {
-        const imageUrl = await fetchImageData(imageData.acf.image); // Fetch image based on the `acf.image` field
-        return {
-          title: imageData.acf.title, // Extract title from the embedded data
-          image: imageUrl,
-        };
-      })
-    );
+    // Map through the embedded images to extract titles and image URLs
+    const floorPlan = embeddedImages.length
+      ? await Promise.all(
+          embeddedImages.map(async (imageData: ProjectImage) => {
+            const imageUrl = await fetchImageData(imageData.acf.image);
+            return {
+              title: imageData.acf.title || "Untitled",
+              image: imageUrl,
+            };
+          })
+        )
+      : [];
     return {
       mainTitle: project.main_title || "",
       heroTitle: project.hero?.title || "",
@@ -66,31 +74,25 @@ async function fetchProjectData(slug: string): Promise<ProjectData> {
       },
     };
   }
-  
+
   // If project data is missing, throw an error or return default values
   throw new Error("Invalid project data");
 }
 
-
-const ProyekPage = async ({
-  params,
-}: {
-  params: { slug: string };
-}) => {
+const ProyekPage = async ({ params }: { params: { slug: string } }) => {
   try {
-    
     const projectPromise = fetchProjectData(params.slug);
     const [project] = await Promise.all([projectPromise]);
 
     // console.log("project page", project)
     return (
       <>
-      <ProjectLayout projectData={project}/>
+        <ProjectLayout projectData={project} />
       </>
     );
   } catch (error) {
     console.error("Error fetching project data:", error);
-    return <div>Failed to load project data.</div>;
+    return <Center>Failed to load project data.</Center>;
   }
 };
 
