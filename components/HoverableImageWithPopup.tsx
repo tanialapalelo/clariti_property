@@ -79,7 +79,7 @@ const HoverableImageWithPopup = () => {
                 position: 'absolute',
                 left: data.x,
                 top: data.y,
-                transform: 'translate(-50%, -50%)',
+                // transform: 'translate(-50%, -50%)',
                 cursor: 'pointer',
               }}
             >

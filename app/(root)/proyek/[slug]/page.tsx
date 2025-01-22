@@ -5,14 +5,14 @@ import { Center } from "@mantine/core";
 async function fetchImageData(imageId: number): Promise<string> {
   const res = await fetch(`${process.env.WORDPRESS_URL}/media/${imageId}`);
   const data = await res.json();
-  return data.source_url; // Return the image URL (you can extract other details if needed)
+  return data.source_url;
 }
 
 async function fetchProjectData(slug: string): Promise<ProjectData> {
   const res = await fetch(
     `${process.env.WORDPRESS_URL}/project?slug=${slug}&_embed`,
     {
-      next: { revalidate: 3600 },
+      next: { revalidate: 10 },
     }
   );
 
@@ -23,7 +23,6 @@ async function fetchProjectData(slug: string): Promise<ProjectData> {
   }
 
   const data = await res.json();
-  console.log("Fetched project data:", data);
 
   if (!data || data.length === 0) {
     throw new Error("Project not found");
@@ -84,7 +83,6 @@ const ProyekPage = async ({ params }: { params: { slug: string } }) => {
     const projectPromise = fetchProjectData(params.slug);
     const [project] = await Promise.all([projectPromise]);
 
-    // console.log("project page", project)
     return (
       <>
         <ProjectLayout projectData={project} />

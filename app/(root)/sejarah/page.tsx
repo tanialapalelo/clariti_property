@@ -70,7 +70,7 @@ async function fetchTeamMembers(): Promise<TeamMember[]> {
 async function fetchAboutData(): Promise<Omit<AboutSectionProps, 'teamMembers'>> {
   const res = await fetch(`${process.env.WORDPRESS_URL}/pages?slug=about-us&acf_format=standard`, {
 //   const res = await fetch(`${process.env.WORDPRESS_URL}/pages?acf_format=standard&_field=id,slug,title,acf&slug=sejarah`, {
-    next: { revalidate: 3600 }, // ISR equivalent in App Router
+    next: { revalidate: 10 }, // ISR equivalent in App Router
   });
   const data = await res.json();
   const content = data[0].acf;

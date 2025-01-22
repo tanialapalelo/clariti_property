@@ -10,7 +10,6 @@ export function Hero() {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   return (
       <Carousel
-        withIndicators
         slideGap="md"
         align="start"
         styles={{ control: { color: "white" } }}

@@ -209,14 +209,10 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
 
         {/* <Group h="100%" gap={0} visibleFrom="sm" justify='center'> */}
         <Carousel
-          withIndicators
           height={60}
-          slideSize="33.333333%"
-          slideGap="md"
           loop
-          align="start"
-          slidesToScroll={3}
           hiddenFrom="md"
+          classNames={{slide: classes.slide}}
         >
           {topProject.map((data) => (
             <Carousel.Slide key={data.title}>
@@ -230,6 +226,7 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
                   </div>
                 </Group>
               </a>
+              {/* <p style={{width: "100px", justifyContent: "center", display: "flex"}}>tes</p> */}
             </Carousel.Slide>
           ))}
         </Carousel>
