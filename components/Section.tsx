@@ -21,7 +21,7 @@ const Section = ({title, description}: SectionProps) => {
         },
       }}
     >
-        <Title mx={"auto"} >{title}</Title>
+        <Title mx={"auto"} p={"sm"}>{title}</Title>
         <Text my="md" mx={"auto"} px={'sm'}>
           {description}
         </Text>

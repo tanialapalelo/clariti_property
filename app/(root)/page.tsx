@@ -88,28 +88,8 @@ export default function Home() {
       </Container>
 
       <SimpleGrid cols={{base: 1, md: 2}} spacing={0}>
-        <Group justify="center">
-          <Title order={3} m={"sm"} ta={"center"}>
-            Beautiful Spaces Created With Passion
-          </Title>
-          <Text m={"sm"} ta={"center"}>
-            Dengan pengalaman bertahun-tahun mengembangkan properti, tim
-            SouthCity berkomitmen untuk membangun kawasan ini secara positif
-            bagi komunitas bersama. Kami berjanji untuk selalu memberikan yang
-            terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
-          </Text>
-          <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
-            <Image
-              src="/assets/images/Fortunia-Residence-2-80-1.webp"
-              alt="tes"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-        </Group>
         
-        <Group justify="center">
+      <Group justify="center">
           <Title order={3} m={"sm"} ta={"center"}>
             Beautiful Spaces Created With Passion
           </Title>
@@ -120,7 +100,15 @@ export default function Home() {
             terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
           </Text>
           <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
+          <div 
+            style={{ 
+                position: "relative", 
+                width: "100%",
+                aspectRatio: "1/1", // Responsive aspect ratio
+                maxHeight: "150vh", // Ensures it doesn't take too much space on large screens
+                marginTop: "-40%", // Adjust for overlapping effect
+             }}
+          >
             <Image
               src="/assets/images/Fortunia-Residence-2-80-1.webp"
               alt="tes"
@@ -140,27 +128,15 @@ export default function Home() {
             terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
           </Text>
           <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
-            <Image
-              src="/assets/images/Fortunia-Residence-2-80-1.webp"
-              alt="tes"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-        </Group>
-        <Group justify="center">
-          <Title order={3} m={"sm"} ta={"center"}>
-            Beautiful Spaces Created With Passion
-          </Title>
-          <Text m={"sm"} ta={"center"}>
-            Dengan pengalaman bertahun-tahun mengembangkan properti, tim
-            SouthCity berkomitmen untuk membangun kawasan ini secara positif
-            bagi komunitas bersama. Kami berjanji untuk selalu memberikan yang
-            terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
-          </Text>
-          <Anchor href="#">Lebih Lanjut</Anchor>
-          <div style={{ position: "relative", width: "100%", height: "500px", transform: "translateY(-150px)", }}>
+          <div 
+            style={{ 
+                position: "relative", 
+                width: "100%",
+                aspectRatio: "1/1", // Responsive aspect ratio
+                maxHeight: "150vh", // Ensures it doesn't take too much space on large screens
+                marginTop: "-40%", // Adjust for overlapping effect
+             }}
+          >
             <Image
               src="/assets/images/Fortunia-Residence-2-80-1.webp"
               alt="tes"

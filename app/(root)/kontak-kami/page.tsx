@@ -1,6 +1,7 @@
 import Kontak from "@/components/forms/Kontak";
 import TransportationInfo from "@/components/TransportationInfo";
 import VisitUs from "@/components/VisitUs";
+import { Transportation, WordPressTransportation } from "@/lib/shared.types";
 import { Container, Title } from "@mantine/core";
 import Image from "next/image";
 
@@ -9,21 +10,7 @@ export const metadata = {
   description: "Halaman Kontak Kami",
 };
 
-type Transportation = {
-  title: string;
-  content: string;
-};
-
-type WordPressTransportation = {
-  title: {
-    rendered: string;
-  };
-  content: {
-    rendered: string;
-  };
-};
-
-type MarketingGallery = {
+interface MarketingGallery {
   title: string;
   description: string;
   address: string;
@@ -85,9 +72,9 @@ async function fetchContactUsData(): Promise<
 }
 
 const KontakKami = async () => {
-  const contactUsPromise = await fetchContactUsData();
-  const transportationPromise = await fetchTransportation();
-  const marketingPromise = await fetchMarketingGallery();
+  const contactUsPromise = fetchContactUsData();
+  const transportationPromise = fetchTransportation();
+  const marketingPromise = fetchMarketingGallery();
 
   const [contactUsData, transportations, marketingGallery] = await Promise.all([
     contactUsPromise,

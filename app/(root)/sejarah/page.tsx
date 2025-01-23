@@ -1,19 +1,18 @@
 import AboutSection from '@/components/AboutSection';
 import { AboutSectionProps, TeamMember } from '@/lib/shared.types';
 
-
 export const metadata = {
   title: 'Tentang Kami - Clariti',
   description: 'Halaman Tentang Kami',
 }
 
 interface WordPressTeamMember {
-  title: { rendered: string }; // The name of the team member
-  acf: { role: string }; // The role of the team member from ACF
+  title: { rendered: string };
+  acf: { role: string };
   _embedded: {
     'wp:featuredmedia'?: [
       {
-        source_url: string; // The URL of the featured image
+        source_url: string;
       }
     ];
   };

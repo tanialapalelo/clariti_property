@@ -1,13 +1,8 @@
 
 import ProjectLayout from "@/components/layout/ProjectLayout";
 import { ProjectData, ProjectImage } from "@/lib/shared.types";
+import { fetchImageData } from "@/lib/wordpress";
 import { Center } from "@mantine/core";
-
-async function fetchImageData(imageId: number): Promise<string> {
-  const res = await fetch(`${process.env.WORDPRESS_URL}/media/${imageId}`);
-  const data = await res.json();
-  return data.source_url;
-}
 
 async function fetchProjectData(slug: string): Promise<ProjectData> {
   const res = await fetch(

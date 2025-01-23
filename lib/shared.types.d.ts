@@ -31,7 +31,6 @@ export interface ProjectImage {
   }
 }
 
-
 export interface Section {
   title: string;
   description: string;
@@ -60,7 +59,6 @@ export interface TeamMember {
   role: string;
 }
 
-
 export interface AboutSectionProps {
   mainTitle: string;
   sections: Section;
@@ -69,4 +67,43 @@ export interface AboutSectionProps {
   superHeroTitle: string; 
   superHeroDescription: string;
   teamMembers: TeamMember[];
+}
+
+export interface Transportation {
+  title: string;
+  content: string;
+};
+
+export interface WordPressTransportation {
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
+};
+
+export interface FacilityData {
+  mainTitle: string;
+}
+
+export interface FacilitySection {
+  id: number;
+  title: string;
+  description: string;
+  featureImage: string | null;
+  detailImage: string | null;
+  bookUrl: string;
+}
+
+
+export interface WordPressFacilitySection {
+  id: number;
+  acf: {
+    title: string;
+    description: string;
+    feature_image: number | null;  // WordPress stores media as IDs
+    detail_image: number | null;
+    book_url: string;
+  };
 }
