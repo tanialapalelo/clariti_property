@@ -18,10 +18,10 @@ const FacilityLayout = ({
       <Title
         ta="center"
         order={2}
-        p="lg"
         style={{
           backgroundColor: "#0E1E40",
           color: "#FFFFFF",
+          padding: "100px",
         }}
       >
         {facilityData?.mainTitle || "Our Facilities"}

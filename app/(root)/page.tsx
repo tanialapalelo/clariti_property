@@ -2,7 +2,7 @@
 
 import { CardsCarousel } from "@/components/CardsCarousel";
 import { Hero } from "@/components/Hero";
-import HoverableImageWithPopup from "@/components/HoverableImageWithPopup";
+import MapWithPopup from "@/components/MapWithPopup";
 import Section from "@/components/Section";
 import RadiusButton from "@/components/ui/RadiusButton";
 import { mockPosts, strategyPlaces } from "@/constants";
@@ -192,7 +192,7 @@ export default function Home() {
           </Text>
         </Grid.Col>
       </Grid> */}
-      <HoverableImageWithPopup />
+      <MapWithPopup />
       <Section
         title="Come Find Us We'll Make It a Date"
         description="SouthCity memiliki lokasi strategis yang berbatasan dengan tiga daerah perkotaan besar: Jakarta Selatan, Cinere dan Pondok Cabe. Kawasan yang memberikan kemudahan akses menuju tol Depok-Antasari (gerbang tol Brigif), tol Cinere-Jagorawi (gerbang tol Limo), dan tol Serpong-Cinere (gerbang tol Pamulang). Berbagai pilihan transportasi lainnya juga tersedia dengan adanya halte TransJakarta dengan jalur SouthCity-Kuningan, serta stasiun MRT Lebak Bulus dan Fatmawati. SouthCity hanya berjarak 5 menit saja dari Sekolah Harapan Bangsa (SHB), 10 menit dari Mal Cinere dan Mal Bellevue, 15 menit dari Mal Pondok Indah, serta 20 menit dari Universitas Indonesia."

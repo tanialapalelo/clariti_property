@@ -67,7 +67,7 @@ export function Hero() {
 
               <Button
                 variant="gradient"
-                size="xl"
+                size="md"
                 radius="xl"
                 className={classes.control}
               >
