@@ -384,3 +384,10 @@ export const mockProjectData = {
     lain_lain: `Solar water heater system\nLED lighting fixtures\nCCTV security system`,
   },
 };
+
+
+export const newsCategories = [
+  { id: "all", name: "All Categories" },
+  { id: "berita", name: "Berita" },
+  { id: "promosi", name: "Promosi" },
+];

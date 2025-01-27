@@ -107,3 +107,30 @@ export interface WordPressFacilitySection {
     book_url: string;
   };
 }
+
+
+export interface MapProps {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  link: string;
+  x: string;
+  y: string;
+}
+
+export interface News {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+  date: string;
+  slug: string;
+  featuredImage: string;
+  categories: number[];
+}
+
+export interface NewsCategory {
+  id: string;
+  name: string;
+  slug: string;
+}

@@ -17,8 +17,35 @@ import {
 } from "@mantine/core";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { MapProps } from "@/lib/shared.types";
+
+const tempMapData: MapProps[] = [
+  {
+    id: "1",
+    icon: "home",
+    title: "Home Facility",
+    description: "A description of the home facility.",
+    link: "/home",
+    x: "50%",
+    y: "50%",
+  },
+  {
+    id: "2",
+    icon: "wifi",
+    title: "WiFi Hotspot",
+    description: "A description of the WiFi hotspot.",
+    link: "/wifi",
+    x: "40%",
+    y: "30%",
+  },
+];
+
+
 
 export default function Home() {
+
+  const finalMapData = tempMapData;
+
   return (
     <>
       <Hero />
@@ -192,7 +219,7 @@ export default function Home() {
           </Text>
         </Grid.Col>
       </Grid> */}
-      <MapWithPopup />
+      <MapWithPopup facilities={finalMapData} />
       <Section
         title="Come Find Us We'll Make It a Date"
         description="SouthCity memiliki lokasi strategis yang berbatasan dengan tiga daerah perkotaan besar: Jakarta Selatan, Cinere dan Pondok Cabe. Kawasan yang memberikan kemudahan akses menuju tol Depok-Antasari (gerbang tol Brigif), tol Cinere-Jagorawi (gerbang tol Limo), dan tol Serpong-Cinere (gerbang tol Pamulang). Berbagai pilihan transportasi lainnya juga tersedia dengan adanya halte TransJakarta dengan jalur SouthCity-Kuningan, serta stasiun MRT Lebak Bulus dan Fatmawati. SouthCity hanya berjarak 5 menit saja dari Sekolah Harapan Bangsa (SHB), 10 menit dari Mal Cinere dan Mal Bellevue, 15 menit dari Mal Pondok Indah, serta 20 menit dari Universitas Indonesia."
