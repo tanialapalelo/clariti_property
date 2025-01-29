@@ -1,13 +1,14 @@
 import { Button } from "@mantine/core"
 
-interface ButtonProps{
+interface ButtonProps {
   description: string
+  link: string
 }
 
-const RadiusButton = ({description}: ButtonProps) => {
+const RadiusButton = ({ description, link }: ButtonProps) => {
   return (
     <>
-        <Button radius="xl" justify="center">{description}</Button>
+      <Button radius="xl" justify="center" component="a" href={link}>{description}</Button>
     </>
   )
 }

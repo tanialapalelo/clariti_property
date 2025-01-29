@@ -11,6 +11,8 @@ import { News } from "@/lib/shared.types";
 const NewsLayout: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  
+  // Get category from URL
   const initialCategory = searchParams.get("category") || "all";
 
   const [activeTab, setActiveTab] = useState<string>(initialCategory);
@@ -33,14 +35,19 @@ const NewsLayout: React.FC = () => {
     }
   };
 
+  // Listen for URL changes and update the active tab accordingly
   useEffect(() => {
-    fetchPosts(activeTab);
-  }, [activeTab]);
+    const categoryFromUrl = searchParams.get("category") || "all";
+    setActiveTab(categoryFromUrl);
+    setPage(1);
+    fetchPosts(categoryFromUrl);
+  }, [searchParams]); // Re-run when the URL changes
 
   const paginatedPosts = useMemo(() => {
     return posts.slice((page - 1) * perPage, page * perPage);
   }, [posts, page]);
 
+  console.log("paginatedPosts", paginatedPosts)
   const handleTabChange = (val: string | null) => {
     if (val) {
       setActiveTab(val);
@@ -88,16 +95,17 @@ const NewsLayout: React.FC = () => {
       >
         {loading ? (
           <Center>
-            <Text>Loading...</Text>
+            <Text m={"md"}>Loading...</Text>
           </Center>
         ) : paginatedPosts.length > 0 ? (
           <Grid justify="center" align="center" mx="xl" px="xl">
+            
             {paginatedPosts.map((post) => (
               <Grid.Col span="content" key={post.id}>
                 <ArticleCard
                   title={post.title.rendered}
                   date={post.date}
-                  category={activeTab}
+                  category={post.categories[0]}
                   slug={post.slug}
                   featuredImage={post.featuredImage}
                 />

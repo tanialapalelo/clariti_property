@@ -111,7 +111,7 @@ export default function Home() {
           },
         }}
       >
-        <RadiusButton description="Explore with 360" />
+        <RadiusButton description="Explore with 360" link=""/>
       </Container>
 
       <SimpleGrid cols={{base: 1, md: 2}} spacing={0}>
@@ -271,7 +271,7 @@ export default function Home() {
           },
         }}
       >
-        <RadiusButton description="Berita Lainnya" />
+        <RadiusButton description="Berita Lainnya" link="/berita?category=berita"/>
       </Container>
     </>
   );

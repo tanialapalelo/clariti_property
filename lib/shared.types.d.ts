@@ -126,7 +126,8 @@ export interface News {
   date: string;
   slug: string;
   featuredImage: string;
-  categories: number[];
+  categories: string[];
+  tags: string[];
 }
 
 export interface NewsCategory {
