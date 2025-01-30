@@ -36,7 +36,7 @@ export async function GET(req: Request) {
     // Fetch posts with embedded media
     const postsRes = await fetch(
       `${WORDPRESS_API_URL}/posts?categories=${categoryIds.join(",")}` +
-        `&_fields=id,slug,title.rendered,featured_media,categories,date&_embed`
+        `&_fields=id,slug,title.rendered,featured_media,excerpt,categories,date&_embed`
     );
 
     if (!postsRes.ok) throw new Error("Failed to fetch posts");

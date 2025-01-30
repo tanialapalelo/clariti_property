@@ -122,6 +122,22 @@ export interface MapProps {
 export interface News {
   id: number;
   title: { rendered: string };
+  excerpt: { rendered: string };
+  date: string;
+  slug: string;
+  featuredImage: string;
+  categories: string[];
+}
+
+export interface NewsCategory {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+export interface DetailNews {
+  id: number;
+  title: { rendered: string };
   content: { rendered: string };
   date: string;
   slug: string;
@@ -130,8 +146,3 @@ export interface News {
   tags: string[];
 }
 
-export interface NewsCategory {
-  id: string;
-  name: string;
-  slug: string;
-}

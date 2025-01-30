@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import ArticleCard from "@/components/ArticleCard";
 import { newsCategories } from "@/constants";
 import { News } from "@/lib/shared.types";
+import { formatDate } from "@/lib/utils";
 
 const NewsLayout: React.FC = () => {
   const router = useRouter();
@@ -104,9 +105,10 @@ const NewsLayout: React.FC = () => {
               <Grid.Col span="content" key={post.id}>
                 <ArticleCard
                   title={post.title.rendered}
-                  date={post.date}
+                  date={formatDate(post.date)}
                   category={post.categories[0]}
                   slug={post.slug}
+                  excerpt={post.excerpt.rendered}
                   featuredImage={post.featuredImage}
                 />
               </Grid.Col>

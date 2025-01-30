@@ -7,6 +7,7 @@ interface ArticleProps {
   title: string;
   date: string;
   category: string;
+  excerpt: string;
   slug: string;
   featuredImage: string;
 }
@@ -16,10 +17,11 @@ const ArticleCard = ({
   date,
   category,
   slug,
+  excerpt,
   featuredImage,
 }: ArticleProps) => {
   return (
-    <Card mx="auto" radius="md" style={{ width: "350px", height: "350px" }}>
+    <Card mx="auto" radius="md" style={{ width: "350px", height: "400px" }}>
       
       <Link href={`/berita/${slug}`} passHref>
         <AspectRatio ratio={1080 / 720} style={{ overflow: "hidden" }}>
@@ -50,6 +52,14 @@ const ArticleCard = ({
       <Text className={classes.title} mt={5} lineClamp={2} component="a" href={`/berita/${slug}`}>
         {title}
       </Text>
+      <div
+        style={{
+          color: "#444444",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: excerpt,
+        }}
+      />
       <Link href={`/berita/${slug}`}>Read More</Link>
     </Card>
   );
