@@ -44,7 +44,7 @@ export async function GET(req: Request) {
     if (!postsRes.ok) throw new Error("Failed to fetch posts");
 
     const posts = await postsRes.json();
-    console.log("posts", posts)
+    
     // Fetch the featured image and category name for each post
     const postsWithDetails = await Promise.all(
       posts.map(async (post: WordpressNews) => {

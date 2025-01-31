@@ -119,6 +119,16 @@ export interface MapProps {
   y: string;
 }
 
+interface Article {
+  id: number;
+  title: string;
+  excerpt: string;
+  featuredImage: string;
+  category: string;
+  slug: string;
+  date: string;
+}
+
 export interface WordpressNews {
   id: number;
   title: { rendered: string };

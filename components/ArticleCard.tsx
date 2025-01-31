@@ -2,25 +2,21 @@ import { AspectRatio, Card, Image, Text } from "@mantine/core";
 import Link from "next/link";
 import classes from "../styles/ArticleCard.module.css";
 import { motion } from "framer-motion";
+import { Article } from "@/lib/shared.types";
 
-interface ArticleProps {
-  title: string;
-  date: string;
-  category: string;
-  excerpt: string;
-  slug: string;
-  featuredImage: string;
-}
 
 const ArticleCard = ({
+  id,
   title,
   date,
   category,
   slug,
   excerpt,
   featuredImage,
-}: ArticleProps) => {
+}: Article) => {
   console.log("exceprt", excerpt)
+  console.log("id", id)
+  
   return (
     <Card mx="auto" radius="md" style={{ width: "350px", height: "350px" }}>
       

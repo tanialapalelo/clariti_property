@@ -5,20 +5,19 @@ import { Hero } from "@/components/Hero";
 import MapWithPopup from "@/components/MapWithPopup";
 import Section from "@/components/Section";
 import RadiusButton from "@/components/ui/RadiusButton";
-import { mockPosts, strategyPlaces } from "@/constants";
+import { strategyPlaces } from "@/constants";
+import { Article, MapProps } from "@/lib/shared.types";
 import {
-  Anchor,
-  Container,
-  Grid,
-  Group,
-  SimpleGrid,
-  Text,
-  Title,
+    Anchor,
+    Container,
+    Grid,
+    Group,
+    SimpleGrid,
+    Text,
+    Title,
 } from "@mantine/core";
-import Image from "next/image";
 import { motion } from 'framer-motion';
-import { MapProps } from "@/lib/shared.types";
-
+import Image from "next/image";
 
 const tempMapData: MapProps[] = [
     {
@@ -41,9 +40,11 @@ const tempMapData: MapProps[] = [
     },
   ];
   
-
+  interface HomeLayoutProps {
+    news: Article[];
+  }
   
-const HomeLayout = () => {
+  const HomeLayout = ({ news }: HomeLayoutProps) => {
     
   const finalMapData = tempMapData;
     return (
@@ -257,7 +258,7 @@ const HomeLayout = () => {
                 title="Miss Us Already? Don't Worry"
                 description="Kami akan selalu memberikan berita, kabar terbaru, acara, serta promosi dan informasi menarik lainnya kepada Anda. Cari tahu lebih lanjut mengenai aktivitas kami lainnya."
             />
-            <CardsCarousel berita={mockPosts} />
+            <CardsCarousel berita={news} />
             <Container
                 styles={{
                     root: {

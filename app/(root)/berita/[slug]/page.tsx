@@ -67,14 +67,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
     postData.tags.length > 0
       ? await fetchPost("", postData.tags.join(","))
       : [];
-      
+ 
       const formattedRelatedNews = await Promise.all(
         relatedNews.map(async (news: DetailNews) => ({
           id: news.id,
           title: news.title.rendered,
-          content: news.content.rendered,
           slug: news.slug,
           date: formatDate(news.date),
+          category: "related tags",
           excerpt: news.excerpt.rendered,
           featuredImage: news.featured_media
             ? await fetchImageData(news.featured_media)

@@ -103,6 +103,7 @@ const NewsLayout: React.FC = () => {
             {paginatedPosts.map((post) => (
               <Grid.Col span="content" key={post.id}>
                 <ArticleCard
+                  id={post.id}
                   title={post.title.rendered}
                   date={formatDate(post.date)}
                   category={post.categories[0]}

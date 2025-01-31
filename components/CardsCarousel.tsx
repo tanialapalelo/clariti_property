@@ -2,16 +2,7 @@
 
 import { Carousel } from "@mantine/carousel";
 import ArticleCard from "./ArticleCard";
-
-interface Article {
-  id: string;
-  title: string;
-  excerpt: string;
-  featuredImage: string;
-  category: string;
-  slug: string;
-  date: string;
-}
+import { Article } from "@/lib/shared.types";
 
 interface CardsCarouselProps {
   berita: Article[];
