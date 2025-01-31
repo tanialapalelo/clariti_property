@@ -20,6 +20,7 @@ const ArticleCard = ({
   excerpt,
   featuredImage,
 }: ArticleProps) => {
+  console.log("exceprt", excerpt)
   return (
     <Card mx="auto" radius="md" style={{ width: "350px", height: "350px" }}>
       

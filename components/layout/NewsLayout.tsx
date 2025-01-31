@@ -48,7 +48,6 @@ const NewsLayout: React.FC = () => {
     return posts.slice((page - 1) * perPage, page * perPage);
   }, [posts, page]);
 
-  console.log("paginatedPosts", paginatedPosts)
   const handleTabChange = (val: string | null) => {
     if (val) {
       setActiveTab(val);

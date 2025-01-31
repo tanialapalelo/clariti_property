@@ -119,6 +119,16 @@ export interface MapProps {
   y: string;
 }
 
+export interface WordpressNews {
+  id: number;
+  title: { rendered: string };
+  excerpt: { rendered: string };
+  date: string;
+  slug: string;
+  featured_media: number;
+  categories: number[];
+}
+
 export interface News {
   id: number;
   title: { rendered: string };
@@ -130,7 +140,7 @@ export interface News {
 }
 
 export interface NewsCategory {
-  id: string;
+  id: number;
   name: string;
   slug: string;
 }
@@ -138,10 +148,11 @@ export interface NewsCategory {
 export interface DetailNews {
   id: number;
   title: { rendered: string };
+  excerpt: { rendered: string };
   content: { rendered: string };
   date: string;
   slug: string;
-  featuredImage: string;
+  featured_media: number;
   categories: string[];
   tags: string[];
 }

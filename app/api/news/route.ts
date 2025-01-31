@@ -1,3 +1,4 @@
+import { NewsCategory, WordpressNews } from "@/lib/shared.types";
 import { fetchImageData } from "@/lib/wordpress";
 import { NextResponse } from "next/server";
 
@@ -12,7 +13,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    let categoriesRes, categoriesData;
+    let categoriesRes;
 
     if (category === "all") {
       categoriesRes = await fetch(`${WORDPRESS_API_URL}/categories`);
@@ -24,8 +25,9 @@ export async function GET(req: Request) {
       throw new Error("Failed to fetch categories");
     }
 
-    categoriesData = await categoriesRes.json();
-    const categoryIds = categoriesData.map((cat: any) => cat.id);
+    const categoriesData = await categoriesRes.json();
+    
+    const categoryIds = categoriesData.map((cat: NewsCategory) => cat.id);
 
     if (categoryIds.length === 0) {
       return NextResponse.json({ error: "Categories not found" }, { status: 404 });
@@ -42,15 +44,15 @@ export async function GET(req: Request) {
     if (!postsRes.ok) throw new Error("Failed to fetch posts");
 
     const posts = await postsRes.json();
-
+    console.log("posts", posts)
     // Fetch the featured image and category name for each post
     const postsWithDetails = await Promise.all(
-      posts.map(async (post: any) => {
+      posts.map(async (post: WordpressNews) => {
         const featuredImageUrl = await fetchImageData(post.featured_media);
 
         // Get the category name for this post
         const postCategories = post.categories.map((catId: number) => {
-          const category = categoriesData.find((c: any) => c.id === catId);
+          const category = categoriesData.find((c: NewsCategory) => c.id === catId);
           return category ? category.name : "Uncategorized";
         });
 

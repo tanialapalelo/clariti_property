@@ -1,4 +1,4 @@
-"use cli3n5W"
+"use client"
 
 import { CardsCarousel } from "@/components/CardsCarousel";
 import { Hero } from "@/components/Hero";
@@ -16,10 +16,36 @@ import {
   Title,
 } from "@mantine/core";
 import Image from "next/image";
+import { motion } from 'framer-motion';
 import { MapProps } from "@/lib/shared.types";
 
 
+const tempMapData: MapProps[] = [
+    {
+      id: "1",
+      icon: "home",
+      title: "Home Facility",
+      description: "A description of the home facility.",
+      link: "/home",
+      x: "50%",
+      y: "50%",
+    },
+    {
+      id: "2",
+      icon: "wifi",
+      title: "WiFi Hotspot",
+      description: "A description of the WiFi hotspot.",
+      link: "/wifi",
+      x: "40%",
+      y: "30%",
+    },
+  ];
+  
+
+  
 const HomeLayout = () => {
+    
+  const finalMapData = tempMapData;
     return (
         <>
 
@@ -150,8 +176,6 @@ const HomeLayout = () => {
             </SimpleGrid>
 
             {/* ini yang buat berantakan layout mobile */}
-
-
             <SimpleGrid cols={{ base: 1, md: 2 }}>
                 <div>
 
