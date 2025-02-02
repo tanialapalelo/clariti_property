@@ -6,7 +6,7 @@ import MapWithPopup from "@/components/MapWithPopup";
 import Section from "@/components/Section";
 import RadiusButton from "@/components/ui/RadiusButton";
 import { strategyPlaces } from "@/constants";
-import { Article, MapProps } from "@/lib/shared.types";
+import { Article, HomeHeroSection, MapProps } from "@/lib/shared.types";
 import {
     Anchor,
     Container,
@@ -42,9 +42,10 @@ const tempMapData: MapProps[] = [
   
   interface HomeLayoutProps {
     news: Article[];
+    heroSection: HomeHeroSection[];
   }
   
-  const HomeLayout = ({ news }: HomeLayoutProps) => {
+  const HomeLayout = ({ news, heroSection }: HomeLayoutProps) => {
     
   const finalMapData = tempMapData;
     return (

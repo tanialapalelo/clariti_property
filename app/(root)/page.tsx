@@ -1,5 +1,20 @@
 import HomeLayout from "@/components/layout/HomeLayout";
-import { Article, News } from "@/lib/shared.types";
+import { Article, HomeHeroSection, News } from "@/lib/shared.types";
+
+
+
+async function fetchHeroSection(): Promise<HomeHeroSection[]> {
+  const res = await fetch(`${process.env.WORDPRESS_URL}/home_hero_section?_embed`);
+  const data: HomeHeroSection[] = await res.json();
+  
+  return data.map((member) => ({
+    image: member.image,
+    url: member.url,
+    title: member.title,
+    description: member.description
+  }));
+}
+
 
 // Fetch from API route
 const fetchPosts = async (category: string): Promise<Article[]> => {
@@ -34,6 +49,7 @@ const fetchPosts = async (category: string): Promise<Article[]> => {
 
 export default async function Home() {
   const newsData: Article[] = await fetchPosts("all");
+  const heroSection: HomeHeroSection[] = await fetchHeroSection();
   
-  return <HomeLayout news={newsData} />;
+  return <HomeLayout news={newsData} heroSection={heroSection}/>;
 }

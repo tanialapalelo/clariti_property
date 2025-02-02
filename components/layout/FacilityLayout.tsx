@@ -1,7 +1,7 @@
 "use client";
 
 import { FacilityData, FacilitySection } from "@/lib/shared.types";
-import { Grid, Title, Text, Button } from "@mantine/core";
+import { Grid, Title, Text, Button, Group } from "@mantine/core";
 import Image from "next/image";
 
 interface FacilityLayoutProps {
@@ -69,15 +69,17 @@ const FacilityLayout = ({
               )}
 
               {section.bookUrl && (
-                <Button
-                  component="a"
-                  href={section.bookUrl}
-                  target="_blank"
-                  radius="xl"
-                  m="xl"
-                >
-                  Book Now
-                </Button>
+                <Group justify="center">
+                  <Button
+                    component="a"
+                    href={section.bookUrl}
+                    target="_blank"
+                    radius="xl"
+                    m="xl"
+                  >
+                    Book Now
+                  </Button>
+                </Group>
               )}
             </Grid.Col>
 

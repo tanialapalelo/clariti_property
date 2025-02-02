@@ -167,3 +167,9 @@ export interface DetailNews {
   tags: string[];
 }
 
+export interface HomeHeroSection {
+  image: string;
+  title: string;
+  description: string;
+  url: string;
+}
