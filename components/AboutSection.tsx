@@ -5,36 +5,13 @@ import { motion } from 'framer-motion';
 import Section from './Section';
 import Superheroes from './SuperHeroes';
 import Image from 'next/image';
+import { AboutSectionProps } from '@/lib/shared.types';
 
 interface Section {
   title: string;
   description: string;
   image: string;
   alignment: 'left' | 'right';
-}
-
-interface VisionMission {
-  image: string;
-  vision_title: string;
-  vision_description: string;
-  mission_title: string;
-  mission_description: string;
-}
-
-interface TeamMember {
-  image: string;
-  name: string;
-  role: string;
-}
-
-interface AboutSectionProps {
-  mainTitle: string;
-  sections: Section;
-  visionMission: VisionMission;
-  ceo: { image: string; title: string; name: string, description: string };
-  superHeroTitle: string;
-  superHeroDescription: string;
-  teamMembers: TeamMember[];
 }
 
 const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle, superHeroDescription, teamMembers }: AboutSectionProps) => {

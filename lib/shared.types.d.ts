@@ -168,8 +168,39 @@ export interface DetailNews {
 }
 
 export interface HomeHeroSection {
+  id: number;
+  featureImage: string;
+  title: string;
+  description: string;
+  buttonUrl: string;
+  buttonText: string;
+}
+
+
+export interface WordPressHomeHeroSection {
+  id: number;
+  acf: {
+    title: string;
+    description: string;
+    feature_image: number | null;  // WordPress stores media as IDs
+    button_url: string;
+    button_text: string;
+  };
+}
+
+export interface TentangKamiHome {
   image: string;
   title: string;
   description: string;
-  url: string;
+  image: string;
+}
+
+export interface PanoramaSectionHome { 
+  title: string;
+  description: string;
+}
+
+export interface HomeSectionProps {
+  tengtangKami: TentangKamiHome;
+  panoramaSection: PanoramaSectionHome;
 }

@@ -1,23 +1,32 @@
 import HomeLayout from "@/components/layout/HomeLayout";
-import { Article, HomeHeroSection, News } from "@/lib/shared.types";
-
-
+import { Article, HomeHeroSection, HomeSectionProps, News, WordPressHomeHeroSection } from "@/lib/shared.types";
+import { fetchImageData } from "@/lib/wordpress";
 
 async function fetchHeroSection(): Promise<HomeHeroSection[]> {
   const res = await fetch(`${process.env.WORDPRESS_URL}/home_hero_section?_embed`);
-  const data: HomeHeroSection[] = await res.json();
-  
-  return data.map((member) => ({
-    image: member.image,
-    url: member.url,
-    title: member.title,
-    description: member.description
-  }));
+  if (!res.ok) {
+    throw new Error(`Failed to fetch facility sections: ${res.status} ${res.statusText}`);
+  }
+  const data: WordPressHomeHeroSection[] = await res.json();
+
+  return await Promise.all(
+    data.map(async (section) => {
+      const featureImage = section.acf.feature_image ? await fetchImageData(section.acf.feature_image) : "";
+
+      return {
+        id: section.id,
+        title: section.acf.title,
+        description: section.acf.description,
+        featureImage,
+        buttonUrl: section.acf.button_url || "",
+        buttonText: section.acf.button_text || "",
+      };
+    })
+  );
 }
 
-
 // Fetch from API route
-const fetchPosts = async (category: string): Promise<Article[]> => {
+const fetchBerita = async (category: string): Promise<Article[]> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SITE_URL}/api/news?category=${category}`,
@@ -47,9 +56,23 @@ const fetchPosts = async (category: string): Promise<Article[]> => {
   }
 };
 
+
+async function fetchHomeData(): Promise<HomeSectionProps> {
+  const res = await fetch(`${process.env.WORDPRESS_URL}/pages?slug=home-page&acf_format=standard`, {
+    next: { revalidate: 10 },
+  });
+  const data = await res.json();
+  const content = data[0].acf;
+  return {
+    tengtangKami: content.tentang_kami,
+    panoramaSection: content.panorama_section
+  };
+}
+
 export default async function Home() {
-  const newsData: Article[] = await fetchPosts("all");
-  const heroSection: HomeHeroSection[] = await fetchHeroSection();
+  const homeSections: HomeSectionProps = await fetchHomeData();
+  const newsData: Article[] = await fetchBerita("all");
+  const heroSections: HomeHeroSection[] = await fetchHeroSection();
   
-  return <HomeLayout news={newsData} heroSection={heroSection}/>;
+  return <HomeLayout homeSections={homeSections} news={newsData} heroSections={heroSections}/>;
 }

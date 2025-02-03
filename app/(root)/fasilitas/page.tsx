@@ -31,7 +31,6 @@ async function fetchFacilitySection(): Promise<FacilitySection[]> {
   );
 }
 
-
 async function fetchFasilitasData(): Promise<FacilityData> {
   const res = await fetch(
     `${process.env.WORDPRESS_URL}/pages?slug=facility&_embed`,
