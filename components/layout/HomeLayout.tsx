@@ -67,7 +67,7 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
               style={{ position: "relative", width: "100%", height: "400px" }}
             >
               <Image
-                src={homeSections.tengtangKami.image}
+                src={homeSections.tentangKami.image}
                 alt="tes"
                 layout="fill"
                 objectFit="cover"
@@ -86,10 +86,10 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
               m={"xl"}
               style={{ color: "#FFFFFF" }}
             >
-              {homeSections.tengtangKami.title}
+              {homeSections.tentangKami.title}
             </Title>
             <Text m={"xl"} style={{ color: "#FFFFFF" }}>
-              {homeSections.tengtangKami.description}
+              {homeSections.tentangKami.description}
             </Text>
           </Grid.Col>
         </Grid>
@@ -243,8 +243,8 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
         layout="responsive"
       />
       <Section
-        title="Miss Us Already? Don't Worry"
-        description="Kami akan selalu memberikan berita, kabar terbaru, acara, serta promosi dan informasi menarik lainnya kepada Anda. Cari tahu lebih lanjut mengenai aktivitas kami lainnya."
+        title={homeSections.beritaSection.title}
+        description={homeSections.beritaSection.description}
       />
       <CardsCarousel berita={news} />
       <Container

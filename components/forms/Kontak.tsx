@@ -78,6 +78,7 @@ const Kontak = () => {
       setRecaptchaToken(null);
       recaptchaRef.current?.reset();
     } catch (error) {
+      console.error("Failed to send message", error);
       setNotification({ message: "Failed to send your message. Please try again.", color: "red" });
     } finally {
       setLoading(false);

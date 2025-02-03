@@ -200,7 +200,13 @@ export interface PanoramaSectionHome {
   description: string;
 }
 
+export interface BeritaSectionHome { 
+  title: string;
+  description: string;
+}
+
 export interface HomeSectionProps {
-  tengtangKami: TentangKamiHome;
+  tentangKami: TentangKamiHome;
   panoramaSection: PanoramaSectionHome;
+  beritaSection: BeritaSectionHome;
 }
