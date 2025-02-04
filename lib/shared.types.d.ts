@@ -25,17 +25,17 @@ export interface Project {
 
 export interface ProjectImage {
   id: number;
-  acf:{
+  acf: {
     title: string;
     image: number;
-  }
+  };
 }
 
 export interface Section {
   title: string;
   description: string;
   image: string;
-  alignment: 'left' | 'right';
+  alignment: "left" | "right";
 }
 
 export interface VisionMission {
@@ -64,7 +64,7 @@ export interface AboutSectionProps {
   sections: Section;
   visionMission: VisionMission;
   ceo: CEO;
-  superHeroTitle: string; 
+  superHeroTitle: string;
   superHeroDescription: string;
   teamMembers: TeamMember[];
 }
@@ -72,7 +72,7 @@ export interface AboutSectionProps {
 export interface Transportation {
   title: string;
   content: string;
-};
+}
 
 export interface WordPressTransportation {
   title: {
@@ -81,7 +81,7 @@ export interface WordPressTransportation {
   content: {
     rendered: string;
   };
-};
+}
 
 export interface FacilityData {
   mainTitle: string;
@@ -96,18 +96,16 @@ export interface FacilitySection {
   bookUrl: string;
 }
 
-
 export interface WordPressFacilitySection {
   id: number;
   acf: {
     title: string;
     description: string;
-    feature_image: number | null;  // WordPress stores media as IDs
+    feature_image: number | null; // WordPress stores media as IDs
     detail_image: number | null;
     book_url: string;
   };
 }
-
 
 export interface MapProps {
   id: string;
@@ -176,15 +174,33 @@ export interface HomeHeroSection {
   buttonText: string;
 }
 
-
 export interface WordPressHomeHeroSection {
   id: number;
   acf: {
     title: string;
     description: string;
-    feature_image: number | null;  // WordPress stores media as IDs
+    feature_image: number | null; // WordPress stores media as IDs
     button_url: string;
     button_text: string;
+  };
+}
+
+export interface WordpressProject {
+  id: number;
+  title: {
+    rendered: string;
+  };
+  slug: string;
+  type: string;
+  _links?: {
+    "wp:term"?: {
+      taxonomy: string;
+      href: string;
+    }[];
+  };
+  acf: {
+    hero: { title: string; description: string; image: string;};
+    show_in_home: boolean;
   };
 }
 
@@ -195,21 +211,21 @@ export interface TentangKamiSectionHome {
   image: string;
 }
 
-export interface PanoramaSectionHome { 
+export interface PanoramaSectionHome {
   title: string;
   description: string;
 }
 
-export interface BeritaSectionHome { 
+export interface BeritaSectionHome {
   title: string;
   description: string;
 }
 
-export interface KunjungiKamiSectionHome { 
+export interface KunjungiKamiSectionHome {
   title: string;
   description: string;
-  desktopMapImage: string;
-  mobileMapImage: string;
+  desktop_map_image: string;
+  mobile_map_image: string;
 }
 
 export interface HomeSectionProps {

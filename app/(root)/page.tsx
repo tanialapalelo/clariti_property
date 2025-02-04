@@ -1,17 +1,29 @@
 import HomeLayout from "@/components/layout/HomeLayout";
-import { Article, HomeHeroSection, HomeSectionProps, News, WordPressHomeHeroSection } from "@/lib/shared.types";
-import { fetchImageData } from "@/lib/wordpress";
+import {
+  Article,
+  HomeHeroSection,
+  HomeSectionProps,
+  News,
+  WordPressHomeHeroSection,
+} from "@/lib/shared.types";
+import { fetchImageData, fetchProjects } from "@/lib/wordpress";
 
 async function fetchHeroSection(): Promise<HomeHeroSection[]> {
-  const res = await fetch(`${process.env.WORDPRESS_URL}/home_hero_section?_embed`);
+  const res = await fetch(
+    `${process.env.WORDPRESS_URL}/home_hero_section?_embed`
+  );
   if (!res.ok) {
-    throw new Error(`Failed to fetch facility sections: ${res.status} ${res.statusText}`);
+    throw new Error(
+      `Failed to fetch facility sections: ${res.status} ${res.statusText}`
+    );
   }
   const data: WordPressHomeHeroSection[] = await res.json();
 
   return await Promise.all(
     data.map(async (section) => {
-      const featureImage = section.acf.feature_image ? await fetchImageData(section.acf.feature_image) : "";
+      const featureImage = section.acf.feature_image
+        ? await fetchImageData(section.acf.feature_image)
+        : "";
 
       return {
         id: section.id,
@@ -38,7 +50,7 @@ const fetchBerita = async (category: string): Promise<Article[]> => {
     if (!response.ok) {
       throw new Error("Failed to fetch news");
     }
-    
+
     const newsData: News[] = await response.json();
     // Transform News[] into Article[]
     return newsData.map((newsItem) => ({
@@ -56,18 +68,20 @@ const fetchBerita = async (category: string): Promise<Article[]> => {
   }
 };
 
-
 async function fetchHomeData(): Promise<HomeSectionProps> {
-  const res = await fetch(`${process.env.WORDPRESS_URL}/pages?slug=home-page&acf_format=standard`, {
-    next: { revalidate: 10 },
-  });
+  const res = await fetch(
+    `${process.env.WORDPRESS_URL}/pages?slug=home-page&acf_format=standard`,
+    {
+      next: { revalidate: 10 },
+    }
+  );
   const data = await res.json();
   const content = data[0].acf;
   return {
-    tentangKamiSection: content.tentang_kami,
+    tentangKamiSection: content.tentang_kami_section,
     panoramaSection: content.panorama_section,
     beritaSection: content.berita_section,
-    kunjungiKamiSection: content.kunjungi_kami_section
+    kunjungiKamiSection: content.kunjungi_kami_section,
   };
 }
 
@@ -75,6 +89,14 @@ export default async function Home() {
   const homeSections: HomeSectionProps = await fetchHomeData();
   const newsData: Article[] = await fetchBerita("all");
   const heroSections: HomeHeroSection[] = await fetchHeroSection();
-  
-  return <HomeLayout homeSections={homeSections} news={newsData} heroSections={heroSections}/>;
+  const projects = await fetchProjects();
+
+  return (
+    <HomeLayout
+      homeSections={homeSections}
+      news={newsData}
+      heroSections={heroSections}
+      projects={projects}
+    />
+  );
 }

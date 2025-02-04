@@ -43,7 +43,7 @@ const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle,
               <Image
                 src={sections.image}
                 alt={sections.title}
-                layout="fill"
+                fill
                 objectFit="cover"
               />
             </div>
@@ -68,7 +68,7 @@ const AboutSection = ({ mainTitle, sections, visionMission, ceo, superHeroTitle,
             <Image
               src={visionMission.image}
               alt={visionMission.vision_title}
-              layout="fill"
+              fill
               objectFit="cover"
             />
           </div>

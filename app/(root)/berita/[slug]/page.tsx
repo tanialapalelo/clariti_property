@@ -7,17 +7,22 @@ import { Metadata } from "next";
 
 // Fetch the post data dynamically
 async function fetchPost(slug: string, tags?: string) {
-  let url = `${process.env.WORDPRESS_URL}/posts?slug=${slug}`;
-  if (tags) url = `${process.env.WORDPRESS_URL}/posts?tags=${tags}`;
+  try {
+      let url = `${process.env.WORDPRESS_URL}/posts?slug=${slug}`;
+      if (tags) url = `${process.env.WORDPRESS_URL}/posts?tags=${tags}`;
 
-  url += `&_fields=id,slug,title.rendered,content.rendered,featured_media,excerpt,categories,date,tags&_embed`;
-  const res = await fetch(url, {
-    cache: "no-store", // Ensure fresh data
-  });
+      url += `&_fields=id,slug,title.rendered,content.rendered,featured_media,excerpt,categories,date,tags&_embed`;
+      const res = await fetch(url, {
+        cache: "no-store", // Ensure fresh data
+      });
 
-  if (!res.ok) return null;
+      if (!res.ok) return null;
 
-  return res.json();
+      return res.json();
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    return null;
+  }
 }
 
 export async function generateMetadata({
@@ -25,15 +30,22 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const slug = (await params).slug;
+  try {
+    const slug = (await params).slug;
 
-  const data = await fetch(
-    `${process.env.WORDPRESS_URL}/posts?slug=${slug}`
-  ).then((res) => res.json());
+    const data = await fetch(
+      `${process.env.WORDPRESS_URL}/posts?slug=${slug}`
+    ).then((res) => res.json());
 
-  return {
-    title: data[0].title.rendered
-  };
+    return {
+      title: data[0].title.rendered
+    };
+  } catch (error) {
+      console.error("Error generating metadata:", error);
+      return {
+        title: "Error",
+    };
+  }
 }
 
 // Fetch static params for SSG

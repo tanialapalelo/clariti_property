@@ -128,7 +128,6 @@ const KontakKami = async () => {
         width={1200}
         height={600}
         layout="responsive"
-        unoptimized
       />
       <TransportationInfo data={transportations} />
     </>

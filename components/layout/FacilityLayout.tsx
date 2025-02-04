@@ -101,7 +101,7 @@ const FacilityLayout = ({
                   <Image
                     src={section.featureImage}
                     alt={section.title}
-                    layout="fill"
+                    fill
                     objectFit="cover"
                   />
                 </div>

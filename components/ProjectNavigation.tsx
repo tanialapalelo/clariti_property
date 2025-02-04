@@ -1,5 +1,4 @@
-import { Grid, Title } from "@mantine/core";
-import Link from "next/link";
+import { Anchor, Grid, Title } from "@mantine/core";
 
 interface Project {
   id: number;
@@ -31,7 +30,7 @@ const ProjectNavigation = ({ projects }: ProjectNavigationProps) => {
             <ul>
             {projects.map((project) => (
               <li key={project.id} style={{listStyleType: "none"}}>
-                <Link href={`/proyek/${project.slug}`} >{project.name}</Link>
+                <Anchor href={`/proyek/${project.slug}`} >{project.name}</Anchor>
                 </li>
             ))}
             </ul>

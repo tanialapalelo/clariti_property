@@ -11,6 +11,7 @@ import {
   HomeHeroSection,
   HomeSectionProps,
   MapProps,
+  WordpressProject,
 } from "@/lib/shared.types";
 import {
   Anchor,
@@ -50,9 +51,15 @@ interface HomeLayoutProps {
   homeSections: HomeSectionProps;
   news: Article[];
   heroSections: HomeHeroSection[];
+  projects: WordpressProject[];
 }
 
-const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
+const HomeLayout = ({
+  homeSections,
+  news,
+  heroSections,
+  projects,
+}: HomeLayoutProps) => {
   const finalMapData = tempMapData;
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -71,8 +78,8 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
             >
               <Image
                 src={homeSections.tentangKamiSection.image}
-                alt="tes"
-                layout="fill"
+                alt={homeSections.tentangKamiSection.title}
+                fill
                 objectFit="cover"
               />
             </div>
@@ -105,64 +112,40 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
       <Group justify="center" mb={"lg"}>
         <RadiusButton description="Explore with 360" link="" />
       </Group>
-
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing={0} bg={"#EAFEF8"}>
-        <Group justify="center">
-          <Title order={3} m={"sm"} ta={"center"}>
-            Beautiful Spaces Created With Passion
-          </Title>
-          <Text m={"sm"} ta={"center"}>
-            Dengan pengalaman bertahun-tahun mengembangkan properti, tim
-            SouthCity berkomitmen untuk membangun kawasan ini secara positif
-            bagi komunitas bersama. Kami berjanji untuk selalu memberikan yang
-            terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
-          </Text>
-          <Anchor href="#">Lebih Lanjut</Anchor>
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: "1/1", // Responsive aspect ratio
-              maxHeight: "150vh", // Ensures it doesn't take too much space on large screens
-              marginTop: "-40%", // Adjust for overlapping effect
-            }}
-          >
-            <Image
-              src="/assets/images/Fortunia-Residence-2-80-1.webp"
-              alt="tes"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-        </Group>
-        <Group justify="center">
-          <Title order={3} m={"sm"} ta={"center"}>
-            Beautiful Spaces Created With Passion
-          </Title>
-          <Text m={"sm"} ta={"center"}>
-            Dengan pengalaman bertahun-tahun mengembangkan properti, tim
-            SouthCity berkomitmen untuk membangun kawasan ini secara positif
-            bagi komunitas bersama. Kami berjanji untuk selalu memberikan yang
-            terbaik dalam mengembangkan 57 hektar kawasan superblok SouthCity.
-          </Text>
-          <Anchor href="#">Lebih Lanjut</Anchor>
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: "1/1", // Responsive aspect ratio
-              maxHeight: "150vh", // Ensures it doesn't take too much space on large screens
-              marginTop: "-40%", // Adjust for overlapping effect
-            }}
-          >
-            <Image
-              src="/assets/images/Fortunia-Residence-2-80-1.webp"
-              alt="tes"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-        </Group>
+        {projects
+          .filter((project) => project.acf.show_in_home)
+          .map((project) => (
+            <Group justify="center" key={project.id}>
+              <div>
+                <Title order={3} m={"sm"} ta={"center"}>
+                  {project.acf.hero.title}
+                </Title>
+                <Text m={"sm"} ta={"center"} lineClamp={2}>
+                  {project.acf.hero.description}
+                </Text>
+                <Group justify="center">
+                  <Anchor
+                    href="https://mantine.dev/"
+                    target="_blank"
+                    ta={"center"}
+                  >
+                    Lebih Lanjut
+                  </Anchor>
+                </Group>
+              </div>
+              <div
+                style={{ position: "relative", width: "100%", height: "500px" }}
+              >
+                <Image
+                  src={project.acf.hero.image || ""}
+                  alt={project.acf.hero.title}
+                  fill
+                  objectFit="cover"
+                />
+              </div>
+            </Group>
+          ))}
       </SimpleGrid>
 
       {/* ini yang buat berantakan layout mobile */}
@@ -238,15 +221,19 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
           ))}
         </SimpleGrid>
       </Container>
-      
-    <Image
-      // src={isMobile ? homeSections.kunjungiKamiSection.mobileMapImage : homeSections.kunjungiKamiSection.desktopMapImage}
-      src={homeSections.kunjungiKamiSection.desktopMapImage}
-      alt="South City Map"
-      width={isMobile ? 360 : 1024} // Adjust based on your design
-      height={isMobile ? 640 : 768}
-      priority
-    />
+
+      <Image
+        src={
+          isMobile
+            ? homeSections.kunjungiKamiSection.mobile_map_image
+            : homeSections.kunjungiKamiSection.desktop_map_image
+        }
+        alt="Clariti Map"
+        layout="responsive"
+        width={isMobile ? 360 : 1500}
+        height={isMobile ? 640 : 768}
+        priority
+      />
 
       {/* <Image
         src="/assets/images/dekstop-map.gif"
