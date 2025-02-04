@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
         console.log("formData", Object.fromEntries(formData.entries()));
 
-        const wordpressApiUrl = `${process.env.WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/72/feedback`;
+        const wordpressApiUrl = `${process.env.HOSTING_URL}/wp-json/contact-form-7/v1/contact-forms/72/feedback`;
 
         const response = await fetch(wordpressApiUrl, {
             method: "POST",
