@@ -188,7 +188,7 @@ export interface WordPressHomeHeroSection {
   };
 }
 
-export interface TentangKamiHome {
+export interface TentangKamiSectionHome {
   image: string;
   title: string;
   description: string;
@@ -205,8 +205,16 @@ export interface BeritaSectionHome {
   description: string;
 }
 
+export interface KunjungiKamiSectionHome { 
+  title: string;
+  description: string;
+  desktopMapImage: string;
+  mobileMapImage: string;
+}
+
 export interface HomeSectionProps {
-  tentangKami: TentangKamiHome;
+  tentangKamiSection: TentangKamiSectionHome;
   panoramaSection: PanoramaSectionHome;
+  kunjungiKamiSection: KunjungiKamiSectionHome;
   beritaSection: BeritaSectionHome;
 }

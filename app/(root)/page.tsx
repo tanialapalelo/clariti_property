@@ -64,9 +64,10 @@ async function fetchHomeData(): Promise<HomeSectionProps> {
   const data = await res.json();
   const content = data[0].acf;
   return {
-    tentangKami: content.tentang_kami,
+    tentangKamiSection: content.tentang_kami,
     panoramaSection: content.panorama_section,
-    beritaSection: content.berita_section
+    beritaSection: content.berita_section,
+    kunjungiKamiSection: content.kunjungi_kami_section
   };
 }
 

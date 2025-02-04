@@ -21,6 +21,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -53,6 +54,8 @@ interface HomeLayoutProps {
 
 const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
   const finalMapData = tempMapData;
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
     <>
       <Hero heroSections={heroSections} />
@@ -67,7 +70,7 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
               style={{ position: "relative", width: "100%", height: "400px" }}
             >
               <Image
-                src={homeSections.tentangKami.image}
+                src={homeSections.tentangKamiSection.image}
                 alt="tes"
                 layout="fill"
                 objectFit="cover"
@@ -86,10 +89,10 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
               m={"xl"}
               style={{ color: "#FFFFFF" }}
             >
-              {homeSections.tentangKami.title}
+              {homeSections.tentangKamiSection.title}
             </Title>
             <Text m={"xl"} style={{ color: "#FFFFFF" }}>
-              {homeSections.tentangKami.description}
+              {homeSections.tentangKamiSection.description}
             </Text>
           </Grid.Col>
         </Grid>
@@ -209,8 +212,8 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
       </Grid> */}
       <MapWithPopup facilities={finalMapData} />
       <Section
-        title="Come Find Us We'll Make It a Date"
-        description="SouthCity memiliki lokasi strategis yang berbatasan dengan tiga daerah perkotaan besar: Jakarta Selatan, Cinere dan Pondok Cabe. Kawasan yang memberikan kemudahan akses menuju tol Depok-Antasari (gerbang tol Brigif), tol Cinere-Jagorawi (gerbang tol Limo), dan tol Serpong-Cinere (gerbang tol Pamulang). Berbagai pilihan transportasi lainnya juga tersedia dengan adanya halte TransJakarta dengan jalur SouthCity-Kuningan, serta stasiun MRT Lebak Bulus dan Fatmawati. SouthCity hanya berjarak 5 menit saja dari Sekolah Harapan Bangsa (SHB), 10 menit dari Mal Cinere dan Mal Bellevue, 15 menit dari Mal Pondok Indah, serta 20 menit dari Universitas Indonesia."
+        title={homeSections.kunjungiKamiSection.title}
+        description={homeSections.kunjungiKamiSection.description}
       />
       <Container
         size={"lg"}
@@ -235,13 +238,23 @@ const HomeLayout = ({ homeSections, news, heroSections }: HomeLayoutProps) => {
           ))}
         </SimpleGrid>
       </Container>
-      <Image
+      
+    <Image
+      // src={isMobile ? homeSections.kunjungiKamiSection.mobileMapImage : homeSections.kunjungiKamiSection.desktopMapImage}
+      src={homeSections.kunjungiKamiSection.desktopMapImage}
+      alt="South City Map"
+      width={isMobile ? 360 : 1024} // Adjust based on your design
+      height={isMobile ? 640 : 768}
+      priority
+    />
+
+      {/* <Image
         src="/assets/images/dekstop-map.gif"
         alt="map"
         width={1200}
         height={600}
         layout="responsive"
-      />
+      /> */}
       <Section
         title={homeSections.beritaSection.title}
         description={homeSections.beritaSection.description}
