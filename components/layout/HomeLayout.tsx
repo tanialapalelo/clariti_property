@@ -11,7 +11,7 @@ import {
   HomeHeroSection,
   HomeSectionProps,
   MapProps,
-  WordpressProject,
+  Project,
 } from "@/lib/shared.types";
 import {
   Anchor,
@@ -51,7 +51,7 @@ interface HomeLayoutProps {
   homeSections: HomeSectionProps;
   news: Article[];
   heroSections: HomeHeroSection[];
-  projects: WordpressProject[];
+  projects: Project[];
 }
 
 const HomeLayout = ({
@@ -126,7 +126,7 @@ const HomeLayout = ({
                 </Text>
                 <Group justify="center">
                   <Anchor
-                    href="https://mantine.dev/"
+                    href={project.acf.hero.url}
                     target="_blank"
                     ta={"center"}
                   >
@@ -173,26 +173,6 @@ const HomeLayout = ({
         </div>
       </SimpleGrid>
 
-      {/* <Grid>
-        <Grid.Col span={{base: 12, md: 4}}>
-          <Title ta={"right"}>
-            SouthCity Masterplan
-          </Title>
-        </Grid.Col>
-        <Grid.Col span={{base: 12, md: "auto"}}>
-          <Text>
-            SouthCity merupakan kawasan 57 hektar yang disiapkan untuk
-            pengembangan proyek hunian, pusat komersial, dan perhotelan yang
-            akan hadir di masa mendatang. Terletak di lokasi yang strategis di
-            Jakarta Selatan, Cinere dan Pondok Cabe serta memiliki kemudahan
-            akses menuju tol Depok-Antasari (gerbang tol Limo), tol
-            Cinere-Jagorawi (gerbang tol Pamulang), dan tol Antasari-Brigif
-            (gerbang tol Brigif). Selain itu berbagai pilihan transportasi umum
-            juga tersedia di dalam kawasan SouthCity dengan dibangunnya halte
-            TransJakarta serta adanya MRT di Lebak Bulus dan Fatmawati.
-          </Text>
-        </Grid.Col>
-      </Grid> */}
       <MapWithPopup facilities={finalMapData} />
       <Section
         title={homeSections.kunjungiKamiSection.title}

@@ -17,7 +17,7 @@ export const fetchProjects = async () => {
 
     const data: WordpressProject[] = await res.json();
 
-    return await Promise.all(
+    return Promise.all(
       data.map(async (project) => {
         const projectTypeName = await getProjectTypeName(project);
 

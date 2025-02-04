@@ -21,6 +21,10 @@ export interface Project {
   name: string;
   slug: string;
   type: string;
+  acf: {
+    hero: { title: string; description: string; image: string; url: string; };
+    show_in_home: boolean;
+  };
 }
 
 export interface ProjectImage {
@@ -199,7 +203,7 @@ export interface WordpressProject {
     }[];
   };
   acf: {
-    hero: { title: string; description: string; image: string;};
+    hero: { title: string; description: string; image: string; url: string;};
     show_in_home: boolean;
   };
 }
@@ -233,4 +237,13 @@ export interface HomeSectionProps {
   panoramaSection: PanoramaSectionHome;
   kunjungiKamiSection: KunjungiKamiSectionHome;
   beritaSection: BeritaSectionHome;
+}
+
+export interface StrategicPlaces {
+  id: number;
+  acf: {
+    time: number;
+    unit_of_time: string;
+    description: string;
+  };
 }
