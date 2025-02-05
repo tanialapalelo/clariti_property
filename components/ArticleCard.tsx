@@ -6,19 +6,15 @@ import { Article } from "@/lib/shared.types";
 
 
 const ArticleCard = ({
-  id,
   title,
   date,
   category,
   slug,
-  excerpt,
   featuredImage,
 }: Article) => {
-  console.log("exceprt", excerpt)
-  console.log("id", id)
   
   return (
-    <Card mx="auto" radius="md" style={{ width: "350px", height: "350px" }}>
+    <Card mx="auto" radius="md" style={{ width: "350px", height: "auto" }}>
       
       <Link href={`/berita/${slug}`} passHref>
         <AspectRatio ratio={1080 / 720} style={{ overflow: "hidden" }}>
@@ -36,7 +32,6 @@ const ArticleCard = ({
         style={{
           display: "flex",
           justifyContent: "space-between",
-          marginTop: "12px",
         }}
       >
         <Text c="dimmed" size="xs" tt="uppercase" fw={400}>
@@ -46,21 +41,9 @@ const ArticleCard = ({
           {date}
         </Text>
       </div>
-      <Text className={classes.title} mt={5} lineClamp={2} component="a" href={`/berita/${slug}`}>
+      <Text className={classes.title} lineClamp={2} component="a" href={`/berita/${slug}`}>
         {title}
       </Text>
-      
-      {/* <Text mt={5} lineClamp={2} component="a" href={`/berita/${slug}`}>
-        {excerpt}
-      </Text> */}
-      {/* <div
-        style={{
-          color: "#444444",
-        }}
-        dangerouslySetInnerHTML={{
-          __html: excerpt,
-        }}
-      /> */}
       <Link href={`/berita/${slug}`}>Read More</Link>
     </Card>
   );

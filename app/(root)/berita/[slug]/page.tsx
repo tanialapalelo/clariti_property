@@ -11,7 +11,7 @@ async function fetchPost(slug: string, tags?: string) {
       let url = `${process.env.WORDPRESS_URL}/posts?slug=${slug}`;
       if (tags) url = `${process.env.WORDPRESS_URL}/posts?tags=${tags}`;
 
-      url += `&_fields=id,slug,title.rendered,content.rendered,featured_media,excerpt,categories,date,tags&_embed`;
+      url += `&_fields=id,slug,title.rendered,content.rendered,featured_media,categories,date,tags&_embed`;
       const res = await fetch(url, {
         cache: "no-store", // Ensure fresh data
       });
@@ -87,19 +87,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
           slug: news.slug,
           date: formatDate(news.date),
           category: "related tags",
-          excerpt: news.excerpt.rendered,
           featuredImage: news.featured_media
             ? await fetchImageData(news.featured_media)
             : null,
         }))
       );
-      
 
   if (!post) {
     return <Text ta={"center"}>Post not found</Text>;
   }
 
   return (
+    <>
+    
     <Container>
       <Title order={2} my="md" style={{ textAlign: "center" }}>
         {post[0].title.rendered}
@@ -117,11 +117,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <Title order={2} my={"md"} style={{ textAlign: "center" }}>
         Related News
       </Title>
+    </Container>
       {relatedNews.length > 0 ? (
         <CardsCarousel berita={formattedRelatedNews} />
       ) : (
         <p>No related news found.</p>
       )}
-    </Container>
+    </>
   );
 }

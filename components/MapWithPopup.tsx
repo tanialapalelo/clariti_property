@@ -60,7 +60,7 @@ const MapWithPopup = ({ facilities }: { facilities: MapProps[] }) => {
                 radius="lg"
                 style={{ boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.2)' }}
               >
-                {Icon && <Icon/>}
+                {Icon && <Icon />}
               </ActionIcon>
             </motion.div>
           );
@@ -68,13 +68,12 @@ const MapWithPopup = ({ facilities }: { facilities: MapProps[] }) => {
 
         {isMobile && (
           // Mobile View: Show Carousel for Details
-          <Box mt="lg" style={{ display: 'block', maxWidth: '100%' }}>
+          <Box mt={1} style={{ display: 'block', maxWidth: '100%' }}>
             <Carousel
-              slideSize="80%"
-              slideGap="md"
+              slideGap="xs"
               align="start"
               loop
-              withIndicators
+              withControls={false}
             >
               {facilities.map((facility) => {
                 const Icon = getIcon(facility.icon);
@@ -83,7 +82,6 @@ const MapWithPopup = ({ facilities }: { facilities: MapProps[] }) => {
                     <Box
                       style={{
                         background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
-                        borderRadius: '12px',
                         padding: '16px',
                         color: 'white',
                         textAlign: 'center',
@@ -115,9 +113,10 @@ const MapWithPopup = ({ facilities }: { facilities: MapProps[] }) => {
         )}
 
         {!isMobile &&
-          // Desktop View: Show Popovers
           facilities.map((data) => {
             const Icon = getIcon(data.icon);
+            let closeTimeout: NodeJS.Timeout; // Declare timeout variable
+
             return (
               <Popover
                 key={data.id}
@@ -134,8 +133,13 @@ const MapWithPopup = ({ facilities }: { facilities: MapProps[] }) => {
                   <motion.div
                     whileHover={{ scale: 1.3 }}
                     whileTap={{ scale: 0.9 }}
-                    onMouseEnter={() => setOpened(data.id)}
-                    onMouseLeave={() => setTimeout(() => setOpened(null), 300)}
+                    onMouseEnter={() => {
+                      clearTimeout(closeTimeout); // Prevent premature closing
+                      setOpened(data.id);
+                    }}
+                    onMouseLeave={() => {
+                      closeTimeout = setTimeout(() => setOpened(null), 300); // Delay closing
+                    }}
                     style={{
                       position: 'absolute',
                       left: data.x,
@@ -156,8 +160,13 @@ const MapWithPopup = ({ facilities }: { facilities: MapProps[] }) => {
                 </Popover.Target>
 
                 <Popover.Dropdown
-                  onMouseEnter={() => setOpened(data.id)}
-                  onMouseLeave={() => setOpened(null)}
+                  onMouseEnter={() => {
+                    clearTimeout(closeTimeout); // Keep popover open
+                    setOpened(data.id);
+                  }}
+                  onMouseLeave={() => {
+                    closeTimeout = setTimeout(() => setOpened(null), 300); // Delay closing
+                  }}
                   style={{
                     background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
                     color: 'white',
@@ -186,6 +195,7 @@ const MapWithPopup = ({ facilities }: { facilities: MapProps[] }) => {
               </Popover>
             );
           })}
+
       </Container>
     </>
   );

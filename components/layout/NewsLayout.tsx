@@ -98,7 +98,7 @@ const NewsLayout: React.FC = () => {
             <Text m={"md"}>Loading...</Text>
           </Center>
         ) : paginatedPosts.length > 0 ? (
-          <Grid justify="center" align="center" mx="xl" px="xl">
+          <Grid justify="center" mx="xl" px="xl">
             
             {paginatedPosts.map((post) => (
               <Grid.Col span="content" key={post.id}>
@@ -108,7 +108,6 @@ const NewsLayout: React.FC = () => {
                   date={formatDate(post.date)}
                   category={post.categories[0]}
                   slug={post.slug}
-                  excerpt={post.excerpt.rendered}
                   featuredImage={post.featuredImage}
                 />
               </Grid.Col>

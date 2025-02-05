@@ -124,7 +124,6 @@ export interface MapProps {
 interface Article {
   id: number;
   title: string;
-  excerpt: string;
   featuredImage: string;
   category: string;
   slug: string;
@@ -160,7 +159,6 @@ export interface NewsCategory {
 export interface DetailNews {
   id: number;
   title: { rendered: string };
-  excerpt: { rendered: string };
   content: { rendered: string };
   date: string;
   slug: string;
@@ -225,6 +223,11 @@ export interface BeritaSectionHome {
   description: string;
 }
 
+export interface PopupMapSectionHome {
+  title: string;
+  description: string;
+}
+
 export interface KunjungiKamiSectionHome {
   title: string;
   description: string;
@@ -237,6 +240,7 @@ export interface HomeSectionProps {
   panoramaSection: PanoramaSectionHome;
   kunjungiKamiSection: KunjungiKamiSectionHome;
   beritaSection: BeritaSectionHome;
+  popupMapSection: PopupMapSectionHome;
 }
 
 export interface StrategicPlaces {

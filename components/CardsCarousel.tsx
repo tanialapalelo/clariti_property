@@ -3,6 +3,7 @@
 import { Carousel } from "@mantine/carousel";
 import ArticleCard from "./ArticleCard";
 import { Article } from "@/lib/shared.types";
+import { Container } from "@mantine/core";
 
 interface CardsCarouselProps {
   berita: Article[];
@@ -16,21 +17,23 @@ export function CardsCarousel({ berita }: CardsCarouselProps) {
   }
 
   return (
-    <Carousel
-      withIndicators
-      slideSize="100%"
-      align="start"
-      loop
-    >
-      {chunkedData.map((group, index) => (
-        <Carousel.Slide key={index}>
-          <div style={{ display: "flex" }}>
-            {group.map((article) => (
-              <ArticleCard key={article.title} {...article} />
-            ))}
-          </div>
-        </Carousel.Slide>
-      ))}
-    </Carousel>
+    <Container size={"xl"}>
+      <Carousel
+        withIndicators
+        slideSize="100%"
+        align="start"
+        loop
+      >
+        {chunkedData.map((group, index) => (
+          <Carousel.Slide key={index}>
+            <div style={{ display: "flex" }}>
+              {group.map((article) => (
+                <ArticleCard key={article.title} {...article} />
+              ))}
+            </div>
+          </Carousel.Slide>
+        ))}
+      </Carousel>
+    </Container>
   );
 }

@@ -5,13 +5,13 @@ import { Hero } from "@/components/Hero";
 import MapWithPopup from "@/components/MapWithPopup";
 import Section from "@/components/Section";
 import RadiusButton from "@/components/ui/RadiusButton";
-import { strategyPlaces } from "@/constants";
 import {
   Article,
   HomeHeroSection,
   HomeSectionProps,
   MapProps,
   Project,
+  StrategicPlaces,
 } from "@/lib/shared.types";
 import {
   Anchor,
@@ -52,6 +52,7 @@ interface HomeLayoutProps {
   news: Article[];
   heroSections: HomeHeroSection[];
   projects: Project[];
+  strategicPlaces: StrategicPlaces[];
 }
 
 const HomeLayout = ({
@@ -59,6 +60,7 @@ const HomeLayout = ({
   news,
   heroSections,
   projects,
+  strategicPlaces
 }: HomeLayoutProps) => {
   const finalMapData = tempMapData;
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -109,9 +111,10 @@ const HomeLayout = ({
         title={homeSections.panoramaSection.title}
         description={homeSections.panoramaSection.description}
       />
-      <Group justify="center" mb={"lg"}>
+      {/* TODO: Implement 360 Panorama View */}
+      {/* <Group justify="center" mb={"lg"}>
         <RadiusButton description="Explore with 360" link="" />
-      </Group>
+      </Group> */}
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing={0} bg={"#EAFEF8"}>
         {projects
           .filter((project) => project.acf.show_in_home)
@@ -155,20 +158,12 @@ const HomeLayout = ({
             p={{base: 0, md: 50}}
             my={{ base: 20 }}
           >
-            SouthCity Masterplan
+            {homeSections.popupMapSection.title}
           </Title>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 8 }}>
           <Text p={{ base: "xs", md: 50 }} ta={{base: "center", md:"left"}}>
-            SouthCity merupakan kawasan 57 hektar yang disiapkan untuk
-            pengembangan proyek hunian, pusat komersial, dan perhotelan yang
-            akan hadir di masa mendatang. Terletak di lokasi yang strategis di
-            Jakarta Selatan, Cinere dan Pondok Cabe serta memiliki kemudahan
-            akses menuju tol Depok-Antasari (gerbang tol Limo), tol
-            Cinere-Jagorawi (gerbang tol Pamulang), dan tol Antasari-Brigif
-            (gerbang tol Brigif). Selain itu berbagai pilihan transportasi umum
-            juga tersedia di dalam kawasan SouthCity dengan dibangunnya halte
-            TransJakarta serta adanya MRT di Lebak Bulus dan Fatmawati.
+            {homeSections.popupMapSection.description}
           </Text>
         </Grid.Col>
       </Grid>
@@ -192,11 +187,11 @@ const HomeLayout = ({
         }}
       >
         <SimpleGrid cols={{ base: 2, sm: 4 }}>
-          {strategyPlaces.map((item) => (
-            <div key={item.description} style={{ padding: "10px" }}>
-              <Title c={"#2763D6"}>{item.time}</Title>
-              <Text c={"#2763D6"}>{item.unitOfTime}</Text>
-              <Text c={"gray"}>{item.description}</Text>
+          {strategicPlaces.map((item) => (
+            <div key={item.id} style={{ padding: "10px" }}>
+              <Title c={"#2763D6"}>{item.acf.time}</Title>
+              <Text c={"#2763D6"}>{item.acf.unit_of_time}</Text>
+              <Text c={"gray"}>{item.acf.description}</Text>
             </div>
           ))}
         </SimpleGrid>
@@ -215,13 +210,6 @@ const HomeLayout = ({
         priority
       />
 
-      {/* <Image
-        src="/assets/images/dekstop-map.gif"
-        alt="map"
-        width={1200}
-        height={600}
-        layout="responsive"
-      /> */}
       <Section
         title={homeSections.beritaSection.title}
         description={homeSections.beritaSection.description}

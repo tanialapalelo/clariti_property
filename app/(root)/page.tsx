@@ -4,6 +4,7 @@ import {
   HomeHeroSection,
   HomeSectionProps,
   News,
+  StrategicPlaces,
   WordPressHomeHeroSection,
 } from "@/lib/shared.types";
 import { fetchImageData, fetchProjects } from "@/lib/wordpress";
@@ -37,6 +38,28 @@ async function fetchHeroSection(): Promise<HomeHeroSection[]> {
   );
 }
 
+
+async function fetchStrategicPlace(): Promise<StrategicPlaces[]> {
+  const res = await fetch(
+    `${process.env.WORDPRESS_URL}/strategic_place?_embed`
+  );
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch strategic place sections: ${res.status} ${res.statusText}`
+    );
+  }
+  const data: StrategicPlaces[] = await res.json();
+
+  return await Promise.all(
+    data.map(async (place) => {
+      return {
+        id: place.id,
+        acf: place.acf,
+      };
+    })
+  );
+}
+
 // Fetch from API route
 const fetchBerita = async (category: string): Promise<Article[]> => {
   try {
@@ -56,7 +79,6 @@ const fetchBerita = async (category: string): Promise<Article[]> => {
     return newsData.map((newsItem) => ({
       id: newsItem.id,
       title: newsItem.title.rendered,
-      excerpt: newsItem.excerpt.rendered,
       featuredImage: newsItem.featuredImage,
       category: newsItem.categories[0] || "uncategorized", // Assuming the first category
       slug: newsItem.slug,
@@ -82,6 +104,7 @@ async function fetchHomeData(): Promise<HomeSectionProps> {
     panoramaSection: content.panorama_section,
     beritaSection: content.berita_section,
     kunjungiKamiSection: content.kunjungi_kami_section,
+    popupMapSection: content.popup_map_section,
   };
 }
 
@@ -90,6 +113,7 @@ export default async function Home() {
   const newsData: Article[] = await fetchBerita("all");
   const heroSections: HomeHeroSection[] = await fetchHeroSection();
   const projects = await fetchProjects();
+  const strategicPlaces = await fetchStrategicPlace();
 
   return (
     <HomeLayout
@@ -97,6 +121,7 @@ export default async function Home() {
       news={newsData}
       heroSections={heroSections}
       projects={projects}
+      strategicPlaces={strategicPlaces}
     />
   );
 }

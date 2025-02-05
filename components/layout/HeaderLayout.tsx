@@ -24,8 +24,12 @@ import {
   IconBuildingStore,
   IconChevronDown,
   IconHome,
+  IconHomeFilled,
   IconMotorbike,
   IconSearch,
+  IconShoppingBag,
+  IconShoppingBagDiscount,
+  type IconProps
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,6 +45,18 @@ interface HeaderLayoutProps {
   projects: Project[];
 }
 
+
+const iconMapping: Record<string, React.FC<IconProps>> = {
+  "Landed Housing": IconHomeFilled,
+  "Apartment": IconBuilding,
+  "Shophouse": IconShoppingBagDiscount,
+  "Commercial": IconShoppingBag,
+};
+
+const getIcon = (type: string) => {
+  return iconMapping[type] || IconBuilding; // Default icon
+};
+
 export function HeaderLayout({ projects }: HeaderLayoutProps) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -53,28 +69,11 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
   // Close search modal
   const closeSearchModal = () => setIsSearchOpen(false);
 
-  const topProject = [
-    {
-      icon: IconHome,
-      title: "The Parc",
-    },
-    {
-      icon: IconBuilding,
-      title: "Fortuna Residence",
-    },
-    {
-      icon: IconBuildingStore,
-      title: "Clariti Square",
-    },
-    {
-      icon: IconBuildingBank,
-      title: "Clariti Hive",
-    },
-    {
-      icon: IconMotorbike,
-      title: "Clariti Activities",
-    },
-  ];
+
+  const chunkedData: Project[][] = [];
+  for (let i = 0; i < projects.length; i += 3) {
+    chunkedData.push(projects.slice(i, i + 3));
+  }
 
   const mobileLinks = navMobile.map((item) => (
     <LinksGroup {...item} key={item.label} />
@@ -192,41 +191,54 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
 
         {/* Top 5 of Projects  */}
         <Group h="100%" gap={0} visibleFrom="md" justify="center">
-          {topProject.map((data) => (
-            <a href="#" key={data.title} className={classes.topProjectLink}>
-              <Group wrap="nowrap" align="flex-start">
-                <data.icon size={22} />
-                <div>
-                  <Text size="sm" fw={500}>
-                    {data.title}
-                  </Text>
-                </div>
-              </Group>
-            </a>
-          ))}
+          {chunkedData.map((data) => {
+
+            const IconComponent = getIcon(data.type);
+
+            return (
+
+              <a href="#" key={data.id} className={classes.topProjectLink}>
+                <Group wrap="nowrap" align="flex-start">
+                  <IconComponent size={22} />
+                  <div>
+                    <Text size="sm" fw={500}>
+                      {data.acf.hero.title}
+                    </Text>
+                  </div>
+                </Group>
+              </a>
+            );
+          })}
         </Group>
 
         <Carousel
           height={60}
           loop
           hiddenFrom="md"
-          slideSize="33.333333%"
+          slideSize="33.33333%"
           slideGap="md"
         >
-          {topProject.map((data) => (
-            <Carousel.Slide key={data.title}>
-              <a href="#" className={classes.topProjectLink}>
-                <Group wrap="nowrap" align="flex-start">
-                  <data.icon size={22} />
-                  <div>
-                    <Text size="sm" fw={500}>
-                      {data.title}
-                    </Text>
-                  </div>
-                </Group>
-              </a>
-            </Carousel.Slide>
-          ))}
+          {
+          
+            projects.map((data) => {
+
+            const IconComponent = getIcon(data.type);
+
+            return (
+              <Carousel.Slide key={data.id}>
+                <a href="#">
+                  {/* <Group wrap="nowrap" align="flex-start"> */}
+                    <IconComponent size={22} />
+                    <div>
+                      <Text size="sm" fw={500}>
+                        {data.acf.hero.title}
+                      </Text>
+                    </div>
+                  {/* </Group> */}
+                </a>
+              </Carousel.Slide>
+            );
+          })}
         </Carousel>
       </header>
       {/* mobile */}
