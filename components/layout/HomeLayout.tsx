@@ -148,18 +148,18 @@ const HomeLayout = ({
           ))}
       </SimpleGrid>
 
-      {/* ini yang buat berantakan layout mobile */}
-      <SimpleGrid cols={{ base: 1, md: 2 }}>
-        <div>
+      <Grid gutter={0} m={{base: "sm", md: "md"}}>
+        <Grid.Col span={{ base: 12, md: 4 }}>
           <Title
-            ta={{ base: "center", md: "center" }}
-            m={{ base: "sm", md: "55px" }}
+            ta={{base: "center", md: "right"}}
+            p={{base: 0, md: 50}}
+            my={{ base: 20 }}
           >
             SouthCity Masterplan
           </Title>
-        </div>
-        <div>
-          <Text m={"lg"}>
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 8 }}>
+          <Text p={{ base: "xs", md: 50 }} ta={{base: "center", md:"left"}}>
             SouthCity merupakan kawasan 57 hektar yang disiapkan untuk
             pengembangan proyek hunian, pusat komersial, dan perhotelan yang
             akan hadir di masa mendatang. Terletak di lokasi yang strategis di
@@ -170,8 +170,8 @@ const HomeLayout = ({
             juga tersedia di dalam kawasan SouthCity dengan dibangunnya halte
             TransJakarta serta adanya MRT di Lebak Bulus dan Fatmawati.
           </Text>
-        </div>
-      </SimpleGrid>
+        </Grid.Col>
+      </Grid>
 
       <MapWithPopup facilities={finalMapData} />
       <Section
