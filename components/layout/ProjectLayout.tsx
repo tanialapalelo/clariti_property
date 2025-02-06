@@ -17,12 +17,12 @@ interface ProjectLayoutProps {
   projectData: ProjectData;
 }
 
-const categories = [
-  { id: "exterior", label: "Exterior" },
-  { id: "interior", label: "Interior" },
-  { id: "facilities", label: "Facilities" },
-  // { id: "360", label: "360°" },
-];
+// const categories = [
+//   { id: "exterior", label: "Exterior" },
+//   { id: "interior", label: "Interior" },
+//   { id: "facilities", label: "Facilities" },
+//   { id: "360", label: "360°" },
+// ];
 
 const ProjectLayout = ({ projectData }: ProjectLayoutProps) => {
   const [activeTab, setActiveTab] = useState<string>("exterior");
@@ -69,7 +69,8 @@ const ProjectLayout = ({ projectData }: ProjectLayoutProps) => {
         </Grid.Col>
       </Grid>
 
-      <Center mt={{ base: "sm", md: "xl" }}>
+      {/* TODO: Different action category for proyek */}
+      {/* <Center mt={{ base: "sm", md: "xl" }}>
         <Tabs
           value={activeTab}
           onChange={handleTabChange}
@@ -84,7 +85,7 @@ const ProjectLayout = ({ projectData }: ProjectLayoutProps) => {
             ))}
           </Tabs.List>
         </Tabs>
-      </Center>
+      </Center> */}
 
       <Title
         order={1}

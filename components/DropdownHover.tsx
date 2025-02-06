@@ -1,5 +1,4 @@
-import { Anchor, Group, UnstyledButton } from "@mantine/core"
-import Link from "next/link"
+import { Anchor, Group, UnstyledButton } from "@mantine/core";
 import classes from '../styles/DropdownHover.module.css';
 
 

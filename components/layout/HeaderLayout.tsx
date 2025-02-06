@@ -1,12 +1,12 @@
 "use client";
 
 import { beritaData, tentangKamiData } from "@/constants";
+import { Project } from "@/lib/shared.types";
 import { Carousel } from "@mantine/carousel";
 import {
   ActionIcon,
   Anchor,
   AspectRatio,
-  Autocomplete,
   Box,
   Burger,
   Button,
@@ -18,7 +18,7 @@ import {
   ScrollArea,
   Text,
   TextInput,
-  UnstyledButton,
+  UnstyledButton
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -32,14 +32,13 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import classes from "../../styles/Header.module.css";
 import DropdownHover from "../DropdownHover";
-import { LinksGroup } from "../NavbarLinksGroup";
-import { useState } from "react";
-import ProjectNavigation from "../ProjectNavigation";
-import { Project } from "@/lib/shared.types";
 import SearchModal from "../forms/SearchModal";
-import { useRouter } from "next/navigation";
+import { LinksGroup } from "../NavbarLinksGroup";
+import ProjectNavigation from "../ProjectNavigation";
 
 interface HeaderLayoutProps {
   projects: Project[];
