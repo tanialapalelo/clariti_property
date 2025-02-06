@@ -10,7 +10,6 @@ import {
   Text,
   Title
 } from "@mantine/core";
-import { useState } from "react";
 
 interface ProjectLayoutProps {
   projectData: ProjectData;
