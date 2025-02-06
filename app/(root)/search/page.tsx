@@ -11,7 +11,7 @@ import {
   Center,
 } from "@mantine/core";
 import ArticleCard from "@/components/ArticleCard";
-import { News, SearchNews } from "@/lib/shared.types";
+import { News } from "@/lib/shared.types";
 import { formatDate } from "@/lib/utils";
 
 const SearchResults = () => {

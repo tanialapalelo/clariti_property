@@ -1,3 +1,4 @@
+import { SearchNews } from "@/lib/shared.types";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -16,7 +17,7 @@ export async function GET(req: Request) {
 
     // Fetch detailed data for each post
     const detailedResults = await Promise.all(
-      searchData.map(async (result: any) => {
+      searchData.map(async (result: SearchNews) => {
         const postRes = await fetch(
           `${process.env.WORDPRESS_URL}/posts/${result.id}?acf_format=standard`
         );
