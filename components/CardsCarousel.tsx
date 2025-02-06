@@ -26,7 +26,7 @@ export function CardsCarousel({ berita }: CardsCarouselProps) {
       >
         {chunkedData.map((group, index) => (
           <Carousel.Slide key={index}>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
               {group.map((article) => (
                 <ArticleCard key={article.title} {...article} />
               ))}

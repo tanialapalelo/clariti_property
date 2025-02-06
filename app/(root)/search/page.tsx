@@ -25,31 +25,9 @@ const SearchResults = () => {
       const fetchSearchResults = async () => {
         setLoading(true);
         try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_SITE_URL}/wp-json/wp/v2/search?search=${query}&type=post&subtype=post`
-          );
-          const searchData: SearchNews[] = await res.json();
-
-          const detailedResults = await Promise.all(
-            searchData.map(async (result) => {
-              const postRes = await fetch(
-                `${process.env.NEXT_PUBLIC_SITE_URL}/wp-json/wp/v2/posts/${result.id}?acf_format=standard`
-              );
-              const postData = await postRes.json();
-
-              // Fetch the media data if featured_media is present
-              if (postData.featured_media) {
-                const mediaRes = await fetch(
-                  `${process.env.NEXT_PUBLIC_SITE_URL}/wp-json/wp/v2/media/${postData.featured_media}`
-                );
-                const mediaData = await mediaRes.json();
-                postData.featuredImage = mediaData.source_url;
-              }
-
-              return postData;
-            })
-          );
-          setSearchResults(detailedResults);
+          const res = await fetch(`/api/search?query=${query}`);
+          const data: News[] = await res.json();
+          setSearchResults(data);
         } catch (error) {
           console.error("Error fetching search results:", error);
         } finally {

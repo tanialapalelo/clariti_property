@@ -8,17 +8,17 @@ import { Metadata } from "next";
 // Fetch the post data dynamically
 async function fetchPost(slug: string, tags?: string) {
   try {
-      let url = `${process.env.WORDPRESS_URL}/posts?slug=${slug}`;
-      if (tags) url = `${process.env.WORDPRESS_URL}/posts?tags=${tags}`;
+    let url = `${process.env.WORDPRESS_URL}/posts?slug=${slug}`;
+    if (tags) url = `${process.env.WORDPRESS_URL}/posts?tags=${tags}`;
 
-      url += `&_fields=id,slug,title.rendered,content.rendered,featured_media,categories,date,tags&_embed`;
-      const res = await fetch(url, {
-        cache: "no-store", // Ensure fresh data
-      });
+    url += `&_fields=id,slug,title.rendered,content.rendered,featured_media,categories,date,tags&_embed`;
+    
+    const res = await fetch(url, {
+      next: { revalidate: 60 }, // Use ISR (cache for 60 seconds)
+    });
 
-      if (!res.ok) return null;
-
-      return res.json();
+    if (!res.ok) return null;
+    return res.json();
   } catch (error) {
     console.error("Error fetching post:", error);
     return null;
@@ -49,13 +49,10 @@ export async function generateMetadata({
 }
 
 // Fetch static params for SSG
-export async function generateStaticParams({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateStaticParams() {
   const res = await fetch(
-    `${process.env.WORDPRESS_URL}/posts?slug=${params.slug}`
+    `${process.env.WORDPRESS_URL}/posts?_fields=slug`,
+    { next: { revalidate: 3600 } } // Cache for 1 hour
   );
 
   if (!res.ok) return [];
@@ -64,9 +61,14 @@ export async function generateStaticParams({
   return posts.map((news: DetailNews) => ({ slug: news.slug }));
 }
 
+
 // The main page component to display the post details
 export default async function Page({ params }: { params: { slug: string } }) {
   const post = await fetchPost(params.slug);
+
+  if (!post || post.length === 0) {
+    return <Text ta={"center"}>Post not found</Text>;
+  }
 
   const postData = post[0];
   // Fetch feature image if it exists
@@ -93,31 +95,26 @@ export default async function Page({ params }: { params: { slug: string } }) {
         }))
       );
 
-  if (!post) {
-    return <Text ta={"center"}>Post not found</Text>;
-  }
-
   return (
     <>
-    
-    <Container>
-      <Title order={2} my="md" style={{ textAlign: "center" }}>
-        {post[0].title.rendered}
-      </Title>
-      <Image src={featureImage} alt={post.title} width={300} height={300} />
-      <div
-        style={{
-          color: "#444444",
-        }}
-        dangerouslySetInnerHTML={{
-          __html: post[0].content.rendered,
-        }}
-      />
+      <Container>
+        <Title order={2} my="md" style={{ textAlign: "center" }}>
+          {post[0].title.rendered}
+        </Title>
+        <Image src={featureImage} alt={post.title} width={300} height={300} />
+        <div
+          style={{
+            color: "#444444",
+          }}
+          dangerouslySetInnerHTML={{
+            __html: post[0].content.rendered,
+          }}
+        />
 
-      <Title order={2} my={"md"} style={{ textAlign: "center" }}>
-        Related News
-      </Title>
-    </Container>
+        <Title order={2} my={"md"} style={{ textAlign: "center" }}>
+          Related News
+        </Title>
+      </Container>
       {relatedNews.length > 0 ? (
         <CardsCarousel berita={formattedRelatedNews} />
       ) : (

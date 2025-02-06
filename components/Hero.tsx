@@ -17,7 +17,7 @@ export function Hero({heroSections}: HeroProps) {
         loop
         slideGap="md"
         align="start"
-        styles={{ control: { color: "white" } }}
+        styles={{ control: { color: "white", backgroundColor: "grey" } }}
         plugins={[autoplay.current]}
         onMouseEnter={autoplay.current.stop}
         onMouseLeave={autoplay.current.reset}

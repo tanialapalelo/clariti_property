@@ -14,7 +14,7 @@ const ArticleCard = ({
 }: Article) => {
   
   return (
-    <Card mx="auto" radius="md" style={{ width: "350px", height: "auto" }}>
+    <Card radius="md" style={{ width: "350px", height: "auto" }}>
       
       <Link href={`/berita/${slug}`} passHref>
         <AspectRatio ratio={1080 / 720} style={{ overflow: "hidden" }}>
