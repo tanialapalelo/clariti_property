@@ -60,12 +60,10 @@ const NewsLayout: React.FC = () => {
     <>
       <Title
         order={1}
-        style={{
-          fontWeight: 800,
-          textAlign: "center",
-          padding: "100px",
-          backgroundColor: "#F6F7F8",
-        }}
+        bg={"#F6F7F8"}
+        fw={800}
+        p={"100px"}
+        ta={"center"}
       >
         Latest News from Us
       </Title>

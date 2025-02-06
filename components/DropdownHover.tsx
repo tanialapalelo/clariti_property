@@ -1,4 +1,4 @@
-import { Group, UnstyledButton } from "@mantine/core"
+import { Anchor, Group, UnstyledButton } from "@mantine/core"
 import Link from "next/link"
 import classes from '../styles/DropdownHover.module.css';
 
@@ -17,13 +17,13 @@ const DropdownHover: React.FC<DropdownHoverProps> = ({ data }) => {
         <>
             {data.map((item) => (
 
-                <Link href={item.link} key={item.title}>
+                <Anchor href={item.link} key={item.title}>
                     <UnstyledButton className={classes.subLink}>
                         <Group wrap="nowrap" align="flex-start">
                             {item.title}
                         </Group>
                     </UnstyledButton>
-                </Link>
+                </Anchor>
             ))}
         </>
     )

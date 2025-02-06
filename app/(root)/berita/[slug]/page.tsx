@@ -86,7 +86,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           title: news.title.rendered,
           slug: news.slug,
           date: formatDate(news.date),
-          category: "related tags",
+          category: "",
           featuredImage: news.featured_media
             ? await fetchImageData(news.featured_media)
             : null,

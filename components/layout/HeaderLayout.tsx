@@ -1,8 +1,9 @@
 "use client";
 
-import { beritaData, navMobile, tentangKamiData } from "@/constants";
+import { beritaData, tentangKamiData } from "@/constants";
 import { Carousel } from "@mantine/carousel";
 import {
+  ActionIcon,
   Anchor,
   AspectRatio,
   Autocomplete,
@@ -16,65 +17,39 @@ import {
   HoverCard,
   ScrollArea,
   Text,
+  TextInput,
   UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconBuilding,
-  IconBuildingBank,
-  IconBuildingStore,
   IconChevronDown,
-  IconHome,
   IconHomeFilled,
-  IconMotorbike,
   IconSearch,
   IconShoppingBag,
   IconShoppingBagDiscount,
-  type IconProps
+  type IconProps,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import classes from "../../styles/Header.module.css"; ///../styles/Header.module.css
+import classes from "../../styles/Header.module.css";
 import DropdownHover from "../DropdownHover";
 import { LinksGroup } from "../NavbarLinksGroup";
 import { useState } from "react";
-import SearchModal from "../shared/SearchModal";
 import ProjectNavigation from "../ProjectNavigation";
 import { Project } from "@/lib/shared.types";
+import SearchModal from "../forms/SearchModal";
+import { useRouter } from "next/navigation";
 
 interface HeaderLayoutProps {
   projects: Project[];
 }
 
-
-const topProject = [
-  {
-    icon: IconHome,
-    title: "The Parc",
-  },
-  {
-    icon: IconBuilding,
-    title: "Fortuna Residence",
-  },
-  {
-    icon: IconBuildingStore,
-    title: "Clariti Square",
-  },
-  {
-    icon: IconBuildingBank,
-    title: "Clariti Hive",
-  },
-  {
-    icon: IconMotorbike,
-    title: "Clariti Activities",
-  },
-];
-
 const iconMapping: Record<string, React.FC<IconProps>> = {
   "Landed Housing": IconHomeFilled,
-  "Apartment": IconBuilding,
-  "Shophouse": IconShoppingBagDiscount,
-  "Commercial": IconShoppingBag,
+  Apartment: IconBuilding,
+  Shophouse: IconShoppingBagDiscount,
+  Commercial: IconShoppingBag,
 };
 
 const getIcon = (type: string) => {
@@ -84,7 +59,6 @@ const getIcon = (type: string) => {
 export function HeaderLayout({ projects }: HeaderLayoutProps) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  // const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Open search modal
@@ -93,18 +67,48 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
   // Close search modal
   const closeSearchModal = () => setIsSearchOpen(false);
 
+  const dynamicNavMobile = [
+    {
+      label: "Tentang Kami",
+      links: [
+        { label: "Sejarah", link: "/sejarah" },
+        { label: "Karir", link: "/karir" },
+      ],
+    },
+    {
+      label: "Proyek",
+      links: projects.map((project) => ({
+        label: project.name,
+        link: `/proyek/${project.slug}`,
+      })),
+    },
+    { label: "Fasilitas", singleLink: "/fasilitas" },
+    {
+      label: "Berita",
+      links: [
+        { label: "Berita", link: "/berita?category=berita" },
+        { label: "Promosi", link: "/berita?category=promosi" },
+      ],
+    },
+    { label: "Hubungi Kami", singleLink: "/kontak-kami" },
+  ];
 
-  const chunkedData: Project[][] = [];
-  for (let i = 0; i < projects.length; i += 3) {
-    chunkedData.push(projects.slice(i, i + 3));
-  }
-
-  const mobileLinks = navMobile.map((item) => (
+  const mobileLinks = dynamicNavMobile.map((item) => (
     <LinksGroup {...item} key={item.label} />
   ));
 
+  
+    const [searchTerm, setSearchTerm] = useState('');
+    const router = useRouter();
+  
+    const handleSearch = () => {
+      if (searchTerm.trim()) {
+        router.push(`/search?query=${encodeURIComponent(searchTerm)}`);
+      }
+    };
+
   return (
-    <Box pb={{base: 40, md: 55}}>
+    <Box pb={{ base: 40, md: 55 }}>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <AspectRatio ratio={1920 / 1920}>
@@ -216,12 +220,11 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
         {/* Top 5 of Projects  */}
         <Group h="100%" gap={0} visibleFrom="md" justify="center">
           {projects.map((data) => {
-            
             const IconComponent = getIcon(data.type);
             return (
               <a href="#" key={data.id} className={classes.topProjectLink}>
                 <Group wrap="nowrap" align="flex-start">
-                <IconComponent size={22} />
+                  <IconComponent size={22} />
                   <div>
                     <Text size="sm" fw={500}>
                       {data.acf.hero.title}
@@ -229,33 +232,41 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
                   </div>
                 </Group>
               </a>
-            )
-        })}
+            );
+          })}
         </Group>
-        
-        <Carousel height={"auto"} loop hiddenFrom="md" slideSize="100%" slideGap="md">
-          {chunkedData.map((chunk, index) => (
-            <Carousel.Slide key={index}>
-              <Group>
-                {chunk.map((data) => {
-                  const IconComponent = getIcon(data.type);
 
-                  return (
-                    <Anchor href="#" key={data.id} className={classes.topProjectLink} h={40}>
-                      <Group wrap="nowrap" align="flex-start">
-                        <IconComponent size={22} />
-                        <div>
-                          <Text size="sm" fw={500}>
-                            {data.acf.hero.title}
-                          </Text>
-                        </div>
-                      </Group>
-                    </Anchor>
-                  );
-                })}
-              </Group>
-            </Carousel.Slide>
-          ))}
+        <Carousel
+          height={"auto"}
+          loop
+          hiddenFrom="md"
+          slideSize="100%"
+          slideGap="md"
+        >
+          {projects.map((data, index) => {
+            const IconComponent = getIcon(data.type);
+            return (
+              <Carousel.Slide key={index}>
+                <Group className={classes.carouselGroup} justify="center">
+                  <Anchor
+                    href="#"
+                    key={data.id}
+                    className={classes.topProjectLink}
+                    h={40}
+                  >
+                    <Group wrap="nowrap" align="flex-start">
+                      <IconComponent size={22} />
+                      <div style={{ width: "auto" }}>
+                        <Text size="sm" fw={500}>
+                          {data.acf.hero.title}
+                        </Text>
+                      </div>
+                    </Group>
+                  </Anchor>
+                </Group>
+              </Carousel.Slide>
+            );
+          })}
         </Carousel>
       </header>
       {/* mobile */}
@@ -281,19 +292,19 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
           <div className={classes.linksInner}>{mobileLinks}</div>
           <Divider my="sm" />
           <Group justify="center" grow pb="xl" px="md">
-            <Autocomplete
-              className={classes.search}
-              placeholder="Search"
-              leftSection={<IconSearch size={16} stroke={1.5} />}
-              data={[
-                "React",
-                "Angular",
-                "Vue",
-                "Next.js",
-                "Riot.js",
-                "Svelte",
-                "Blitz.js",
-              ]}
+            <TextInput
+              placeholder="Type to search..."
+              // variant="unstyled"
+              onChange={(event) => setSearchTerm(event.currentTarget.value)}
+              rightSection={
+                <ActionIcon
+                  variant="transparent"
+                  onClick={handleSearch}
+                  style={{ marginRight: 10 }}
+                >
+                  <IconSearch />
+                </ActionIcon>
+              }
             />
             <Button component={Link} href="tel:+4733378901" variant="filled">
               +47 333 78 901

@@ -1,7 +1,7 @@
 "use client"
 
 import { IconBrandInstagram, IconBrandTwitter, IconBrandWhatsapp, IconBrandYoutube, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
-import { ActionIcon, Button, Container, Group, Text, TextInput, Title } from '@mantine/core';
+import { ActionIcon, Button, Container, Grid, Group, Text, TextInput, Title } from '@mantine/core';
 import classes from '../styles/Footer.module.css';
 // import { useForm } from '@mantine/form';
 
@@ -66,9 +66,10 @@ export function Footer() {
 
     return (
         <footer className={classes.footer}>
-            <Container className={classes.inner} size={'xl'}>
-                <div className={classes.logo}>
-                    <Title styles={{ root: { color: "white" } }} order={3}>Don&apos;t miss out, Stay in touch</Title>
+
+            <Grid className={classes.inner} gutter={0}>
+                <Grid.Col className={classes.logo} span={{base: 12, md: 3}} p={{base: 'lg', md: 'xl'}}>
+                    <Title styles={{ root: { color: "white" } }} order={4}>Don&apos;t miss out, Stay in touch</Title>
                     <div className={classes.controls}>
                         <TextInput
                             placeholder="Your email"
@@ -76,9 +77,10 @@ export function Footer() {
                         />
                         <Button className={classes.control}>Subscribe</Button>
                     </div>
-                </div>
-                <div className={classes.groups}>{groups}</div>
-            </Container>
+                </Grid.Col>
+                <Grid.Col className={classes.groups} span={{base: 12, md: 9}}>{groups}</Grid.Col>
+            </Grid>
+
             <Container className={classes.afterFooter} size={'xl'}>
                 <Text c="dimmed" size="sm">
                     ©  2024 clariti.co.id by Tania Lapalelo. All Rights Reserved.

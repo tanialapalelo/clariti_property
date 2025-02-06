@@ -251,3 +251,9 @@ export interface StrategicPlaces {
     description: string;
   };
 }
+
+
+export interface SearchNews {
+  id: number;
+  title: string 
+}

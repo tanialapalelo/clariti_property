@@ -97,7 +97,7 @@ const ProjectLayout = ({ projectData }: ProjectLayoutProps) => {
         Floor Plan
       </Title>
 
-      <Grid>
+      <Grid gutter={0}>
         {projectData.floorPlan.map((item, index) => (
           <Grid.Col span={{ base: 12, md: 6 }} key={index}>
             <Title ta={"center"} order={3}>

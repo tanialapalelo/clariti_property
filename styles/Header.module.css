@@ -47,3 +47,9 @@
     color: beige;
   }
 }
+
+.carouselGroup {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px; /* Adjust the gap as needed */
+}
