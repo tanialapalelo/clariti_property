@@ -1,22 +1,21 @@
+"use client"; // Hydration issue fix
+
 import { CardsCarousel } from "@/components/CardsCarousel";
 import { DetailNews } from "@/lib/shared.types";
 import { formatDate } from "@/lib/utils";
 import { fetchImageData } from "@/lib/wordpress";
 import { Container, Image, Text, Title } from "@mantine/core";
 import { Metadata } from "next";
+import { useEffect, useState } from "react";
 
 // Fetch the post data dynamically
 async function fetchPost(slug: string, tags?: string) {
   try {
     let url = `${process.env.WORDPRESS_URL}/posts?slug=${slug}`;
     if (tags) url = `${process.env.WORDPRESS_URL}/posts?tags=${tags}`;
-
     url += `&_fields=id,slug,title.rendered,content.rendered,featured_media,categories,date,tags&_embed`;
-    
-    const res = await fetch(url, {
-      next: { revalidate: 60 }, // Use ISR (cache for 60 seconds)
-    });
 
+    const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) return null;
     return res.json();
   } catch (error) {
@@ -25,101 +24,77 @@ async function fetchPost(slug: string, tags?: string) {
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+// Fetch metadata
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
-    const slug = (await params).slug;
+    const res = await fetch(`${process.env.WORDPRESS_URL}/posts?slug=${params.slug}&_fields=title`);
+    if (!res.ok) return { title: "Post Not Found" };
 
-    const data = await fetch(
-      `${process.env.WORDPRESS_URL}/posts?slug=${slug}`
-    ).then((res) => res.json());
-
-    return {
-      title: data[0].title.rendered
-    };
+    const data = await res.json();
+    return { title: data[0]?.title?.rendered || "Unknown Post" };
   } catch (error) {
-      console.error("Error generating metadata:", error);
-      return {
-        title: "Error",
-    };
+    console.error("Error generating metadata:", error);
+    return { title: "Error" };
   }
 }
 
-// Fetch static params for SSG
+// Static paths for pre-rendering
 export async function generateStaticParams() {
-  const res = await fetch(
-    `${process.env.WORDPRESS_URL}/posts?_fields=slug`,
-    { next: { revalidate: 3600 } } // Cache for 1 hour
-  );
-
+  const res = await fetch(`${process.env.WORDPRESS_URL}/posts?_fields=slug,_embed`, { next: { revalidate: 3600 } });
   if (!res.ok) return [];
 
   const posts = await res.json();
   return posts.map((news: DetailNews) => ({ slug: news.slug }));
 }
 
+// 🛠 Fixed Component
+export default function Page({ params }: { params: { slug: string } }) {
+  const [post, setPost] = useState<DetailNews | null>(null);
+  const [featureImage, setFeatureImage] = useState<string | null>(null);
+  const [relatedNews, setRelatedNews] = useState<DetailNews[]>([]);
 
-// The main page component to display the post details
-export default async function Page({ params }: { params: { slug: string } }) {
-  const post = await fetchPost(params.slug);
+  useEffect(() => {
+    async function loadPost() {
+      const postData = await fetchPost(params.slug);
+      if (!postData || postData.length === 0) return;
 
-  if (!post || post.length === 0) {
-    return <Text ta={"center"}>Post not found</Text>;
-  }
+      setPost(postData[0]);
 
-  const postData = post[0];
-  // Fetch feature image if it exists
-  const featureImage = postData.featured_media
-    ? await fetchImageData(postData.featured_media)
-    : null;
+      // Fetch featured image
+      if (postData[0].featured_media) {
+        const image = await fetchImageData(postData[0].featured_media);
+        setFeatureImage(image);
+      }
 
-  // Fetch related posts using tags (if available)
-  const relatedNews =
-    postData.tags.length > 0
-      ? await fetchPost("", postData.tags.join(","))
-      : [];
- 
-      const formattedRelatedNews = await Promise.all(
-        relatedNews.map(async (news: DetailNews) => ({
-          id: news.id,
-          title: news.title.rendered,
-          slug: news.slug,
-          date: formatDate(news.date),
-          category: "",
-          featuredImage: news.featured_media
-            ? await fetchImageData(news.featured_media)
-            : null,
-        }))
-      );
+      // Fetch related news
+      if (postData[0].tags.length > 0) {
+        const related = await fetchPost("", postData[0].tags.join(","));
+        setRelatedNews(related || []);
+      }
+    }
+
+    loadPost();
+  }, [params.slug]);
+
+  if (!post) return <Text ta={"center"}>Post not found</Text>;
 
   return (
     <>
       <Container>
         <Title order={2} my="md" style={{ textAlign: "center" }}>
-          {post[0].title.rendered}
+          {post.title.rendered}
         </Title>
-        <Image src={featureImage} alt={post.title} width={300} height={300} />
+        {featureImage && <Image src={featureImage} alt={post.title.rendered} width={300} height={300} />}
         <div
-          style={{
-            color: "#444444",
-          }}
-          dangerouslySetInnerHTML={{
-            __html: post[0].content.rendered,
-          }}
+          style={{ color: "#444444" }}
+          dangerouslySetInnerHTML={{ __html: post.content.rendered }}
         />
 
         <Title order={2} my={"md"} style={{ textAlign: "center" }}>
           Related News
         </Title>
       </Container>
-      {relatedNews.length > 0 ? (
-        <CardsCarousel berita={formattedRelatedNews} />
-      ) : (
-        <p>No related news found.</p>
-      )}
+      {relatedNews.length > 0 ? <CardsCarousel berita={relatedNews} /> : <p>No related news found.</p>}
     </>
   );
 }
