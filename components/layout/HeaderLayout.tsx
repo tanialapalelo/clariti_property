@@ -3,6 +3,7 @@
 import { beritaData, navMobile, tentangKamiData } from "@/constants";
 import { Carousel } from "@mantine/carousel";
 import {
+  Anchor,
   AspectRatio,
   Autocomplete,
   Box,
@@ -46,6 +47,29 @@ interface HeaderLayoutProps {
 }
 
 
+const topProject = [
+  {
+    icon: IconHome,
+    title: "The Parc",
+  },
+  {
+    icon: IconBuilding,
+    title: "Fortuna Residence",
+  },
+  {
+    icon: IconBuildingStore,
+    title: "Clariti Square",
+  },
+  {
+    icon: IconBuildingBank,
+    title: "Clariti Hive",
+  },
+  {
+    icon: IconMotorbike,
+    title: "Clariti Activities",
+  },
+];
+
 const iconMapping: Record<string, React.FC<IconProps>> = {
   "Landed Housing": IconHomeFilled,
   "Apartment": IconBuilding,
@@ -80,7 +104,7 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
   ));
 
   return (
-    <Box pb={55}>
+    <Box pb={{base: 40, md: 55}}>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <AspectRatio ratio={1920 / 1920}>
@@ -191,15 +215,13 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
 
         {/* Top 5 of Projects  */}
         <Group h="100%" gap={0} visibleFrom="md" justify="center">
-          {chunkedData.map((data) => {
-
+          {projects.map((data) => {
+            
             const IconComponent = getIcon(data.type);
-
             return (
-
               <a href="#" key={data.id} className={classes.topProjectLink}>
                 <Group wrap="nowrap" align="flex-start">
-                  <IconComponent size={22} />
+                <IconComponent size={22} />
                   <div>
                     <Text size="sm" fw={500}>
                       {data.acf.hero.title}
@@ -207,38 +229,33 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
                   </div>
                 </Group>
               </a>
-            );
-          })}
+            )
+        })}
         </Group>
+        
+        <Carousel height={"auto"} loop hiddenFrom="md" slideSize="100%" slideGap="md">
+          {chunkedData.map((chunk, index) => (
+            <Carousel.Slide key={index}>
+              <Group>
+                {chunk.map((data) => {
+                  const IconComponent = getIcon(data.type);
 
-        <Carousel
-          height={60}
-          loop
-          hiddenFrom="md"
-          slideSize="33.33333%"
-          slideGap="md"
-        >
-          {
-          
-            projects.map((data) => {
-
-            const IconComponent = getIcon(data.type);
-
-            return (
-              <Carousel.Slide key={data.id}>
-                <a href="#">
-                  {/* <Group wrap="nowrap" align="flex-start"> */}
-                    <IconComponent size={22} />
-                    <div>
-                      <Text size="sm" fw={500}>
-                        {data.acf.hero.title}
-                      </Text>
-                    </div>
-                  {/* </Group> */}
-                </a>
-              </Carousel.Slide>
-            );
-          })}
+                  return (
+                    <Anchor href="#" key={data.id} className={classes.topProjectLink} h={40}>
+                      <Group wrap="nowrap" align="flex-start">
+                        <IconComponent size={22} />
+                        <div>
+                          <Text size="sm" fw={500}>
+                            {data.acf.hero.title}
+                          </Text>
+                        </div>
+                      </Group>
+                    </Anchor>
+                  );
+                })}
+              </Group>
+            </Carousel.Slide>
+          ))}
         </Carousel>
       </header>
       {/* mobile */}

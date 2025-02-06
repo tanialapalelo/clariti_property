@@ -36,10 +36,10 @@
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-weight: 500;
   font-size: var(--mantine-font-size-sm);
-  width: 100%;
 
   @media (max-width: var(--mantine-breakpoint-sm)) {
     height: 42px;
+    width: 100%;
   }
 
   &:hover {
