@@ -7,7 +7,6 @@ import {
   Grid,
   Image,
   SimpleGrid,
-  Tabs,
   Text,
   Title
 } from "@mantine/core";
@@ -25,12 +24,12 @@ interface ProjectLayoutProps {
 // ];
 
 const ProjectLayout = ({ projectData }: ProjectLayoutProps) => {
-  const [activeTab, setActiveTab] = useState<string>("exterior");
+  // const [activeTab, setActiveTab] = useState<string>("exterior");
 
   // Function to update URL and state when tab changes
-  const handleTabChange = (val: string | null) => {
-    if(val) setActiveTab(val);
-  };
+  // const handleTabChange = (val: string | null) => {
+  //   if(val) setActiveTab(val);
+  // };
 
   // Check if projectData is undefined
   if (!projectData) {
