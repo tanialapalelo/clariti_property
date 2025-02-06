@@ -221,7 +221,7 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
           {projects.map((data) => {
             const IconComponent = getIcon(data.type);
             return (
-              <a href="#" key={data.id} className={classes.topProjectLink}>
+              <a href={data.slug} key={data.id} className={classes.topProjectLink}>
                 <Group wrap="nowrap" align="flex-start">
                   <IconComponent size={22} />
                   <div>
