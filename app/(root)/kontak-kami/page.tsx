@@ -23,6 +23,7 @@ interface MarketingGallery {
 interface ContactUsProps {
   mainTitle: string;
   mapImage: string;
+  whatsAppContact: string
   transportations: Transportation[];
 }
 
@@ -68,6 +69,7 @@ async function fetchContactUsData(): Promise<
   return {
     mainTitle: content.main_title,
     mapImage: content.map_image.url,
+    whatsAppContact: content.whatsapp_contact,
   };
 }
 
@@ -117,7 +119,7 @@ const KontakKami = async () => {
             pesan melalui formulir di bawah ini.
           </p>
         </div>
-        <Kontak />
+        <Kontak whatsappContact={contactUsData.whatsAppContact} />
       </Container>
 
       <VisitUs data={marketingGallery} />

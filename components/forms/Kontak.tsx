@@ -12,7 +12,11 @@ interface Province {
   name: string;
 }
 
-const Kontak = () => {
+interface KontakProps {
+  whatsappContact: string;
+}
+
+const Kontak = ({ whatsappContact }: KontakProps) => {
   const [cities, setCities] = useState<string[]>([]);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
@@ -55,35 +59,44 @@ const Kontak = () => {
     },
   });
 
+  // const handleSubmit = async (values: typeof form.values) => {
+  //   if (!recaptchaToken) {
+  //     setNotification({ message: "Please complete the reCAPTCHA.", color: "red" });
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/contact`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(values),
+  //     });
+
+  //     if (!response.ok) throw new Error("Submission failed");
+
+  //     setNotification({ message: "Your message has been sent successfully.", color: "teal" });
+
+  //     form.reset();
+  //     setRecaptchaToken(null);
+  //     recaptchaRef.current?.reset();
+  //   } catch (error) {
+  //     console.error("Failed to send message", error);
+  //     setNotification({ message: "Failed to send your message. Please try again.", color: "red" });
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (values: typeof form.values) => {
-    if (!recaptchaToken) {
-      setNotification({ message: "Please complete the reCAPTCHA.", color: "red" });
-      return;
-    }
+    const message = `Nama: ${values.name}%0AEmail: ${values.email}%0AMobile: ${values.mobile}%0ASubjek: ${values.subject}%0AKota: ${values.city}%0APesan: ${values.message}`;
 
-    setLoading(true);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappContact}&text=${message}`;
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      if (!response.ok) throw new Error("Submission failed");
-
-      setNotification({ message: "Your message has been sent successfully.", color: "teal" });
-
-      form.reset();
-      setRecaptchaToken(null);
-      recaptchaRef.current?.reset();
-    } catch (error) {
-      console.error("Failed to send message", error);
-      setNotification({ message: "Failed to send your message. Please try again.", color: "red" });
-    } finally {
-      setLoading(false);
-    }
+    window.open(whatsappUrl, "_blank");
   };
+
 
   return (
     <div className="form-container">
@@ -104,7 +117,7 @@ const Kontak = () => {
           <div>
             <Select c={"white"} label="Kota" placeholder="Pilih kota" data={cities} searchable required {...form.getInputProps("city")} />
 
-            {!isMobile && <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} onChange={(token) => setRecaptchaToken(token)} style={{marginTop: "20px"}}/>}
+            {!isMobile && <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} onChange={(token) => setRecaptchaToken(token)} style={{ marginTop: "20px" }} />}
           </div>
 
           <Textarea c={"white"} placeholder="Tuliskan pesan" label="Pesan" autosize minRows={5} required {...form.getInputProps("message")} />
