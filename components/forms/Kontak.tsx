@@ -90,11 +90,25 @@ const Kontak = ({ whatsappContact }: KontakProps) => {
   // };
 
   const handleSubmit = async (values: typeof form.values) => {
-    const message = `Nama: ${values.name}%0AEmail: ${values.email}%0AMobile: ${values.mobile}%0ASubjek: ${values.subject}%0AKota: ${values.city}%0APesan: ${values.message}`;
+      if (!recaptchaToken) {
+      setNotification({ message: "Please complete the reCAPTCHA.", color: "red" });
+      return;
+    }
+    
+    setLoading(true);
 
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappContact}&text=${message}`;
-
-    window.open(whatsappUrl, "_blank");
+    try {
+      const message = `Nama: ${values.name}%0AEmail: ${values.email}%0AMobile: ${values.mobile}%0ASubjek: ${values.subject}%0AKota: ${values.city}%0APesan: ${values.message}`;
+  
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappContact}&text=${message}`;
+  
+      window.open(whatsappUrl, "_blank");
+    } catch (error) {
+        console.error("Failed to send message", error);
+        setNotification({ message: "Failed to send your message. Please try again.", color: "red" });
+    } finally {
+      setLoading(false);
+    }
   };
 
 
