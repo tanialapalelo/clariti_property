@@ -18,9 +18,10 @@ import {
   ScrollArea,
   Text,
   TextInput,
-  UnstyledButton
+  UnstyledButton,
+  useComputedColorScheme,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
   IconBuilding,
   IconChevronDown,
@@ -46,9 +47,9 @@ interface HeaderLayoutProps {
 
 const iconMapping: Record<string, React.FC<IconProps>> = {
   "Landed Housing": IconHomeFilled,
-  Apartment: IconBuilding,
-  Shophouse: IconShoppingBagDiscount,
-  Commercial: IconShoppingBag,
+  "Apartment": IconBuilding,
+  "Shophouse": IconShoppingBagDiscount,
+  "Commercial": IconShoppingBag,
 };
 
 const getIcon = (type: string) => {
@@ -96,115 +97,128 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
     <LinksGroup {...item} key={item.label} />
   ));
 
-  
-    const [searchTerm, setSearchTerm] = useState('');
-    const router = useRouter();
-  
-    const handleSearch = () => {
-      if (searchTerm.trim()) {
-        router.push(`/search?query=${encodeURIComponent(searchTerm)}`);
-      }
-    };
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+  console.log("computedColorScheme", computedColorScheme);
+  const isMobile = useMediaQuery('(max-width: 768px)'); // Mobile detection using Mantine
 
   return (
-    <Box pb={{ base: 40, md: 55 }}>
-      <header className={classes.header}>
-        <Group justify="space-between" h="100%">
-          <AspectRatio ratio={1920 / 1920}>
+    <Box px={0}>
+      <header>
+        <div className={classes.header}>
+          {/* <Group justify="space-between" align="center"> */}
+          {/* <div style={{display: "flex", justifyContent: "space-between", textAlign: "center"}}> */}
+          <AspectRatio ratio={1}>
             <Link href="/">
               <Image
-                src="/assets/images/logo.webp"
+                // src={computedColorScheme === "light"
+                //   ? "/assets/images/clarimond-logo.svg"
+                //   : "/assets/images/clarimond-logo-putih.svg"}
+                src={"/assets/images/logo-clariti.png"}
                 alt="icon"
-                width={95}
-                height={50}
+                width={110}
+                height={80}
               />
             </Link>
           </AspectRatio>
 
-          <Group h="100%" gap={0} visibleFrom="md">
-            <HoverCard
-              width={200}
-              position="bottom"
-              radius="md"
-              shadow="md"
-              withinPortal
-            >
-              <HoverCard.Target>
-                <a href="#" className={classes.link}>
-                  <Center inline>
-                    <Box component="span" mr={5}>
-                      Tentang Kami.
-                    </Box>
-                    <IconChevronDown size={16} />
-                  </Center>
-                </a>
-              </HoverCard.Target>
+          {/* Group h="100%" gap={0} visibleFrom="md" style={{ height: "100%" }} */}
+          {!isMobile &&
+            <div style={{ height: "100%", display: "flex" }}>
+              <HoverCard
+                width={200}
+                position="bottom"
+                radius="md"
+                shadow="md"
+                withinPortal
+              >
+                <HoverCard.Target>
+                  <a href="#" className={classes.link}>
+                    <Center inline>
+                      <Box component="span" mr={5}>
+                        Tentang Kami.
+                      </Box>
+                      <IconChevronDown size={16} />
+                    </Center>
+                  </a>
+                </HoverCard.Target>
 
-              <HoverCard.Dropdown style={{ overflow: "hidden" }}>
-                <DropdownHover data={tentangKamiData} />
-              </HoverCard.Dropdown>
-            </HoverCard>
+                <HoverCard.Dropdown style={{ overflow: "hidden" }}>
+                  <DropdownHover data={tentangKamiData} />
+                </HoverCard.Dropdown>
+              </HoverCard>
 
-            <HoverCard
-              width={600}
-              position="bottom"
-              radius="md"
-              shadow="md"
-              withinPortal
-            >
-              <HoverCard.Target>
-                <a href="#" className={classes.link}>
-                  <Center inline>
-                    <Box component="span" mr={5}>
-                      Proyek
-                    </Box>
-                    <IconChevronDown size={16} />
-                  </Center>
-                </a>
-              </HoverCard.Target>
+              <HoverCard
+                width={600}
+                position="bottom"
+                radius="md"
+                shadow="md"
+                withinPortal
+              >
+                <HoverCard.Target>
+                  <a href="#" className={classes.link}>
+                    <Center inline>
+                      <Box component="span" mr={5}>
+                        Proyek
+                      </Box>
+                      <IconChevronDown size={16} />
+                    </Center>
+                  </a>
+                </HoverCard.Target>
 
-              <HoverCard.Dropdown style={{ overflow: "hidden" }}>
-                <ProjectNavigation projects={projects} />
-              </HoverCard.Dropdown>
-            </HoverCard>
+                <HoverCard.Dropdown style={{ overflow: "hidden" }}>
+                  <ProjectNavigation projects={projects} />
+                </HoverCard.Dropdown>
+              </HoverCard>
 
-            <Link href="/fasilitas" className={classes.link}>
-              Fasilitas
-            </Link>
+              <Link href="/fasilitas" className={classes.link}>
+                Fasilitas
+              </Link>
 
-            <HoverCard
-              width={200}
-              position="bottom"
-              radius="md"
-              shadow="md"
-              withinPortal
-            >
-              <HoverCard.Target>
-                <div className={classes.link}>
-                  <Center inline>
-                    <Box component="span" mr={5}>
-                      Berita
-                    </Box>
-                    <IconChevronDown size={16} />
-                  </Center>
-                </div>
-              </HoverCard.Target>
+              <HoverCard
+                width={200}
+                position="bottom"
+                radius="md"
+                shadow="md"
+                withinPortal
+              >
+                <HoverCard.Target>
+                  <div className={classes.link}>
+                    <Center inline>
+                      <Box component="span" mr={5}>
+                        Berita
+                      </Box>
+                      <IconChevronDown size={16} />
+                    </Center>
+                  </div>
+                </HoverCard.Target>
 
-              <HoverCard.Dropdown style={{ overflow: "hidden" }}>
-                <DropdownHover data={beritaData} />
-              </HoverCard.Dropdown>
-            </HoverCard>
+                <HoverCard.Dropdown style={{ overflow: "hidden" }}>
+                  <DropdownHover data={beritaData} />
+                </HoverCard.Dropdown>
+              </HoverCard>
 
-            <a href="/kontak-kami" className={classes.link}>
-              Hubungi Kami
-            </a>
-          </Group>
+              <a href="/kontak-kami" className={classes.link}>
+                Hubungi Kami
+              </a>
+            </div>
+          }
+
 
           <Group visibleFrom="md">
-            <UnstyledButton onClick={openSearchModal}>
+            <UnstyledButton onClick={openSearchModal} m={"sm"}>
               <IconSearch />
             </UnstyledButton>
-            <Button component={Link} href="tel:+4733378901" variant="filled">
+            <Button component={Link} href="tel:+4733378901" h={"100%"} radius={0}>
               +47 333 78 901
             </Button>
           </Group>
@@ -213,16 +227,21 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
             opened={drawerOpened}
             onClick={toggleDrawer}
             hiddenFrom="md"
+            my={"auto"}
+            mr={"sm"}
           />
-        </Group>
+          {/* </Group> */}
+          {/* </div> */}
+        </div>
 
         {/* Top 5 of Projects  */}
-        <Group h="100%" gap={0} visibleFrom="md" justify="center">
+        {/* <Group h="100%" gap={0} visibleFrom="md" justify="center" align="center"> */}
+        {!isMobile && <div style={{ height: "60px", display: "flex", justifyContent: "center" }}>
           {projects.map((data) => {
             const IconComponent = getIcon(data.type);
             return (
               <a href={data.slug} key={data.id} className={classes.topProjectLink}>
-                <Group wrap="nowrap" align="flex-start">
+                <Group wrap="nowrap">
                   <IconComponent size={22} />
                   <div>
                     <Text size="sm" fw={500}>
@@ -233,7 +252,8 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
               </a>
             );
           })}
-        </Group>
+        </div>
+        }
 
         <Carousel
           height={"auto"}
@@ -273,11 +293,11 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
         opened={drawerOpened}
         onClose={closeDrawer}
         size="100%"
-        padding="md"
+        p="md"
         title={
           <Link href={"/"}>
             <Image
-              src="/assets/images/logo.webp"
+              src="/assets/images/logo-clariti.png"
               alt="icon"
               width={100}
               height={60}

@@ -25,7 +25,7 @@ const ProjectNavigation = ({ projects }: ProjectNavigationProps) => {
     <Grid gutter={{ base: 5, xs: "md", md: "xl", xl: 50 }}>
       {Object.entries(groupedProjects).map(([type, projects]) => (
         <Grid.Col span={{ base: 12, md: 6 }} key={type}>
-          <Title mx={"40px"} my={"sm"} size={"sm"} c={"#444444"}>{type}</Title>
+          <Title mx={"40px"} my={"sm"} size={"sm"}>{type}</Title>
 
             <ul>
             {projects.map((project) => (
