@@ -8,6 +8,20 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 export const metadata = {
   title: 'Clariti - Temukan Properti Anda',
   description: 'Properti Website Untuk Rumah Indah Anda',
+
+  openGraph: {
+    title: 'Clariti - Temukan Properti Anda',
+    description: 'Properti Website Untuk Rumah Indah Anda',
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/assets/images/logo-clariti.png`, // Large high-res image for sharing
+        width: 1200,
+        height: 630,
+        alt: "Clariti Preview",
+      },
+    ],
+    type: "website",
+  },
 };
 
 export default function RootLayout({
