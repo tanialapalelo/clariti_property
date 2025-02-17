@@ -123,7 +123,7 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
                 // src={computedColorScheme === "light"
                 //   ? "/assets/images/clarimond-logo.svg"
                 //   : "/assets/images/clarimond-logo-putih.svg"}
-                src={"/assets/images/logo-clariti.png"}
+                src={"/assets/images/logo-clariti-no-bg.png"}
                 alt="icon"
                 width={110}
                 height={80}
@@ -293,14 +293,15 @@ export function HeaderLayout({ projects }: HeaderLayoutProps) {
         opened={drawerOpened}
         onClose={closeDrawer}
         size="100%"
-        p="md"
+        padding="md"
         title={
           <Link href={"/"}>
             <Image
-              src="/assets/images/logo-clariti.png"
+              src="/assets/images/logo-clariti-no-bg.png"
               alt="icon"
               width={100}
               height={60}
+              style={{marginLeft: 7}}
             />
           </Link>
         }

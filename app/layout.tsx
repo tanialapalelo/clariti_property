@@ -14,7 +14,7 @@ export const metadata = {
     description: 'Properti Website Untuk Rumah Indah Anda',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/assets/images/logo-clariti.png`, // Large high-res image for sharing
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/assets/images/logo-clariti-no-bg.png`, // Large high-res image for sharing
         width: 1200,
         height: 630,
         alt: "Clariti Preview",
